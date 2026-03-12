@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import profileImg from "@/assets/profile.png";
 
 const experience = [
   { role: "Head of Product Design", company: "Genway AI", years: "2025–Present" },
