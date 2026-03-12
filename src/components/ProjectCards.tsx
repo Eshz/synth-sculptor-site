@@ -20,7 +20,7 @@ const projects: Project[] = [
     description:
       "Designing an AI-powered video system that automatically frames in-room meeting participants to improve hybrid collaboration and meeting equity.",
     focusAreas: ["AI interaction design", "Computer vision UX", "Enterprise collaboration"],
-    image: projectIntelliframe,
+    images: [projectIntelliframe],
   },
   {
     title: "AI Research Platform",
