@@ -21,7 +21,7 @@ const projects: Project[] = [
     description:
       "Designing an AI-powered video system that automatically frames in-room meeting participants to improve hybrid collaboration and meeting equity.",
     focusAreas: ["AI interaction design", "Computer vision UX", "Enterprise collaboration"],
-    video: "https://cdn.pixabay.com/video/2020/05/25/38587-424930032_large.mp4",
+    video: "https://www.calebwu.ca/images/RD/rd-cover-new.mp4",
     poster: projectIntelliframe,
   },
   {
@@ -30,7 +30,7 @@ const projects: Project[] = [
     description:
       "Designing agentic workflows that transform user interviews into structured insights using AI analysis.",
     focusAreas: ["AI research workflows", "Insight generation", "Product strategy"],
-    video: "https://cdn.pixabay.com/video/2021/04/18/71090-539498498_large.mp4",
+    video: "https://www.calebwu.ca/images/Axis/AxisCover.mp4",
     poster: projectGenway,
   },
   {
@@ -39,7 +39,7 @@ const projects: Project[] = [
     description:
       "Exploring how meeting transcripts can power post-meeting productivity tools through AI summarization and conversational interfaces.",
     focusAreas: ["Language models", "Productivity workflows", "AI explainability"],
-    video: "https://cdn.pixabay.com/video/2020/02/12/32489-391301981_large.mp4",
+    video: "https://www.calebwu.ca/images/RD/rd-cover-new.mp4",
     poster: projectTranscript,
   },
 ];
