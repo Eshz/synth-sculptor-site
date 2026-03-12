@@ -8,7 +8,7 @@ const ContactSection = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.6 }}
-        className="font-display text-3xl md:text-5xl lg:text-6xl text-foreground max-w-3xl leading-[1.1]"
+        className="font-body font-semibold text-3xl md:text-5xl lg:text-6xl text-foreground max-w-3xl leading-[1.1]"
       >
         Let's Build the Next Generation of AI Products
       </motion.h2>
