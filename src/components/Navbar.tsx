@@ -1,5 +1,5 @@
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 const navLinks = [
   { label: "EMAIL", href: "mailto:hello@eshchar.com" },
