@@ -59,18 +59,10 @@ const AboutSection = () => {
             Lead Product Designer with{" "}
             <span className="font-display italic">8+ years</span> of experience.
           </h2>
-          <div className="space-y-6 text-muted-foreground text-lg leading-relaxed font-body font-light mb-16">
-            <p>
-              My background includes leading design initiatives across Microsoft Teams
-              and early-stage AI platforms, translating complex technical capabilities
-              into intuitive user experiences.
-            </p>
-            <p>
-              I specialize in working at the intersection of product, design, and
-              machine learning — helping teams shape new AI capabilities into real
-              products that users adopt and trust.
-            </p>
-          </div>
+          <p className="text-muted-foreground text-lg leading-relaxed font-body font-light mb-14">
+            Leading design across Microsoft Teams and AI startups — turning complex
+            machine intelligence into products people understand, trust, and use.
+          </p>
 
           {/* Resume details */}
           <div className="space-y-10">
