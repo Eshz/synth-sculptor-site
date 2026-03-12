@@ -28,7 +28,7 @@ const projects: Project[] = [
     description:
       "Designing agentic workflows that transform user interviews into structured insights using AI analysis.",
     focusAreas: ["AI research workflows", "Insight generation", "Product strategy"],
-    image: projectGenway,
+    images: [projectGenway],
   },
   {
     title: "Transcript-Driven Insights",
