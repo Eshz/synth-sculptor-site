@@ -39,7 +39,7 @@ const projects: Project[] = [
     description:
       "Exploring how meeting transcripts can power post-meeting productivity tools through AI summarization and conversational interfaces.",
     focusAreas: ["Language models", "Productivity workflows", "AI explainability"],
-    video: "https://cdn.pixabay.com/video/2020/02/12/32489-391301981_large.mp4",
+    video: "https://www.calebwu.ca/images/RD/rd-cover-new.mp4",
     poster: projectTranscript,
   },
 ];
