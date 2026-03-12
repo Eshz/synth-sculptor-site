@@ -36,7 +36,7 @@ const projects: Project[] = [
     description:
       "Exploring how meeting transcripts can power post-meeting productivity tools through AI summarization and conversational interfaces.",
     focusAreas: ["Language models", "Productivity workflows", "AI explainability"],
-    image: projectTranscript,
+    images: [projectTranscript],
   },
 ];
 
