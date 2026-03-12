@@ -38,7 +38,7 @@ const AboutSection = () => {
             <img
               alt="Eshchar Zychlinski"
               className="w-full h-full object-cover grayscale"
-              src="https://picsum.photos/seed/designer/800/1000"
+              src={profileImg}
             />
           </div>
         </motion.div>
