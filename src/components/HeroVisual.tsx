@@ -1,8 +1,8 @@
 import { useEffect } from "react";
+import { motion } from "framer-motion";
 
 const HeroVisual = () => {
   useEffect(() => {
-    // Load Unicorn Studio script
     const w = window as any;
     if (w.UnicornStudio && w.UnicornStudio.init) {
       w.UnicornStudio.init();
@@ -25,7 +25,12 @@ const HeroVisual = () => {
   }, []);
 
   return (
-    <section className="px-6 md:px-12 lg:px-20 pt-8 pb-16 md:pt-12 md:pb-24 max-w-[1400px] mx-auto">
+    <motion.section
+      initial={{ opacity: 0, y: 24 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.8, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
+      className="px-6 md:px-12 lg:px-20 pt-8 pb-16 md:pt-12 md:pb-24 max-w-[1400px] mx-auto"
+    >
       <div
         className="w-full overflow-hidden rounded-2xl md:rounded-3xl bg-card border border-border"
         style={{ aspectRatio: "1440 / 900" }}
@@ -35,7 +40,7 @@ const HeroVisual = () => {
           data-us-project="LFOtdADhJEiavafxfW4j"
         />
       </div>
-    </section>
+    </motion.section>
   );
 };
 
