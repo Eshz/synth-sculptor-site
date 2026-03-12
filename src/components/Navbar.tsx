@@ -14,7 +14,7 @@ const Navbar = () => {
       transition={{ duration: 0.6, ease: "easeOut" }}
       className="flex items-center justify-between px-6 py-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto"
     >
-      <span className="font-display text-xl md:text-2xl tracking-tight text-foreground">
+      <span className="font-body text-xl md:text-2xl font-semibold tracking-tight text-foreground">
         EZ.
       </span>
       <div className="flex items-center gap-6 md:gap-10 text-xs font-body font-medium tracking-[0.15em] text-muted-foreground">
