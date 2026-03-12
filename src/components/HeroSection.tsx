@@ -39,7 +39,7 @@ const HeroSection = () => {
               src={logo.src}
               alt={logo.name}
               title={logo.name}
-              className="h-6 object-contain opacity-40 grayscale brightness-0"
+              className="h-8 md:h-9 object-contain opacity-40 grayscale brightness-0"
             />
           ))}
         </div>

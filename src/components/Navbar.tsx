@@ -18,7 +18,7 @@ const NavContent = () => (
           key={link.label}
           href={link.href}
           {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-          className="hover:text-foreground transition-colors duration-200"
+          className="hover:text-foreground hover:opacity-100 active:opacity-70 transition-all duration-200 opacity-60"
           data-interactive
         >
           {link.label}
