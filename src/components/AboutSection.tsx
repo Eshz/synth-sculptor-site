@@ -8,7 +8,7 @@ const AboutSection = () => {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-80px" }}
         transition={{ duration: 0.6 }}
-        className="font-display text-3xl md:text-4xl text-foreground mb-10 md:mb-14"
+        className="font-body font-semibold text-3xl md:text-4xl text-foreground mb-10 md:mb-14"
       >
         About
       </motion.h2>

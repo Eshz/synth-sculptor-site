@@ -118,7 +118,7 @@ const ProjectCards = () => {
             <div className="p-8 md:p-10">
               <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-6">
                 <div className="max-w-xl">
-                  <h3 className="font-display text-2xl md:text-3xl text-foreground">
+                  <h3 className="font-body font-semibold text-2xl md:text-3xl text-foreground">
                     {project.title}
                     <span className="text-muted-foreground"> — {project.subtitle}</span>
                   </h3>
