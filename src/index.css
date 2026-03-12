@@ -39,6 +39,9 @@
     --font-display: 'Instrument Serif', serif;
     --font-body: 'DM Sans', sans-serif;
 
+    --brand-ink: 220 15% 10%;
+    --brand-bg: 60 10% 97%;
+
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
     --sidebar-primary: 240 5.9% 10%;
