@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import SlideshowThumbnail from "@/components/SlideshowThumbnail";
 import projectIntelliframe from "@/assets/project-intelliframe.jpg";
 import projectGenway from "@/assets/project-genway.jpg";
 import projectTranscript from "@/assets/project-transcript.jpg";
@@ -9,7 +10,7 @@ interface Project {
   subtitle: string;
   description: string;
   focusAreas: string[];
-  image: string;
+  images: string[];
 }
 
 const projects: Project[] = [
@@ -19,7 +20,7 @@ const projects: Project[] = [
     description:
       "Designing an AI-powered video system that automatically frames in-room meeting participants to improve hybrid collaboration and meeting equity.",
     focusAreas: ["AI interaction design", "Computer vision UX", "Enterprise collaboration"],
-    image: projectIntelliframe,
+    images: [projectIntelliframe],
   },
   {
     title: "AI Research Platform",
@@ -27,7 +28,7 @@ const projects: Project[] = [
     description:
       "Designing agentic workflows that transform user interviews into structured insights using AI analysis.",
     focusAreas: ["AI research workflows", "Insight generation", "Product strategy"],
-    image: projectGenway,
+    images: [projectGenway],
   },
   {
     title: "Transcript-Driven Insights",
@@ -35,7 +36,7 @@ const projects: Project[] = [
     description:
       "Exploring how meeting transcripts can power post-meeting productivity tools through AI summarization and conversational interfaces.",
     focusAreas: ["Language models", "Productivity workflows", "AI explainability"],
-    image: projectTranscript,
+    images: [projectTranscript],
   },
 ];
 
@@ -75,12 +76,7 @@ const ProjectCards = () => {
             <div className="group" data-interactive>
               {/* Thumbnail */}
               <div className="relative aspect-[16/9] overflow-hidden rounded-3xl mb-8">
-                <img
-                  alt={project.title}
-                  className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-105 opacity-80"
-                  src={project.image}
-                  loading="lazy"
-                />
+                <SlideshowThumbnail images={project.images} alt={project.title} />
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-ink/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-12">
                   <span className="text-brand-bg flex items-center gap-2 font-body font-medium">
                     View Case Study <ArrowUpRight size={20} />
