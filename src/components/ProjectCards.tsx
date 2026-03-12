@@ -76,12 +76,7 @@ const ProjectCards = () => {
             <div className="group" data-interactive>
               {/* Thumbnail */}
               <div className="relative aspect-[16/9] overflow-hidden rounded-3xl mb-8">
-                <img
-                  alt={project.title}
-                  className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-105 opacity-80"
-                  src={project.image}
-                  loading="lazy"
-                />
+                <SlideshowThumbnail images={project.images} alt={project.title} />
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-ink/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-12">
                   <span className="text-brand-bg flex items-center gap-2 font-body font-medium">
                     View Case Study <ArrowUpRight size={20} />
