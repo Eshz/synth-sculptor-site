@@ -30,7 +30,7 @@ const projects: Project[] = [
     description:
       "Designing agentic workflows that transform user interviews into structured insights using AI analysis.",
     focusAreas: ["AI research workflows", "Insight generation", "Product strategy"],
-    video: "https://cdn.pixabay.com/video/2021/04/18/71090-539498498_large.mp4",
+    video: "https://www.calebwu.ca/images/Axis/AxisCover.mp4",
     poster: projectGenway,
   },
   {
