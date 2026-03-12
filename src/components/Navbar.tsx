@@ -1,5 +1,5 @@
 import { motion, useScroll, useMotionValueEvent } from "framer-motion";
-import { useState } from "react";
+import { useState, useRef } from "react";
 
 const navLinks = [
   { label: "EMAIL", href: "mailto:hello@eshchar.com" },
@@ -10,11 +10,11 @@ const navLinks = [
 const Navbar = () => {
   const [visible, setVisible] = useState(true);
   const [isFixed, setIsFixed] = useState(false);
+  const lastScrollY = useRef(0);
   const { scrollY } = useScroll();
-  let lastScrollY = 0;
 
   useMotionValueEvent(scrollY, "change", (current) => {
-    const diff = current - lastScrollY;
+    const diff = current - lastScrollY.current;
     if (current < 100) {
       setVisible(true);
       setIsFixed(false);
@@ -25,7 +25,7 @@ const Navbar = () => {
       setVisible(false);
       setIsFixed(true);
     }
-    lastScrollY = current;
+    lastScrollY.current = current;
   });
 
   return (
