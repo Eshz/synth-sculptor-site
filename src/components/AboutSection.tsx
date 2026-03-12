@@ -27,7 +27,7 @@ const AboutSection = () => {
       className="py-24 px-6 md:px-12 lg:px-24 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 items-center"
     >
       {/* Left — Photo */}
-      <div className="md:col-span-5">
+      <div className="md:col-span-4">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
