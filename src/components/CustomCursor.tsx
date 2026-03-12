@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 const CustomCursor = () => {
   const cursorRef = useRef<HTMLDivElement>(null);
   const glowRef = useRef<HTMLDivElement>(null);
+  const dotRef = useRef<HTMLDivElement>(null);
   const [isHovering, setIsHovering] = useState(false);
   const position = useRef({ x: -100, y: -100 });
   const rendered = useRef({ x: -100, y: -100 });
