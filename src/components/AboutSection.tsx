@@ -24,7 +24,7 @@ const AboutSection = () => {
   return (
     <section
       id="about"
-      className="py-24 px-6 md:px-12 lg:px-24 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 items-center"
+      className="py-24 px-6 md:px-12 lg:px-24 max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12 items-start"
     >
       {/* Left — Photo */}
       <div className="md:col-span-4">
