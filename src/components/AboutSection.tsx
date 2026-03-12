@@ -45,7 +45,7 @@ const AboutSection = () => {
       </div>
 
       {/* Right — Content */}
-      <div className="md:col-span-7">
+      <div className="md:col-span-8">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
