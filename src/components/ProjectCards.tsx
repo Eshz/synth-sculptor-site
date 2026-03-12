@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import SlideshowThumbnail from "@/components/SlideshowThumbnail";
 import projectIntelliframe from "@/assets/project-intelliframe.jpg";
 import projectGenway from "@/assets/project-genway.jpg";
 import projectTranscript from "@/assets/project-transcript.jpg";
@@ -9,7 +10,7 @@ interface Project {
   subtitle: string;
   description: string;
   focusAreas: string[];
-  image: string;
+  images: string[];
 }
 
 const projects: Project[] = [
