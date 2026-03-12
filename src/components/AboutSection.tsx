@@ -65,39 +65,39 @@ const AboutSection = () => {
           </p>
 
           {/* Resume details */}
-          <div className="space-y-10">
-            {/* Experience */}
-            <div>
-              <h3 className="font-body font-semibold text-foreground text-sm uppercase tracking-[0.15em] mb-4">
-                Experience
-              </h3>
-              <ul className="space-y-2.5 text-base text-muted-foreground font-body font-light">
-                {experience.map((item) => (
-                  <li key={item.role + item.company} className="flex justify-between">
-                    <span>
-                      {item.role} — <span className="text-foreground/80 font-medium">{item.company}</span>
-                    </span>
-                    <span className="text-muted-foreground/40 shrink-0 ml-4">{item.years}</span>
-                  </li>
-                ))}
-              </ul>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            {/* Left column: Experience + Education */}
+            <div className="space-y-10">
+              <div>
+                <h3 className="font-body font-semibold text-foreground text-sm uppercase tracking-[0.15em] mb-4">
+                  Experience
+                </h3>
+                <ul className="space-y-2.5 text-base text-muted-foreground font-body font-light">
+                  {experience.map((item) => (
+                    <li key={item.role + item.company} className="flex justify-between">
+                      <span>
+                        {item.role} — <span className="text-foreground/80 font-medium">{item.company}</span>
+                      </span>
+                      <span className="text-muted-foreground/40 shrink-0 ml-4">{item.years}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <h3 className="font-body font-semibold text-foreground text-sm uppercase tracking-[0.15em] mb-4">
+                  Education
+                </h3>
+                <ul className="space-y-2.5 text-base text-muted-foreground font-body font-light">
+                  {education.map((item) => (
+                    <li key={item.degree}>
+                      <span className="text-foreground/80 font-medium">{item.degree}</span> — {item.school}, {item.years}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
 
-            {/* Education */}
-            <div>
-              <h3 className="font-body font-semibold text-foreground text-sm uppercase tracking-[0.15em] mb-4">
-                Education
-              </h3>
-              <ul className="space-y-2.5 text-base text-muted-foreground font-body font-light">
-                {education.map((item) => (
-                  <li key={item.degree}>
-                    <span className="text-foreground/80 font-medium">{item.degree}</span> — {item.school}, {item.years}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            {/* Patents */}
+            {/* Right column: Patents */}
             <div>
               <h3 className="font-body font-semibold text-foreground text-sm uppercase tracking-[0.15em] mb-4">
                 Patents
