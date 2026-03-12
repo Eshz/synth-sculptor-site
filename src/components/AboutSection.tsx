@@ -34,7 +34,7 @@ const AboutSection = () => {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6 }}
         >
-          <div className="aspect-[4/5] rounded-[2rem] overflow-hidden bg-border">
+          <div className="aspect-[3/4] rounded-[2rem] overflow-hidden bg-border">
             <img
               alt="Eshchar Zychlinski"
               className="w-full h-full object-cover grayscale"
