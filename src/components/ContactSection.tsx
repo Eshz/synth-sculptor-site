@@ -33,14 +33,14 @@ const ContactSection = () => {
         className="mt-10 flex gap-4"
       >
         <a
-          href="mailto:hello@eshchar.com"
+          href="mailto:esh2005@gmail.com"
           className="inline-flex items-center px-6 py-3 rounded-full bg-foreground text-background font-body text-sm font-medium hover:opacity-90 transition-opacity duration-200"
           data-interactive
         >
           Email
         </a>
         <a
-          href="https://linkedin.com"
+          href="https://www.linkedin.com/in/eshchar-zychlinski/"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center px-6 py-3 rounded-full border border-border text-foreground font-body text-sm font-medium hover:bg-secondary transition-colors duration-200"
