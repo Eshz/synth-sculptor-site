@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import profileImg from "@/assets/profile.png";
 
 const experience = [
   { role: "Head of Product Design", company: "Genway AI", years: "2025–Present" },
@@ -37,7 +38,7 @@ const AboutSection = () => {
             <img
               alt="Eshchar Zychlinski"
               className="w-full h-full object-cover grayscale"
-              src="https://picsum.photos/seed/designer/800/1000"
+              src={profileImg}
             />
           </div>
         </motion.div>
