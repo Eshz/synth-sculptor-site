@@ -62,7 +62,7 @@ const CustomCursor = () => {
           width: isHovering ? 64 : 36,
           height: isHovering ? 64 : 36,
           borderRadius: "50%",
-          background: "radial-gradient(circle, hsla(220, 60%, 80%, 0.08) 0%, hsla(220, 60%, 80%, 0) 70%)",
+          background: "radial-gradient(circle, hsla(220, 20%, 30%, 0.12) 0%, hsla(220, 20%, 30%, 0) 70%)",
           filter: "blur(2px)",
         }}
       />
