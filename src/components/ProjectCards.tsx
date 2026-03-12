@@ -21,7 +21,7 @@ const projects: Project[] = [
     description:
       "Designing an AI-powered video system that automatically frames in-room meeting participants to improve hybrid collaboration and meeting equity.",
     focusAreas: ["AI interaction design", "Computer vision UX", "Enterprise collaboration"],
-    video: "https://cdn.pixabay.com/video/2020/05/25/38587-424930032_large.mp4",
+    video: "https://www.calebwu.ca/images/RD/rd-cover-new.mp4",
     poster: projectIntelliframe,
   },
   {
