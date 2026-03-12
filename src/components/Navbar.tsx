@@ -2,9 +2,9 @@ import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-
 import { useState, useRef } from "react";
 
 const navLinks = [
-  { label: "EMAIL", href: "mailto:hello@eshchar.com" },
-  { label: "RESUME", href: "#" },
-  { label: "LINKEDIN", href: "https://linkedin.com", external: true },
+  { label: "EMAIL", href: "mailto:esh2005@gmail.com" },
+  { label: "RESUME", href: "/Resume-EshcharZychlinski.pdf", external: true },
+  { label: "LINKEDIN", href: "https://www.linkedin.com/in/eshchar-zychlinski/", external: true },
 ];
 
 const NavContent = () => (
