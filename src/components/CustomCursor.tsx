@@ -35,6 +35,9 @@ const CustomCursor = () => {
       if (glowRef.current) {
         glowRef.current.style.transform = `translate(${glowRendered.current.x}px, ${glowRendered.current.y}px) translate(-50%, -50%)`;
       }
+      if (dotRef.current) {
+        dotRef.current.style.transform = `translate(${position.current.x}px, ${position.current.y}px) translate(-50%, -50%)`;
+      }
       raf = requestAnimationFrame(animate);
     };
     raf = requestAnimationFrame(animate);
