@@ -77,7 +77,7 @@ const ProjectCards = () => {
         transition={{ duration: 0.6 }}
         className="flex items-center justify-between mb-12 md:mb-16"
       >
-        <h2 className="font-display text-3xl md:text-4xl text-foreground">
+        <h2 className="font-body font-semibold text-3xl md:text-4xl text-foreground">
           Selected Work
         </h2>
         <div className="hidden md:flex items-center gap-6">
