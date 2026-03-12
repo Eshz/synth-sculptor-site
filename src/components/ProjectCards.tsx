@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import SlideshowThumbnail from "@/components/SlideshowThumbnail";
+import VideoThumbnail from "@/components/VideoThumbnail";
 import projectIntelliframe from "@/assets/project-intelliframe.jpg";
 import projectGenway from "@/assets/project-genway.jpg";
 import projectTranscript from "@/assets/project-transcript.jpg";
@@ -10,7 +10,8 @@ interface Project {
   subtitle: string;
   description: string;
   focusAreas: string[];
-  images: string[];
+  video: string;
+  poster: string;
 }
 
 const projects: Project[] = [
@@ -20,7 +21,8 @@ const projects: Project[] = [
     description:
       "Designing an AI-powered video system that automatically frames in-room meeting participants to improve hybrid collaboration and meeting equity.",
     focusAreas: ["AI interaction design", "Computer vision UX", "Enterprise collaboration"],
-    images: [projectIntelliframe],
+    video: "https://cdn.pixabay.com/video/2020/05/25/38587-424930032_large.mp4",
+    poster: projectIntelliframe,
   },
   {
     title: "AI Research Platform",
@@ -28,7 +30,8 @@ const projects: Project[] = [
     description:
       "Designing agentic workflows that transform user interviews into structured insights using AI analysis.",
     focusAreas: ["AI research workflows", "Insight generation", "Product strategy"],
-    images: [projectGenway],
+    video: "https://cdn.pixabay.com/video/2021/04/18/71090-539498498_large.mp4",
+    poster: projectGenway,
   },
   {
     title: "Transcript-Driven Insights",
@@ -36,7 +39,8 @@ const projects: Project[] = [
     description:
       "Exploring how meeting transcripts can power post-meeting productivity tools through AI summarization and conversational interfaces.",
     focusAreas: ["Language models", "Productivity workflows", "AI explainability"],
-    images: [projectTranscript],
+    video: "https://cdn.pixabay.com/video/2020/02/12/32489-391301981_large.mp4",
+    poster: projectTranscript,
   },
 ];
 
@@ -74,9 +78,9 @@ const ProjectCards = () => {
             transition={{ duration: 0.6, delay: i * 0.1 }}
           >
             <div className="group" data-interactive>
-              {/* Thumbnail */}
+              {/* Video Thumbnail */}
               <div className="relative aspect-[16/9] overflow-hidden rounded-3xl mb-8">
-                <SlideshowThumbnail images={project.images} alt={project.title} />
+                <VideoThumbnail src={project.video} poster={project.poster} alt={project.title} />
                 <div className="absolute inset-0 bg-gradient-to-t from-brand-ink/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-12">
                   <span className="text-brand-bg flex items-center gap-2 font-body font-medium">
                     View Case Study <ArrowUpRight size={20} />
