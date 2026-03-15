@@ -119,7 +119,7 @@ const ProjectCards = () => {
                   ))}
                 </div>
               </div>
-            </div>
+            </Link>
           </motion.div>
         ))}
       </div>
