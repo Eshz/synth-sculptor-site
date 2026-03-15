@@ -45,6 +45,7 @@ const projects: Project[] = [
     focusAreas: ["Language models", "Productivity workflows", "AI explainability"],
     video: "https://www.calebwu.ca/images/RD/rd-cover-new.mp4",
     poster: projectTranscript,
+    slug: "transcript",
   },
 ];
 
