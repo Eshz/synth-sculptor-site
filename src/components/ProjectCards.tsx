@@ -25,6 +25,7 @@ const projects: Project[] = [
     focusAreas: ["AI interaction design", "Computer vision UX", "Enterprise collaboration"],
     video: "https://www.calebwu.ca/images/RD/rd-cover-new.mp4",
     poster: projectIntelliframe,
+    slug: "intelliframe",
   },
   {
     title: "AI Research Platform",
