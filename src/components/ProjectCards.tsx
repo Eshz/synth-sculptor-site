@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import VideoThumbnail from "@/components/VideoThumbnail";
 import projectIntelliframe from "@/assets/project-intelliframe.jpg";
 import projectGenway from "@/assets/project-genway.jpg";
