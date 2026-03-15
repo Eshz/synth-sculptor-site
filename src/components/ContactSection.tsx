@@ -2,12 +2,21 @@ import { motion } from "framer-motion";
 
 const ContactSection = () => {
   return (
-    <section className="px-6 md:px-12 lg:px-20 pb-20 md:pb-32 max-w-[1400px] mx-auto">
+    <section className="px-6 md:px-12 lg:px-20 pb-20 md:pb-32 max-w-[1400px] mx-auto text-center">
+      <motion.h2
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.6 }}
+        className="font-body font-semibold text-4xl md:text-6xl lg:text-7xl text-foreground mb-10 leading-[1.1]"
+      >
+        Let's Connect
+      </motion.h2>
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: "-40px" }}
-        transition={{ duration: 0.5 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
         className="flex gap-4 justify-center"
       >
         <a
