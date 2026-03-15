@@ -27,19 +27,19 @@ const HeroSection = () => {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.5 }}
-        className="mt-10 md:mt-14 flex flex-col items-center gap-5"
+        className="mt-10 md:mt-14 flex flex-col items-center gap-3 md:gap-5"
       >
-        <span className="text-xs font-body font-medium tracking-[0.1em] text-muted-foreground/60 uppercase">
+        <span className="text-[10px] md:text-xs font-body font-medium tracking-[0.1em] text-muted-foreground/60 uppercase">
           Previously designing AI products at
         </span>
-        <div className="flex items-center justify-center gap-10">
+        <div className="flex items-center justify-center gap-6 md:gap-8 lg:gap-10 flex-wrap">
           {credibilityLogos.map((logo) => (
             <img
               key={logo.name}
               src={logo.src}
               alt={logo.name}
               title={logo.name}
-              className="h-8 md:h-9 object-contain opacity-40 grayscale brightness-0"
+              className="h-6 md:h-8 lg:h-9 object-contain opacity-40 grayscale brightness-0"
             />
           ))}
         </div>
