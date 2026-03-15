@@ -27,28 +27,40 @@ const DesktopLinks = () => (
 const MobileMenu = ({ open, onClose }: { open: boolean; onClose: () => void }) => (
   <AnimatePresence>
     {open && (
-      <motion.div
-        initial={{ opacity: 0, height: 0 }}
-        animate={{ opacity: 1, height: "auto" }}
-        exit={{ opacity: 0, height: 0 }}
-        transition={{ duration: 0.25, ease: "easeInOut" }}
-        className="md:hidden overflow-hidden border-b border-border/50"
-      >
-        <div className="flex flex-col gap-4 px-6 py-5">
-          {navLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-              onClick={onClose}
-              className="text-xs font-body font-medium tracking-[0.15em] text-muted-foreground hover:text-foreground transition-colors duration-200 cursor-pointer"
-              data-interactive
-            >
-              {link.label}
-            </a>
-          ))}
-        </div>
-      </motion.div>
+      <>
+        {/* Overlay backdrop */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          className="fixed inset-0 z-40 bg-background/80 backdrop-blur-sm md:hidden"
+          onClick={onClose}
+        />
+        {/* Menu panel */}
+        <motion.div
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+          transition={{ duration: 0.25, ease: "easeOut" }}
+          className="fixed top-16 left-0 right-0 z-50 mx-4 rounded-xl border border-border/50 bg-background/95 backdrop-blur-md shadow-lg md:hidden"
+        >
+          <div className="flex flex-col gap-5 px-6 py-6">
+            {navLinks.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                onClick={onClose}
+                className="text-sm font-body font-medium tracking-[0.15em] text-muted-foreground hover:text-foreground transition-colors duration-200 cursor-pointer"
+                data-interactive
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+        </motion.div>
+      </>
     )}
   </AnimatePresence>
 );
