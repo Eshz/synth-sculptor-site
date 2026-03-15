@@ -35,6 +35,7 @@ const projects: Project[] = [
     focusAreas: ["AI research workflows", "Insight generation", "Product strategy"],
     video: "https://www.calebwu.ca/images/Axis/AxisCover.mp4",
     poster: projectGenway,
+    slug: "genway",
   },
   {
     title: "Transcript-Driven Insights",
