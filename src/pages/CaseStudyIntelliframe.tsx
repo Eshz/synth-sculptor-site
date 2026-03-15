@@ -49,9 +49,16 @@ const CaseStudyIntelliframe = () => {
             transition={{ duration: 0.6 }}
             className="bg-card rounded-2xl border border-border p-12 text-center"
           >
-            <p className="text-lg text-muted-foreground font-body">
-              Full case study coming soon.
+            <p className="text-lg text-muted-foreground font-body mb-6">
+              This project is covered by NDA. Please contact me to discuss details.
             </p>
+            <a
+              href="mailto:esh2005@gmail.com"
+              className="inline-flex items-center px-6 py-3 rounded-full bg-foreground text-background font-body text-sm font-medium hover:opacity-90 transition-opacity duration-200"
+              data-interactive
+            >
+              Get in Touch
+            </a>
           </motion.div>
         </article>
       </CaseStudyLayout>
