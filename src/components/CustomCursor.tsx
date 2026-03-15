@@ -95,8 +95,8 @@ const CustomCursor = () => {
           background: isHovering
             ? "rgba(255, 255, 255, 0.18)"
             : "rgba(255, 255, 255, 0.10)",
-          backdropFilter: "blur(8px)",
-          WebkitBackdropFilter: "blur(8px)",
+          backdropFilter: "blur(4px)",
+          WebkitBackdropFilter: "blur(4px)",
           border: isHovering
             ? "1.5px solid rgba(255, 255, 255, 0.45)"
             : "1px solid rgba(255, 255, 255, 0.30)",
