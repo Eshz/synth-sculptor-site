@@ -82,7 +82,7 @@ const ProjectCards = () => {
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.6, delay: i * 0.1 }}
           >
-            <div className="group" data-interactive>
+            <Link to={`/work/${project.slug}`} className="group block" data-interactive>
               {/* Video Thumbnail */}
               <div className="relative aspect-[16/9] overflow-hidden rounded-3xl mb-8">
                 <VideoThumbnail src={project.video} poster={project.poster} alt={project.title} />
