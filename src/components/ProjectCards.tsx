@@ -13,6 +13,7 @@ interface Project {
   focusAreas: string[];
   video: string;
   poster: string;
+  slug: string;
 }
 
 const projects: Project[] = [
