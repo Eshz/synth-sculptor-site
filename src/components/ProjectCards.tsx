@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import VideoThumbnail from "@/components/VideoThumbnail";
 import projectIntelliframe from "@/assets/project-intelliframe.jpg";
 import projectGenway from "@/assets/project-genway.jpg";
@@ -12,6 +13,7 @@ interface Project {
   focusAreas: string[];
   video: string;
   poster: string;
+  slug: string;
 }
 
 const projects: Project[] = [
@@ -23,6 +25,7 @@ const projects: Project[] = [
     focusAreas: ["AI interaction design", "Computer vision UX", "Enterprise collaboration"],
     video: "https://www.calebwu.ca/images/RD/rd-cover-new.mp4",
     poster: projectIntelliframe,
+    slug: "intelliframe",
   },
   {
     title: "AI Research Platform",
@@ -32,6 +35,7 @@ const projects: Project[] = [
     focusAreas: ["AI research workflows", "Insight generation", "Product strategy"],
     video: "https://www.calebwu.ca/images/Axis/AxisCover.mp4",
     poster: projectGenway,
+    slug: "genway",
   },
   {
     title: "Transcript-Driven Insights",
@@ -41,6 +45,7 @@ const projects: Project[] = [
     focusAreas: ["Language models", "Productivity workflows", "AI explainability"],
     video: "https://www.calebwu.ca/images/RD/rd-cover-new.mp4",
     poster: projectTranscript,
+    slug: "transcript",
   },
 ];
 
@@ -77,7 +82,7 @@ const ProjectCards = () => {
             viewport={{ once: true, margin: "-60px" }}
             transition={{ duration: 0.6, delay: i * 0.1 }}
           >
-            <div className="group" data-interactive>
+            <Link to={`/work/${project.slug}`} className="group block" data-interactive>
               {/* Video Thumbnail */}
               <div className="relative aspect-[16/9] overflow-hidden rounded-3xl mb-8">
                 <VideoThumbnail src={project.video} poster={project.poster} alt={project.title} />
@@ -114,7 +119,7 @@ const ProjectCards = () => {
                   ))}
                 </div>
               </div>
-            </div>
+            </Link>
           </motion.div>
         ))}
       </div>

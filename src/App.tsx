@@ -5,6 +5,9 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "./pages/Index.tsx";
 import NotFound from "./pages/NotFound.tsx";
+import CaseStudyGenway from "./pages/CaseStudyGenway.tsx";
+import CaseStudyIntelliframe from "./pages/CaseStudyIntelliframe.tsx";
+import CaseStudyTranscript from "./pages/CaseStudyTranscript.tsx";
 
 const queryClient = new QueryClient();
 
@@ -16,6 +19,9 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/work/genway" element={<CaseStudyGenway />} />
+          <Route path="/work/intelliframe" element={<CaseStudyIntelliframe />} />
+          <Route path="/work/transcript" element={<CaseStudyTranscript />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
