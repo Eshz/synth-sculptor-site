@@ -152,62 +152,104 @@ const CaseStudyGenway = () => {
           <Divider />
 
           {/* ─── 3. RESEARCH & INSIGHTS ─── */}
-          <SectionTag>Research & Insights</SectionTag>
-          <SectionTitle>Understanding why adoption stalled.</SectionTitle>
+          <motion.span
+            {...fade}
+            className="font-body text-[10px] uppercase tracking-[0.3em] text-muted-foreground mb-4 block"
+          >
+            02 — Research & Insights
+          </motion.span>
+          <motion.h2
+            {...fade}
+            className="text-3xl md:text-5xl font-body font-medium tracking-tight leading-[1.1] mb-8 max-w-2xl"
+          >
+            Understanding why adoption stalled.
+          </motion.h2>
           <Paragraph>
             Before jumping to solutions, I ran a focused research sprint to understand the adoption barriers across every touchpoint.
           </Paragraph>
+        </article>
 
-          {/* Research methods */}
-          <motion.div {...fade} className="my-8">
-            <span className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground font-body block mb-4">
-              Research methods
-            </span>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {[
-                { method: "Product analytics", detail: "Drop-off rates, session recordings, funnel analysis" },
-                { method: "8 user interviews", detail: "With product managers and UX researchers from target teams" },
-                { method: "Conference booth observations", detail: "Watching first reactions to the product in real-time" },
-                { method: "Sales team feedback", detail: "Recurring objections and questions from prospects" },
-              ].map((item) => (
-                <div key={item.method} className="bg-card rounded-xl border border-border p-5">
-                  <span className="text-sm font-body font-medium text-foreground block mb-1">{item.method}</span>
-                  <span className="text-xs text-muted-foreground font-body">{item.detail}</span>
-                </div>
-              ))}
-            </div>
+        {/* Methods — full width grid */}
+        <section className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto mb-20">
+          <motion.div {...fade} className="flex items-center gap-4 mb-8">
+            <span className="font-body text-[10px] uppercase tracking-[0.25em] text-muted-foreground">Methods</span>
+            <div className="h-px flex-1 bg-border" />
           </motion.div>
-
-          {/* Key insights */}
-          <motion.div {...fade} className="my-10">
-            <span className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground font-body block mb-4">
-              Key insights
-            </span>
-            <div className="space-y-4">
-              <InsightCard
-                title="Users didn't understand the category"
-                description="'AI-moderated research' lacked a familiar mental model. People had no reference point for what the product does or how it differs from traditional survey tools."
-              />
-              <InsightCard
-                title="The product asked for commitment too early"
-                description="Users were required to sign up → configure a full project → then see value. This created friction between curiosity and experimentation."
-              />
-              <InsightCard
-                title="Different personas encounter the product first in different places"
-                description="Researchers discover it at conferences. Participants meet the AI interviewer. Stakeholders receive insight reports. Each entry point needed to build trust independently."
-              />
-            </div>
-          </motion.div>
-
           <motion.div
             {...fade}
-            className="my-10 bg-primary/5 border border-primary/10 rounded-2xl p-6 md:p-8"
+            className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border border border-border rounded-2xl overflow-hidden"
           >
-            <p className="text-base md:text-lg font-body text-foreground leading-relaxed">
-              <Bold>These insights reframed the problem entirely:</Bold> onboarding wasn't a single flow to optimize — it was a network of first encounters, each needing to independently build understanding and trust.
-            </p>
+            {[
+              { icon: BarChart3, method: "Product analytics", detail: "Drop-off rates, session recordings, funnel analysis" },
+              { icon: Users, method: "8 user interviews", detail: "With product managers and UX researchers from target teams" },
+              { icon: Eye, method: "Conference booth observations", detail: "Watching first reactions to the product in real-time" },
+              { icon: MessageSquare, method: "Sales team feedback", detail: "Recurring objections and questions from prospects" },
+            ].map((item) => (
+              <div key={item.method} className="bg-background p-8 flex flex-col gap-4 hover:bg-muted/50 transition-colors">
+                <div className="text-muted-foreground">
+                  <item.icon size={20} />
+                </div>
+                <div>
+                  <h4 className="font-body font-medium text-base text-foreground mb-1">{item.method}</h4>
+                  <p className="text-sm text-muted-foreground font-body leading-relaxed">{item.detail}</p>
+                </div>
+              </div>
+            ))}
           </motion.div>
+        </section>
 
+        {/* Key Findings */}
+        <section className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto mb-20">
+          <motion.div {...fade} className="flex items-center gap-4 mb-12">
+            <span className="font-body text-[10px] uppercase tracking-[0.25em] text-muted-foreground">Key Findings</span>
+            <div className="h-px flex-1 bg-border" />
+          </motion.div>
+          <div className="space-y-12">
+            {[
+              { num: "01", icon: Lightbulb, title: "Users didn't understand the category", desc: "'AI-moderated research' lacked a familiar mental model. People had no reference point for what the product does or how it differs from traditional survey tools." },
+              { num: "02", icon: Clock, title: "The product asked for commitment too early", desc: "Users were required to sign up → configure a full project → then see value. This created friction between curiosity and experimentation." },
+              { num: "03", icon: Target, title: "Different personas encounter the product first in different places", desc: "Researchers discover it at conferences. Participants meet the AI interviewer. Stakeholders receive insight reports. Each entry point needed to build trust independently." },
+            ].map((item) => (
+              <motion.div
+                key={item.num}
+                {...fade}
+                className="grid grid-cols-1 md:grid-cols-[100px_1fr] gap-6 md:gap-12"
+              >
+                <div className="flex flex-col gap-4">
+                  <span className="font-body text-xs text-muted-foreground/40">{item.num}</span>
+                  <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center">
+                    <item.icon size={24} className="text-foreground" />
+                  </div>
+                </div>
+                <div className="pt-2">
+                  <h4 className="text-xl md:text-2xl font-body font-medium mb-4 tracking-tight text-foreground">{item.title}</h4>
+                  <p className="text-muted-foreground font-body leading-relaxed text-lg max-w-2xl">{item.desc}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </section>
+
+        {/* Reframing callout — dark block */}
+        <section className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto mb-16">
+          <motion.div
+            {...fade}
+            className="bg-primary text-primary-foreground rounded-[2rem] p-8 md:p-16 relative overflow-hidden"
+          >
+            <div className="relative z-10">
+              <span className="font-body text-[10px] uppercase tracking-[0.3em] opacity-50 mb-6 block">
+                Reframing the problem
+              </span>
+              <p className="text-2xl md:text-3xl font-body font-medium leading-tight max-w-3xl">
+                Onboarding wasn't a single flow to optimize — it was a{" "}
+                <span className="opacity-60 italic">network of first encounters</span>, each needing to independently build understanding and trust.
+              </p>
+            </div>
+            <div className="absolute top-0 right-0 w-64 h-64 bg-primary-foreground/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+          </motion.div>
+        </section>
+
+        <article className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto">
           <Divider />
 
           {/* ─── 4. STRATEGY ─── */}
