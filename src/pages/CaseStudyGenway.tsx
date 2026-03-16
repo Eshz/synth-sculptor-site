@@ -134,18 +134,8 @@ const CaseStudyGenway = () => {
           <Divider />
 
           {/* ─── 3. RESEARCH & INSIGHTS ─── */}
-          <motion.span
-            {...fade}
-            className="font-body text-[10px] uppercase tracking-[0.3em] text-muted-foreground mb-4 block"
-          >
-            02 — Research & Insights
-          </motion.span>
-          <motion.h2
-            {...fade}
-            className="text-3xl md:text-5xl font-body font-medium tracking-tight leading-[1.1] mb-8 max-w-2xl"
-          >
-            Understanding why adoption stalled.
-          </motion.h2>
+          <SectionTag>Research & Insights</SectionTag>
+          <SectionTitle>Understanding why adoption stalled.</SectionTitle>
           <Paragraph>
             Before jumping to solutions, I ran a focused research sprint to understand the adoption barriers across every touchpoint.
           </Paragraph>
