@@ -117,8 +117,7 @@ const CaseStudyGenway = () => {
 
         <article className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto mt-16 md:mt-24">
           {/* Overview */}
-          <SectionTag>Overview</SectionTag>
-          <SectionTitle>AI research was a new concept for most users.</SectionTitle>
+          <SectionTitle>Overview</SectionTitle>
           <Paragraph>
             Genway is an AI-powered research platform that conducts user interviews autonomously and generates actionable insights. When I joined as Head of Product Design, <Bold>the core technology was strong, but adoption was struggling.</Bold> Most product teams had never encountered a system that could moderate research conversations on its own.
           </Paragraph>
