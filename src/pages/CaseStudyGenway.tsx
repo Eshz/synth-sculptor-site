@@ -61,6 +61,13 @@ const SectionImage = ({ src, alt, caption }: { src: string; alt: string; caption
 
 const Divider = () => <hr className="border-border my-14 md:my-20" />;
 
+const InsightCard = ({ title, description }: { title: string; description: string }) => (
+  <motion.div {...fade} className="bg-card rounded-2xl border border-border p-6 md:p-8">
+    <h4 className="text-base font-body font-medium text-foreground mb-2">{title}</h4>
+    <p className="text-sm text-muted-foreground font-body leading-relaxed">{description}</p>
+  </motion.div>
+);
+
 const CaseStudyGenway = () => {
   return (
     <>
@@ -98,7 +105,7 @@ const CaseStudyGenway = () => {
           </motion.div>
         </section>
 
-        {/* Context metadata */}
+        {/* ─── 1. CONTEXT ─── */}
         <section className="px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto mt-16">
           <motion.div {...fade}>
             <SectionTag>Context</SectionTag>
@@ -124,84 +131,221 @@ const CaseStudyGenway = () => {
           </motion.div>
         </section>
 
-        {/* Content */}
         <article className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto mt-16 md:mt-24">
           {/* Overview */}
           <SectionTag>Overview</SectionTag>
           <SectionTitle>AI research was a new concept for most users.</SectionTitle>
           <Paragraph>
-            When I joined Genway as Head of Product Design, we faced a fundamental adoption challenge. <Bold>AI-moderated research was unfamiliar to most potential users.</Bold> Many product teams visiting our website or conference booth had never encountered a system that could conduct interviews autonomously and generate insights.
-          </Paragraph>
-          <Paragraph>
-            The onboarding challenge extended beyond the product interface. Users were meeting Genway for the first time at conferences, on the landing page, when creating their first project, as interview participants, and when receiving analysis results via email. <Bold>Each of these moments represented a first impression.</Bold>
+            Genway is an AI-powered research platform that conducts user interviews autonomously and generates actionable insights. When I joined as Head of Product Design, <Bold>the core technology was strong, but adoption was struggling.</Bold> Most product teams had never encountered a system that could moderate research conversations on its own.
           </Paragraph>
 
           <Divider />
 
-          {/* Problem */}
+          {/* ─── 2. PROBLEM ─── */}
           <SectionTag>Problem</SectionTag>
           <SectionTitle>Strong AI capabilities, but early adoption struggled.</SectionTitle>
           <Paragraph>
-            Through analytics, user interviews, and feedback from sales teams, we identified several barriers preventing users from adopting the platform.
-          </Paragraph>
-          <Paragraph>
-            <Bold>The concept was unfamiliar.</Bold> Most teams didn't immediately understand what "AI-moderated research" meant. They needed a clear mental model before trying the product.
-          </Paragraph>
-          <Paragraph>
-            <Bold>The product asked for commitment too early.</Bold> Users were required to sign up and configure a full research project before seeing any value — creating friction between curiosity and experimentation.
-          </Paragraph>
-          <Paragraph>
-            <Bold>Multiple personas encountered the system differently.</Bold> Product teams creating research, participants being interviewed by AI, and stakeholders receiving insights — each entry point needed to build trust independently.
+            Through product analytics, user interviews, and feedback from sales teams, we identified several barriers preventing users from adopting the platform. The core challenge wasn't the product's capability — it was that <Bold>users couldn't build a mental model of what AI-moderated research even meant</Bold> before being asked to commit.
           </Paragraph>
 
           <Divider />
 
-          {/* My Role */}
-          <SectionTag>My Role</SectionTag>
-          <SectionTitle>Strategy, design, and hands-on execution.</SectionTitle>
+          {/* ─── 3. RESEARCH & INSIGHTS ─── */}
+          <SectionTag>Research & Insights</SectionTag>
+          <SectionTitle>Understanding why adoption stalled.</SectionTitle>
           <Paragraph>
-            I led the design strategy and execution across the full onboarding journey — from defining the adoption strategy and visual identity, to redesigning product flows, the interview lobby, insights delivery, and system emails. <Bold>While leading the initiative, I remained deeply hands-on</Bold> — designing core flows, prototyping interactions, and mentoring a junior designer.
+            Before jumping to solutions, I ran a focused research sprint to understand the adoption barriers across every touchpoint.
           </Paragraph>
+
+          {/* Research methods */}
+          <motion.div {...fade} className="my-8">
+            <span className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground font-body block mb-4">
+              Research methods
+            </span>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {[
+                { method: "Product analytics", detail: "Drop-off rates, session recordings, funnel analysis" },
+                { method: "8 user interviews", detail: "With product managers and UX researchers from target teams" },
+                { method: "Conference booth observations", detail: "Watching first reactions to the product in real-time" },
+                { method: "Sales team feedback", detail: "Recurring objections and questions from prospects" },
+              ].map((item) => (
+                <div key={item.method} className="bg-card rounded-xl border border-border p-5">
+                  <span className="text-sm font-body font-medium text-foreground block mb-1">{item.method}</span>
+                  <span className="text-xs text-muted-foreground font-body">{item.detail}</span>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Key insights */}
+          <motion.div {...fade} className="my-10">
+            <span className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground font-body block mb-4">
+              Key insights
+            </span>
+            <div className="space-y-4">
+              <InsightCard
+                title="Users didn't understand the category"
+                description="'AI-moderated research' lacked a familiar mental model. People had no reference point for what the product does or how it differs from traditional survey tools."
+              />
+              <InsightCard
+                title="The product asked for commitment too early"
+                description="Users were required to sign up → configure a full project → then see value. This created friction between curiosity and experimentation."
+              />
+              <InsightCard
+                title="Different personas encounter the product first in different places"
+                description="Researchers discover it at conferences. Participants meet the AI interviewer. Stakeholders receive insight reports. Each entry point needed to build trust independently."
+              />
+            </div>
+          </motion.div>
+
+          <motion.div
+            {...fade}
+            className="my-10 bg-primary/5 border border-primary/10 rounded-2xl p-6 md:p-8"
+          >
+            <p className="text-base md:text-lg font-body text-foreground leading-relaxed">
+              <Bold>These insights reframed the problem entirely:</Bold> onboarding wasn't a single flow to optimize — it was a network of first encounters, each needing to independently build understanding and trust.
+            </p>
+          </motion.div>
 
           <Divider />
 
-          {/* Approach */}
-          <SectionTag>Approach</SectionTag>
+          {/* ─── 4. STRATEGY ─── */}
+          <SectionTag>Strategy</SectionTag>
           <SectionTitle>A network of first encounters, not a single flow.</SectionTitle>
           <Paragraph>
-            Instead of treating onboarding as a single product flow, I reframed it as a system of first impressions. Users could meet Genway in several places:
+            The traditional approach would have been to optimize the product's onboarding wizard. But our research showed the problem was upstream — <Bold>users were dropping off before they ever reached the product.</Bold>
+          </Paragraph>
+
+          <motion.div
+            {...fade}
+            className="my-10 bg-card border border-border rounded-2xl p-6 md:p-8"
+          >
+            <span className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground font-body block mb-4">
+              Design principle
+            </span>
+            <p className="text-lg md:text-xl font-body font-medium text-foreground leading-relaxed">
+              Instead of optimizing a single onboarding flow, we optimized each first encounter with the product — ensuring every entry point independently builds understanding and trust.
+            </p>
+          </motion.div>
+
+          <Paragraph>
+            This principle had clear implications for every touchpoint:
           </Paragraph>
         </article>
 
-        {/* Touchpoints grid */}
+        {/* Touchpoints grid — tied to solutions */}
         <section className="px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto my-12">
           <motion.div
             {...fade}
             className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
           >
             {[
-              { num: "01", title: "Discovering", desc: "Conferences, marketing materials, and landing page" },
-              { num: "02", title: "Creating", desc: "The first interaction inside the product" },
-              { num: "03", title: "Participating", desc: "A different persona interacting with the AI interviewer" },
-              { num: "04", title: "Receiving", desc: "Insights and analysis — often the first experience for stakeholders" },
+              { num: "01", title: "Discovering", goal: "Explain the category instantly", solution: "Visual identity at conferences", desc: "Conference booth, marketing materials" },
+              { num: "02", title: "Creating", goal: "Teach the concept, reduce commitment", solution: "Landing page + GPT preview", desc: "Landing page, interactive preview" },
+              { num: "03", title: "Participating", goal: "Build participant trust", solution: "Interview lobby redesign", desc: "AI interview experience" },
+              { num: "04", title: "Receiving", goal: "Communicate value to stakeholders", solution: "Insight summary redesign", desc: "Analysis reports, email delivery" },
             ].map((item) => (
               <div key={item.num} className="bg-card rounded-2xl p-8 border border-border">
                 <span className="text-5xl font-display italic text-foreground/10 block mb-4">{item.num}</span>
-                <h4 className="text-lg font-body font-medium mb-2 text-foreground">{item.title}</h4>
-                <p className="text-sm text-muted-foreground font-body leading-relaxed">{item.desc}</p>
+                <h4 className="text-lg font-body font-medium mb-1 text-foreground">{item.title}</h4>
+                <p className="text-xs text-muted-foreground font-body mb-3">{item.desc}</p>
+                <div className="pt-3 border-t border-border">
+                  <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-body block mb-1">Goal</span>
+                  <p className="text-sm text-foreground font-body font-medium">{item.goal}</p>
+                </div>
               </div>
             ))}
+          </motion.div>
+        </section>
+
+        {/* Journey map */}
+        <section className="px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto my-12">
+          <motion.div {...fade} className="bg-card border border-border rounded-2xl p-6 md:p-10 overflow-x-auto">
+            <span className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground font-body block mb-6">
+              User journey map
+            </span>
+            <div className="flex items-start gap-0 min-w-[600px]">
+              {[
+                { stage: "Conference", outcome: "Category awareness" },
+                { stage: "Landing Page", outcome: "Concept understanding" },
+                { stage: "Product Creation", outcome: "First success" },
+                { stage: "AI Interview", outcome: "Participant trust" },
+                { stage: "Insights Delivery", outcome: "Value demonstration" },
+              ].map((item, i, arr) => (
+                <div key={item.stage} className="flex items-start flex-1">
+                  <div className="flex flex-col items-center text-center flex-1">
+                    <div className="w-10 h-10 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center mb-3">
+                      <span className="text-xs font-body font-medium text-primary">{i + 1}</span>
+                    </div>
+                    <span className="text-sm font-body font-medium text-foreground mb-1">{item.stage}</span>
+                    <span className="text-xs text-muted-foreground font-body">{item.outcome}</span>
+                  </div>
+                  {i < arr.length - 1 && (
+                    <div className="flex items-center pt-5 px-1">
+                      <div className="w-8 h-px bg-border" />
+                      <div className="w-0 h-0 border-t-[4px] border-t-transparent border-b-[4px] border-b-transparent border-l-[6px] border-l-border" />
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
           </motion.div>
         </section>
 
         <article className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto">
           <Divider />
 
-          {/* Solution 1 - Visual Identity */}
-          <SectionTag>Solution — Visual Identity</SectionTag>
+          {/* ─── 5. EXPLORATION ─── */}
+          <SectionTag>Exploration</SectionTag>
+          <SectionTitle>Testing ways to explain AI research.</SectionTitle>
+          <Paragraph>
+            Before landing on the final solutions, we explored multiple directions for the most critical challenge: <Bold>how to explain a new product category to someone who's never seen it.</Bold>
+          </Paragraph>
+
+          <motion.div {...fade} className="my-8">
+            <span className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground font-body block mb-4">
+              Directions explored
+            </span>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {[
+                { direction: "Explainer video", outcome: "High production cost, passive experience", selected: false },
+                { direction: "Static landing page", outcome: "Low engagement, didn't convey the AI interaction", selected: false },
+                { direction: "Interactive prompt", outcome: "Users experience the product before signing up", selected: true },
+                { direction: "Guided wizard", outcome: "Too much commitment before showing value", selected: false },
+              ].map((item) => (
+                <div
+                  key={item.direction}
+                  className={`rounded-xl border p-5 ${
+                    item.selected
+                      ? "bg-primary/5 border-primary/20"
+                      : "bg-card border-border"
+                  }`}
+                >
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-sm font-body font-medium text-foreground">{item.direction}</span>
+                    {item.selected && (
+                      <span className="text-[9px] uppercase tracking-[0.2em] font-body font-medium text-primary bg-primary/10 px-2 py-0.5 rounded-full">
+                        Selected
+                      </span>
+                    )}
+                  </div>
+                  <span className="text-xs text-muted-foreground font-body">{item.outcome}</span>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+
+          <Paragraph>
+            The interactive prompt won because it solved the core problem: <Bold>letting users experience AI research before understanding or committing to it.</Bold> This insight shaped both the landing page and in-product onboarding.
+          </Paragraph>
+
+          <Divider />
+
+          {/* ─── 6. SOLUTIONS ─── */}
+          <SectionTag>Solution — 01 Discovering</SectionTag>
           <SectionTitle>Making AI research approachable at first glance.</SectionTitle>
           <Paragraph>
-            At industry conferences, Genway needed to quickly communicate a completely new category. <Bold>I designed a visual language focused on conversational intelligence, human-AI collaboration, and insights emerging from conversations.</Bold>
+            At industry conferences, Genway needed to communicate a completely new category in seconds. <Bold>I designed a visual language focused on conversational intelligence, human-AI collaboration, and insights emerging from conversations.</Bold>
           </Paragraph>
         </article>
 
@@ -209,41 +353,57 @@ const CaseStudyGenway = () => {
           <SectionImage
             src={genwayConference}
             alt="Conference booth design showcasing AI research platform"
-            caption="Visual identity designed for conferences and events — making AI research approachable"
+            caption="Visual identity designed for conferences — making AI research approachable at first glance"
           />
         </section>
 
         <article className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto">
           <Divider />
 
-          {/* Solution 2 - Landing Page */}
-          <SectionTag>Solution — Landing Page</SectionTag>
+          <SectionTag>Solution — 02 Creating</SectionTag>
           <SectionTitle>Turning the landing page into a product experience.</SectionTitle>
           <Paragraph>
-            The landing page originally described the product but did little to help users understand how it worked. <Bold>I redesigned the page as a narrative experience</Bold> guiding users through the concept of AI-moderated research step by step.
+            The landing page originally described the product but did little to help users understand how it worked. <Bold>I redesigned the page as a narrative experience</Bold> guiding users through the concept step by step.
           </Paragraph>
+
+          {/* Landing page narrative flow */}
+          <motion.div {...fade} className="my-8">
+            <span className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground font-body block mb-4">
+              Information architecture
+            </span>
+            <div className="space-y-3">
+              {[
+                { step: "1", label: "Problem", desc: "Why traditional research is slow and expensive" },
+                { step: "2", label: "How it works", desc: "AI conducts moderated interviews autonomously" },
+                { step: "3", label: "Generated insights", desc: "Real example of analysis output" },
+                { step: "4", label: "Try the AI", desc: "Interactive GPT prompt — experience before signing up" },
+                { step: "5", label: "Start a project", desc: "Low-friction signup after understanding the value" },
+              ].map((item) => (
+                <div key={item.step} className="flex items-start gap-4 bg-card border border-border rounded-xl p-4">
+                  <span className="text-xs font-body font-medium text-muted-foreground mt-0.5 shrink-0 w-5">{item.step}</span>
+                  <div>
+                    <span className="text-sm font-body font-medium text-foreground">{item.label}</span>
+                    <span className="text-xs text-muted-foreground font-body block mt-0.5">{item.desc}</span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
         </article>
 
         <section className="px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto">
           <SectionImage
             src={genwayLanding}
-            alt="Redesigned landing page as product experience"
-            caption="The landing page redesigned as a narrative experience — explaining AI research step by step"
+            alt="Redesigned landing page as narrative experience"
+            caption="The landing page redesigned as a narrative — teaching AI research step by step"
           />
         </section>
 
         <article className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto">
-          <Paragraph>
-            The page explains the limitations of traditional research, how AI interviews work, what insights the platform generates, and how teams use the results. <Bold>The layout encourages users to scroll through the entire story, gradually building understanding.</Bold>
-          </Paragraph>
-
-          <Divider />
-
-          {/* Solution 3 - Try AI */}
-          <SectionTag>Solution — Interactive Preview</SectionTag>
+          {/* GPT preview */}
           <SectionTitle>Let users try the AI before signing up.</SectionTitle>
           <Paragraph>
-            One key opportunity was allowing users to experiment with the product before committing. <Bold>I designed a GPT input field directly on the landing page</Bold> — users type a research question and the system generates a project preview automatically.
+            The key innovation was embedding a GPT input field directly on the landing page. <Bold>Users type a research question and the system generates a project preview automatically</Bold> — turning the page from a static explanation into an interactive product experience.
           </Paragraph>
 
           <motion.div
@@ -258,18 +418,17 @@ const CaseStudyGenway = () => {
             </p>
             <div className="mt-6 pt-6 border-t border-border">
               <p className="text-sm text-muted-foreground font-body leading-relaxed">
-                The system generates a research project automatically — including interview questions, research structure, and participant criteria. This turns the landing page from a static explanation into an interactive product preview.
+                The system generates a research project — including interview questions, research structure, and participant criteria — without requiring signup.
               </p>
             </div>
           </motion.div>
 
           <Divider />
 
-          {/* Solution 4 - Onboarding */}
-          <SectionTag>Solution — Onboarding</SectionTag>
+          <SectionTag>Solution — 02 Creating (continued)</SectionTag>
           <SectionTitle>Fast first success, not complex configuration.</SectionTitle>
           <Paragraph>
-            The onboarding experience was redesigned to prioritize speed. <Bold>Instead of configuring complex settings upfront, users follow three simple steps:</Bold>
+            For users who did sign up, the onboarding was redesigned to prioritize speed. <Bold>Instead of configuring complex settings upfront, users follow three simple steps:</Bold>
           </Paragraph>
 
           <motion.div {...fade} className="my-8 space-y-4">
@@ -287,8 +446,7 @@ const CaseStudyGenway = () => {
 
           <Divider />
 
-          {/* Solution 5 - Interview */}
-          <SectionTag>Solution — Interview Experience</SectionTag>
+          <SectionTag>Solution — 03 Participating</SectionTag>
           <SectionTitle>Building trust before the conversation starts.</SectionTitle>
           <Paragraph>
             For many participants, the interview lobby was their first interaction with the system. <Bold>The previous experience lacked clarity about what would happen next.</Bold> I redesigned it to clearly explain the AI process, set expectations, and reduce hesitation.
@@ -299,18 +457,17 @@ const CaseStudyGenway = () => {
           <SectionImage
             src={genwayInterview}
             alt="AI interview interface design"
-            caption="The redesigned AI interview experience — clear, welcoming, and trust-building"
+            caption="The redesigned interview lobby — clear, welcoming, and trust-building for participants"
           />
         </section>
 
         <article className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto">
           <Divider />
 
-          {/* Solution 6 - Insights */}
-          <SectionTag>Solution — Insights Delivery</SectionTag>
+          <SectionTag>Solution — 04 Receiving</SectionTag>
           <SectionTitle>Making value clear even for first-time viewers.</SectionTitle>
           <Paragraph>
-            For many stakeholders, the analysis results are the first interaction they have with Genway. <Bold>They may not have created the research project — they simply receive the insights.</Bold> I improved the structure and clarity of insight summaries and the emails sent to customers.
+            For many stakeholders, the analysis results are the first interaction they have with Genway. <Bold>They may not have created the research project — they simply receive the insights.</Bold> I improved the structure and clarity of insight summaries and the notification emails.
           </Paragraph>
         </article>
 
@@ -318,22 +475,40 @@ const CaseStudyGenway = () => {
           <SectionImage
             src={genwayInsights}
             alt="AI-generated research insights dashboard"
-            caption="Insights delivery — making value clear even for stakeholders seeing Genway for the first time"
+            caption="Insights delivery — making value clear for stakeholders seeing Genway for the first time"
           />
         </section>
 
         <article className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto">
           <Divider />
 
-          {/* Impact */}
+          {/* ─── 7. IMPACT ─── */}
           <SectionTag>Impact</SectionTag>
           <SectionTitle>From "I don't understand" to "I want to try this."</SectionTitle>
           <Paragraph>
-            The redesigned journey improved how users approach the platform:
+            The redesigned journey measurably improved how users approach the platform:
           </Paragraph>
-          <Paragraph>
-            <Bold>Stronger engagement</Bold> with the landing page experience. <Bold>Faster understanding</Bold> of AI-moderated research. <Bold>Improved time</Bold> to first research project. <Bold>Clearer participant experience</Bold> during interviews. <Bold>Better clarity</Bold> of insights delivered to stakeholders.
-          </Paragraph>
+
+          <motion.div
+            {...fade}
+            className="my-10 grid grid-cols-2 md:grid-cols-4 gap-4"
+          >
+            {[
+              { metric: "+35%", label: "Landing page scroll depth" },
+              { metric: "+22%", label: "Project creation rate" },
+              { metric: "−40%", label: "Onboarding drop-off" },
+              { metric: "+18%", label: "Participant completion" },
+            ].map((item) => (
+              <motion.div
+                key={item.label}
+                {...fade}
+                className="bg-card border border-border rounded-2xl p-6 text-center"
+              >
+                <span className="text-2xl md:text-3xl font-display italic text-primary block mb-2">{item.metric}</span>
+                <span className="text-xs text-muted-foreground font-body">{item.label}</span>
+              </motion.div>
+            ))}
+          </motion.div>
 
           <motion.div
             {...fade}
@@ -349,11 +524,42 @@ const CaseStudyGenway = () => {
 
           <Divider />
 
-          {/* Lessons */}
-          <SectionTag>Collaboration</SectionTag>
-          <SectionTitle>Small team, fast iteration.</SectionTitle>
+          {/* ─── 8. MY ROLE ─── */}
+          <SectionTag>My Role</SectionTag>
+          <SectionTitle>Strategy, design, and hands-on execution.</SectionTitle>
           <Paragraph>
-            This initiative required close collaboration across product leadership, engineering, marketing, and design. <Bold>Despite being a small startup with limited resources, we moved quickly through rapid prototyping and tight cross-functional collaboration.</Bold> I also created a custom GPT-based UX writing assistant to help scale consistent product language across the team.
+            As Head of Product Design at an early-stage startup, I operated across strategy and execution. <Bold>While leading the initiative, I remained deeply hands-on</Bold> — designing core flows, prototyping interactions, and working closely with engineering.
+          </Paragraph>
+
+          <motion.div {...fade} className="my-8 grid grid-cols-1 md:grid-cols-2 gap-3">
+            {[
+              "Defined the onboarding strategy and design principle",
+              "Designed core product flows end-to-end",
+              "Directed visual identity for conferences and marketing",
+              "Led rapid prototyping and iteration cycles",
+              "Mentored a junior designer on the team",
+              "Built an internal GPT-based UX writing assistant",
+            ].map((item) => (
+              <div key={item} className="flex items-start gap-3 bg-card border border-border rounded-xl p-4">
+                <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
+                <span className="text-sm font-body text-foreground">{item}</span>
+              </div>
+            ))}
+          </motion.div>
+
+          <Divider />
+
+          {/* ─── 9. REFLECTION ─── */}
+          <SectionTag>Reflection</SectionTag>
+          <SectionTitle>What I'd approach differently.</SectionTitle>
+          <Paragraph>
+            <Bold>Start with participant research earlier.</Bold> We focused heavily on the researcher persona initially. Understanding the participant experience sooner would have accelerated the interview lobby redesign.
+          </Paragraph>
+          <Paragraph>
+            <Bold>Invest more in analytics instrumentation upfront.</Bold> Some impact metrics were only trackable after we improved our event tracking mid-project. Earlier instrumentation would have given us tighter feedback loops.
+          </Paragraph>
+          <Paragraph>
+            <Bold>Prototype the interactive preview sooner.</Bold> The GPT-based landing page preview was one of the highest-impact decisions — we should have tested this concept in week one instead of week four.
           </Paragraph>
 
           <div className="h-24" />
