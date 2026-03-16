@@ -74,31 +74,14 @@ const CaseStudyGenway = () => {
     <>
       <CustomCursor />
       <CaseStudyLayout>
-        {/* Hero */}
-        <section className="relative">
-          <div className="aspect-[21/9] md:aspect-[21/7] overflow-hidden">
-            <motion.img
-              initial={{ scale: 1.05, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 1, ease: "easeOut" }}
-              src={genwayHero}
-              alt="Genway AI Research Platform"
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
-        </section>
-
-        {/* Title block */}
-        <section className="px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto -mt-24 md:-mt-32 relative z-10">
+        {/* Logo + Title block */}
+        <section className="px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto pt-12 md:pt-20">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
           >
-            <span className="text-xs uppercase tracking-[0.2em] font-body font-medium text-muted-foreground block mb-4">
-              Genway · Head of Product Design
-            </span>
+            <img src={genwayLogo} alt="Genway logo" className="h-8 md:h-10 mb-8" />
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-body font-light leading-[1.1] mb-6 max-w-4xl">
               Designing the First Experience of{" "}
               <span className="font-display italic">AI-Moderated Research</span>
