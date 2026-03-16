@@ -126,7 +126,7 @@ const CaseStudyGenway = () => {
 
           {/* ─── 2. PROBLEM ─── */}
           <SectionTag>Problem</SectionTag>
-          <SectionTitle>Strong AI capabilities, but early adoption struggled.</SectionTitle>
+          <SectionTitle>AI moderated research was a new concept for most users.</SectionTitle>
           <Paragraph>
             Through product analytics, user interviews, and feedback from sales teams, we identified several barriers preventing users from adopting the platform. The core challenge wasn't the product's capability — it was that <Bold>users couldn't build a mental model of what AI-moderated research even meant</Bold> before being asked to commit.
           </Paragraph>
