@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { BarChart3, Users, Eye, MessageSquare, Lightbulb, Clock, Target } from "lucide-react";
 import CaseStudyLayout from "@/components/CaseStudyLayout";
 import CustomCursor from "@/components/CustomCursor";
-import genwayHero from "@/assets/genway-hero.jpg";
+import genwayLogo from "@/assets/logo-genway.svg";
 import genwayLanding from "@/assets/genway-landing.jpg";
 import genwayConference from "@/assets/genway-conference.jpg";
 import genwayInterview from "@/assets/genway-interview.jpg";
