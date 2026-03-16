@@ -172,12 +172,13 @@ const CaseStudyGenway = () => {
         </section>
 
         {/* Key Findings */}
-        <section className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto mb-20">
-          <motion.div {...fade} className="flex items-center gap-4 mb-12">
-            <span className="font-body text-[10px] uppercase tracking-[0.25em] text-muted-foreground">Key Findings</span>
-            <div className="h-px flex-1 bg-border" />
+        <section className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto mb-16">
+          <motion.div {...fade}>
+            <span className="inline-block text-[11px] uppercase tracking-[0.25em] font-body font-medium text-muted-foreground mb-8">
+              Key Findings
+            </span>
           </motion.div>
-          <div className="space-y-12">
+          <div className="space-y-10">
             {[
               { num: "01", icon: Lightbulb, title: "Users didn't understand the category", desc: "'AI-moderated research' lacked a familiar mental model. People had no reference point for what the product does or how it differs from traditional survey tools." },
               { num: "02", icon: Clock, title: "The product asked for commitment too early", desc: "Users were required to sign up → configure a full project → then see value. This created friction between curiosity and experimentation." },
@@ -186,17 +187,17 @@ const CaseStudyGenway = () => {
               <motion.div
                 key={item.num}
                 {...fade}
-                className="grid grid-cols-1 md:grid-cols-[100px_1fr] gap-6 md:gap-12"
+                className="flex gap-5"
               >
-                <div className="flex flex-col gap-4">
-                  <span className="font-body text-xs text-muted-foreground/40">{item.num}</span>
-                  <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center">
-                    <item.icon size={24} className="text-foreground" />
+                <div className="shrink-0 flex flex-col items-center gap-2 pt-1">
+                  <span className="text-xs font-body text-muted-foreground/40">{item.num}</span>
+                  <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center">
+                    <item.icon size={20} className="text-foreground" />
                   </div>
                 </div>
-                <div className="pt-2">
-                  <h4 className="text-xl md:text-2xl font-body font-medium mb-4 tracking-tight text-foreground">{item.title}</h4>
-                  <p className="text-muted-foreground font-body leading-relaxed text-lg max-w-2xl">{item.desc}</p>
+                <div>
+                  <h4 className="text-base md:text-lg font-body font-medium mb-2 text-foreground">{item.title}</h4>
+                  <p className="text-base text-muted-foreground font-body leading-relaxed">{item.desc}</p>
                 </div>
               </motion.div>
             ))}
