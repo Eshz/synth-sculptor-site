@@ -141,11 +141,12 @@ const CaseStudyGenway = () => {
           </Paragraph>
         </article>
 
-        {/* Methods — full width grid */}
-        <section className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto mb-20">
-          <motion.div {...fade} className="flex items-center gap-4 mb-8">
-            <span className="font-body text-[10px] uppercase tracking-[0.25em] text-muted-foreground">Methods</span>
-            <div className="h-px flex-1 bg-border" />
+        {/* Methods grid */}
+        <section className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto mb-16">
+          <motion.div {...fade}>
+            <span className="inline-block text-[11px] uppercase tracking-[0.25em] font-body font-medium text-muted-foreground mb-5">
+              Methods
+            </span>
           </motion.div>
           <motion.div
             {...fade}
