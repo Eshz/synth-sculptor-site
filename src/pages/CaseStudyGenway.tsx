@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { BarChart3, Users, Eye, MessageSquare, Lightbulb, Clock, Target } from "lucide-react";
 import CaseStudyLayout from "@/components/CaseStudyLayout";
 import CustomCursor from "@/components/CustomCursor";
-import genwayHero from "@/assets/genway-hero.jpg";
+import genwayLogo from "@/assets/logo-genway.svg";
 import genwayLanding from "@/assets/genway-landing.jpg";
 import genwayConference from "@/assets/genway-conference.jpg";
 import genwayInterview from "@/assets/genway-interview.jpg";
@@ -74,31 +74,14 @@ const CaseStudyGenway = () => {
     <>
       <CustomCursor />
       <CaseStudyLayout>
-        {/* Hero */}
-        <section className="relative">
-          <div className="aspect-[21/9] md:aspect-[21/7] overflow-hidden">
-            <motion.img
-              initial={{ scale: 1.05, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 1, ease: "easeOut" }}
-              src={genwayHero}
-              alt="Genway AI Research Platform"
-              className="w-full h-full object-cover"
-            />
-          </div>
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
-        </section>
-
-        {/* Title block */}
-        <section className="px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto -mt-24 md:-mt-32 relative z-10">
+        {/* Logo + Title block */}
+        <section className="px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto pt-12 md:pt-20">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
           >
-            <span className="text-xs uppercase tracking-[0.2em] font-body font-medium text-muted-foreground block mb-4">
-              Genway · Head of Product Design
-            </span>
+            <img src={genwayLogo} alt="Genway logo" className="h-8 md:h-10 mb-8" />
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-body font-light leading-[1.1] mb-6 max-w-4xl">
               Designing the First Experience of{" "}
               <span className="font-display italic">AI-Moderated Research</span>
@@ -134,8 +117,7 @@ const CaseStudyGenway = () => {
 
         <article className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto mt-16 md:mt-24">
           {/* Overview */}
-          <SectionTag>Overview</SectionTag>
-          <SectionTitle>AI research was a new concept for most users.</SectionTitle>
+          <SectionTitle>Overview</SectionTitle>
           <Paragraph>
             Genway is an AI-powered research platform that conducts user interviews autonomously and generates actionable insights. When I joined as Head of Product Design, <Bold>the core technology was strong, but adoption was struggling.</Bold> Most product teams had never encountered a system that could moderate research conversations on its own.
           </Paragraph>
@@ -144,7 +126,7 @@ const CaseStudyGenway = () => {
 
           {/* ─── 2. PROBLEM ─── */}
           <SectionTag>Problem</SectionTag>
-          <SectionTitle>Strong AI capabilities, but early adoption struggled.</SectionTitle>
+          <SectionTitle>AI moderated research was a new concept for most users.</SectionTitle>
           <Paragraph>
             Through product analytics, user interviews, and feedback from sales teams, we identified several barriers preventing users from adopting the platform. The core challenge wasn't the product's capability — it was that <Bold>users couldn't build a mental model of what AI-moderated research even meant</Bold> before being asked to commit.
           </Paragraph>
@@ -152,28 +134,19 @@ const CaseStudyGenway = () => {
           <Divider />
 
           {/* ─── 3. RESEARCH & INSIGHTS ─── */}
-          <motion.span
-            {...fade}
-            className="font-body text-[10px] uppercase tracking-[0.3em] text-muted-foreground mb-4 block"
-          >
-            02 — Research & Insights
-          </motion.span>
-          <motion.h2
-            {...fade}
-            className="text-3xl md:text-5xl font-body font-medium tracking-tight leading-[1.1] mb-8 max-w-2xl"
-          >
-            Understanding why adoption stalled.
-          </motion.h2>
+          <SectionTag>Research & Insights</SectionTag>
+          <SectionTitle>Understanding why adoption stalled.</SectionTitle>
           <Paragraph>
             Before jumping to solutions, I ran a focused research sprint to understand the adoption barriers across every touchpoint.
           </Paragraph>
         </article>
 
-        {/* Methods — full width grid */}
-        <section className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto mb-20">
-          <motion.div {...fade} className="flex items-center gap-4 mb-8">
-            <span className="font-body text-[10px] uppercase tracking-[0.25em] text-muted-foreground">Methods</span>
-            <div className="h-px flex-1 bg-border" />
+        {/* Methods grid */}
+        <section className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto mb-16">
+          <motion.div {...fade}>
+            <span className="inline-block text-[11px] uppercase tracking-[0.25em] font-body font-medium text-muted-foreground mb-5">
+              Methods
+            </span>
           </motion.div>
           <motion.div
             {...fade}
@@ -199,12 +172,13 @@ const CaseStudyGenway = () => {
         </section>
 
         {/* Key Findings */}
-        <section className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto mb-20">
-          <motion.div {...fade} className="flex items-center gap-4 mb-12">
-            <span className="font-body text-[10px] uppercase tracking-[0.25em] text-muted-foreground">Key Findings</span>
-            <div className="h-px flex-1 bg-border" />
+        <section className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto mb-16">
+          <motion.div {...fade}>
+            <span className="inline-block text-[11px] uppercase tracking-[0.25em] font-body font-medium text-muted-foreground mb-8">
+              Key Findings
+            </span>
           </motion.div>
-          <div className="space-y-12">
+          <div className="space-y-10">
             {[
               { num: "01", icon: Lightbulb, title: "Users didn't understand the category", desc: "'AI-moderated research' lacked a familiar mental model. People had no reference point for what the product does or how it differs from traditional survey tools." },
               { num: "02", icon: Clock, title: "The product asked for commitment too early", desc: "Users were required to sign up → configure a full project → then see value. This created friction between curiosity and experimentation." },
@@ -213,17 +187,17 @@ const CaseStudyGenway = () => {
               <motion.div
                 key={item.num}
                 {...fade}
-                className="grid grid-cols-1 md:grid-cols-[100px_1fr] gap-6 md:gap-12"
+                className="flex gap-5"
               >
-                <div className="flex flex-col gap-4">
-                  <span className="font-body text-xs text-muted-foreground/40">{item.num}</span>
-                  <div className="w-12 h-12 rounded-full bg-muted flex items-center justify-center">
-                    <item.icon size={24} className="text-foreground" />
+                <div className="shrink-0 flex flex-col items-center gap-2 pt-1">
+                  <span className="text-xs font-body text-muted-foreground/40">{item.num}</span>
+                  <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center">
+                    <item.icon size={20} className="text-foreground" />
                   </div>
                 </div>
-                <div className="pt-2">
-                  <h4 className="text-xl md:text-2xl font-body font-medium mb-4 tracking-tight text-foreground">{item.title}</h4>
-                  <p className="text-muted-foreground font-body leading-relaxed text-lg max-w-2xl">{item.desc}</p>
+                <div>
+                  <h4 className="text-base md:text-lg font-body font-medium mb-2 text-foreground">{item.title}</h4>
+                  <p className="text-base text-muted-foreground font-body leading-relaxed">{item.desc}</p>
                 </div>
               </motion.div>
             ))}
