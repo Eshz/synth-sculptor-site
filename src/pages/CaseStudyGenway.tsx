@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { BarChart3, Users, Eye, MessageSquare, Lightbulb, Clock, Target } from "lucide-react";
 import CaseStudyLayout from "@/components/CaseStudyLayout";
 import CustomCursor from "@/components/CustomCursor";
 import genwayHero from "@/assets/genway-hero.jpg";
