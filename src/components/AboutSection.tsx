@@ -1,5 +1,6 @@
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
 import profileImg from "@/assets/profile.png";
+import { useRef, useCallback } from "react";
 
 const experience = [
   { role: "Head of Product Design", company: "Genway AI", years: "2025–Present" },
@@ -20,6 +21,71 @@ const patents = [
   { title: "Providing Responses To Queries Of Transcripts", year: "2021" },
 ];
 
+const ProfileImage = () => {
+  const ref = useRef<HTMLDivElement>(null);
+  const mouseX = useMotionValue(0.5);
+  const mouseY = useMotionValue(0.5);
+
+  const rotateX = useSpring(useTransform(mouseY, [0, 1], [8, -8]), { stiffness: 200, damping: 20 });
+  const rotateY = useSpring(useTransform(mouseX, [0, 1], [-8, 8]), { stiffness: 200, damping: 20 });
+  const glareX = useTransform(mouseX, [0, 1], [0, 100]);
+  const glareY = useTransform(mouseY, [0, 1], [0, 100]);
+
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    const rect = ref.current?.getBoundingClientRect();
+    if (!rect) return;
+    mouseX.set((e.clientX - rect.left) / rect.width);
+    mouseY.set((e.clientY - rect.top) / rect.height);
+  }, [mouseX, mouseY]);
+
+  const handleMouseLeave = useCallback(() => {
+    mouseX.set(0.5);
+    mouseY.set(0.5);
+  }, [mouseX, mouseY]);
+
+  return (
+    <div className="group" style={{ perspective: "1000px" }}>
+      <motion.div
+        ref={ref}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+        className="relative rounded-[2rem] overflow-hidden shadow-lg transition-shadow duration-500 hover:shadow-2xl"
+      >
+        {/* Ambient blur blob behind */}
+        <div className="absolute -z-10 inset-0 opacity-80 blur-[64px] pointer-events-none">
+          <img
+            src={profileImg}
+            alt=""
+            className="w-full h-full object-cover"
+          />
+        </div>
+
+        {/* Main image */}
+        <div className="aspect-square bg-border">
+          <img
+            alt="Eshchar Zychlinski"
+            className="w-full h-full object-cover grayscale"
+            src={profileImg}
+          />
+        </div>
+
+        {/* Glare overlay */}
+        <motion.div
+          className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+          style={{
+            background: useTransform(
+              [glareX, glareY],
+              ([x, y]) =>
+                `radial-gradient(circle at ${x}% ${y}%, rgba(255,255,255,0.15) 0%, transparent 60%)`
+            ),
+          }}
+        />
+      </motion.div>
+    </div>
+  );
+};
+
 const AboutSection = () => {
   return (
     <section
@@ -34,68 +100,9 @@ const AboutSection = () => {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6 }}
         >
-          <div className="aspect-square rounded-[2rem] overflow-hidden bg-border">
-            <img
-              alt="Eshchar Zychlinski"
-              className="w-full h-full object-cover grayscale"
-              src={profileImg}
-            />
-          </div>
+          <ProfileImage />
         </motion.div>
       </div>
-
-      {/* Right — Content */}
-      <div className="md:col-span-8">
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-60px" }}
-          transition={{ duration: 0.6, delay: 0.1 }}
-        >
-          <span className="text-xs uppercase tracking-[0.2em] font-body font-medium text-muted-foreground/60 block mb-6">
-            About
-          </span>
-          <h2 className="text-4xl md:text-5xl font-body font-light text-foreground mb-8">
-            Lead Product Designer with{" "}
-            <span className="font-display italic">8+ years</span> of experience.
-          </h2>
-          <p className="text-muted-foreground text-lg leading-relaxed font-body font-light mb-14">
-            Leading design across Microsoft Teams and AI startups — turning complex
-            machine intelligence into products people understand, trust, and use.
-          </p>
-
-          {/* Resume details */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            {/* Left column: Experience + Education */}
-            <div className="space-y-10">
-              <div>
-                <h3 className="font-body font-semibold text-foreground text-sm uppercase tracking-[0.15em] mb-4">
-                  Experience
-                </h3>
-                <ul className="space-y-2.5 text-base text-muted-foreground font-body font-light">
-                  {experience.map((item) => (
-                    <li key={item.role + item.company} className="flex justify-between">
-                      <span>
-                        {item.role} — <span className="text-foreground/80 font-medium">{item.company}</span>
-                      </span>
-                      <span className="text-muted-foreground/40 shrink-0 ml-4">{item.years}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div>
-                <h3 className="font-body font-semibold text-foreground text-sm uppercase tracking-[0.15em] mb-4">
-                  Education
-                </h3>
-                <ul className="space-y-2.5 text-base text-muted-foreground font-body font-light">
-                  {education.map((item) => (
-                    <li key={item.degree}>
-                      <span className="text-foreground/80 font-medium">{item.degree}</span> — {item.school}, {item.years}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
 
             {/* Right column: Patents */}
             <div>
