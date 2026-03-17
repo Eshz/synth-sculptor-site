@@ -38,10 +38,13 @@ const ProfileImage = () => {
     mouseY.set((e.clientY - rect.top) / rect.height);
   }, [mouseX, mouseY]);
 
+  const isHovered = useMotionValue(0);
+
   const handleMouseLeave = useCallback(() => {
     mouseX.set(0.5);
     mouseY.set(0.5);
-  }, [mouseX, mouseY]);
+    isHovered.set(0);
+  }, [mouseX, mouseY, isHovered]);
 
   return (
     <div className="group" style={{ perspective: "1000px" }}>
