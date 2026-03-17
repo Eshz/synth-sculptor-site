@@ -57,7 +57,7 @@ const ProfileImage = () => {
           <img src={profileImg} alt="" className="w-full h-full object-cover" />
         </div>
 
-        {/* Main image */}
+        {/* Grayscale base image */}
         <div className="aspect-square bg-border">
           <img
             alt="Eshchar Zychlinski"
@@ -66,15 +66,40 @@ const ProfileImage = () => {
           />
         </div>
 
+        {/* Color image revealed by flashlight mask */}
+        <motion.div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            WebkitMaskImage: useTransform(
+              [glareX, glareY],
+              ([x, y]) =>
+                `radial-gradient(circle 120px at ${x}% ${y}%, black 0%, transparent 100%)`
+            ),
+            maskImage: useTransform(
+              [glareX, glareY],
+              ([x, y]) =>
+                `radial-gradient(circle 120px at ${x}% ${y}%, black 0%, transparent 100%)`
+            ),
+            opacity: isHovered,
+          }}
+        >
+          <img
+            src={profileImg}
+            alt=""
+            className="w-full h-full object-cover"
+          />
+        </motion.div>
+
         {/* Glare overlay */}
         <motion.div
-          className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+          className="absolute inset-0 pointer-events-none"
           style={{
             background: useTransform(
               [glareX, glareY],
               ([x, y]) =>
-                `radial-gradient(circle at ${x}% ${y}%, rgba(255,255,255,0.15) 0%, transparent 60%)`
+                `radial-gradient(circle at ${x}% ${y}%, rgba(255,255,255,0.1) 0%, transparent 50%)`
             ),
+            opacity: isHovered,
           }}
         />
       </motion.div>
