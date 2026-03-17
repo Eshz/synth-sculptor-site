@@ -25,6 +25,7 @@ const ProfileImage = () => {
   const ref = useRef<HTMLDivElement>(null);
   const mouseX = useMotionValue(0.5);
   const mouseY = useMotionValue(0.5);
+  const isHovered = useMotionValue(0);
 
   const rotateX = useSpring(useTransform(mouseY, [0, 1], [8, -8]), { stiffness: 200, damping: 20 });
   const rotateY = useSpring(useTransform(mouseX, [0, 1], [-8, 8]), { stiffness: 200, damping: 20 });
@@ -38,8 +39,6 @@ const ProfileImage = () => {
     mouseY.set((e.clientY - rect.top) / rect.height);
     isHovered.set(1);
   }, [mouseX, mouseY, isHovered]);
-
-  const isHovered = useMotionValue(0);
 
   const handleMouseLeave = useCallback(() => {
     mouseX.set(0.5);
