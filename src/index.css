@@ -277,66 +277,55 @@
     overflow: hidden;
     isolation: isolate;
     background:
-      radial-gradient(900px 900px at 20% 80%, rgba(255, 180, 200, 0.35) 0%, transparent 60%),
-      radial-gradient(700px 700px at 75% 30%, rgba(180, 140, 255, 0.30) 0%, transparent 55%),
-      radial-gradient(600px 600px at 50% 60%, rgba(255, 160, 220, 0.20) 0%, transparent 50%),
-      radial-gradient(1100px 600px at 40% 0%, rgba(255, 220, 230, 0.50) 0%, transparent 60%),
-      linear-gradient(180deg, rgba(255, 245, 248, 0.95) 0%, rgba(252, 240, 248, 0.90) 50%, rgba(248, 244, 255, 0.92) 100%);
-
-    -webkit-mask-image:
-      linear-gradient(to right, transparent 0%, #000 7%, #000 93%, transparent 100%),
-      linear-gradient(to bottom, transparent 0%, #000 7%, #000 93%, transparent 100%);
-    -webkit-mask-composite: source-in;
-    mask-image:
-      linear-gradient(to right, transparent 0%, #000 7%, #000 93%, transparent 100%),
-      linear-gradient(to bottom, transparent 0%, #000 7%, #000 93%, transparent 100%);
-    mask-composite: intersect;
+      radial-gradient(800px 1200px at 35% 50%, rgba(255, 195, 190, 0.7) 0%, transparent 55%),
+      radial-gradient(600px 900px at 55% 60%, rgba(170, 120, 255, 0.5) 0%, transparent 50%),
+      radial-gradient(500px 700px at 40% 35%, rgba(255, 180, 200, 0.55) 0%, transparent 45%),
+      radial-gradient(900px 500px at 70% 20%, rgba(255, 220, 215, 0.6) 0%, transparent 50%),
+      radial-gradient(400px 600px at 50% 70%, rgba(190, 140, 255, 0.35) 0%, transparent 45%),
+      linear-gradient(160deg, rgba(255, 230, 225, 0.95) 0%, rgba(255, 235, 235, 0.9) 30%, rgba(245, 235, 255, 0.9) 70%, rgba(255, 245, 248, 0.95) 100%);
   }
 
-  .selectedwork-ambient::before,
+  .selectedwork-ambient::before {
+    content: "";
+    position: absolute;
+    width: 500px;
+    height: 900px;
+    top: 10%;
+    left: 25%;
+    background: linear-gradient(
+      180deg,
+      rgba(255, 190, 200, 0.6) 0%,
+      rgba(200, 140, 255, 0.65) 50%,
+      rgba(170, 110, 255, 0.5) 100%
+    );
+    border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+    filter: blur(80px);
+    transform: rotate(-10deg);
+    pointer-events: none;
+    z-index: 0;
+  }
+
   .selectedwork-ambient::after {
     content: "";
     position: absolute;
-    inset: -40%;
+    width: 400px;
+    height: 700px;
+    top: 5%;
+    left: 20%;
+    background: linear-gradient(
+      200deg,
+      rgba(255, 200, 195, 0.5) 0%,
+      rgba(255, 180, 190, 0.4) 100%
+    );
+    border-radius: 60% 40% 50% 50% / 50% 50% 40% 60%;
+    filter: blur(60px);
+    transform: rotate(5deg);
     pointer-events: none;
-    filter: blur(40px);
-    opacity: 0.9;
+    z-index: 0;
   }
 
   .selectedwork-ambient > * {
     position: relative;
     z-index: 1;
-  }
-
-  .selectedwork-ambient .selectedwork-ambient-edge {
-    position: absolute;
-    inset: -40px;
-    pointer-events: none;
-    z-index: 0;
-    filter: blur(24px);
-    opacity: 0.6;
-    background:
-      radial-gradient(900px 450px at 50% 0%, rgba(255, 255, 255, 0.60) 0%, transparent 65%),
-      radial-gradient(900px 450px at 50% 100%, rgba(255, 255, 255, 0.45) 0%, transparent 65%),
-      radial-gradient(450px 900px at 0% 50%, rgba(255, 255, 255, 0.45) 0%, transparent 65%),
-      radial-gradient(450px 900px at 100% 50%, rgba(255, 255, 255, 0.45) 0%, transparent 65%);
-  }
-
-  .selectedwork-ambient::before {
-    background:
-      radial-gradient(circle at 15% 75%, rgba(255, 160, 200, 0.40) 0 150px, transparent 180px),
-      radial-gradient(circle at 85% 35%, rgba(160, 120, 255, 0.45) 0 160px, transparent 200px),
-      radial-gradient(circle at 60% 70%, rgba(220, 160, 255, 0.25) 0 220px, transparent 280px),
-      radial-gradient(circle at 40% 15%, rgba(255, 200, 220, 0.50) 0 300px, transparent 380px);
-    transform: translate3d(0, 0, 0);
-  }
-
-  .selectedwork-ambient::after {
-    background:
-      radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.60) 0 140px, transparent 180px),
-      radial-gradient(circle at 80% 40%, rgba(255, 255, 255, 0.55) 0 200px, transparent 260px),
-      radial-gradient(circle at 50% 20%, rgba(255, 255, 255, 0.50) 0 280px, transparent 360px);
-    mix-blend-mode: overlay;
-    opacity: 0.5;
   }
 }
