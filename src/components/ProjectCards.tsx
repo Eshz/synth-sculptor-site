@@ -229,7 +229,7 @@ const BookMock = ({ project }: { project: Project }) => {
 const ProjectCards = () => {
   return (
     <section className="selectedwork-ambient py-12 md:py-24 px-6 md:px-12 lg:px-24 max-w-7xl mx-auto text-brand-ink rounded-[2rem] md:rounded-[3rem] my-6 md:my-12">
-      <div className="selectedwork-ambient-edge" aria-hidden />
+      
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
