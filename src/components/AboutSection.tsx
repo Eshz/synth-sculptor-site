@@ -1,5 +1,6 @@
-import { motion } from "framer-motion";
+import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
 import profileImg from "@/assets/profile.png";
+import { useRef, useCallback } from "react";
 
 const experience = [
   { role: "Head of Product Design", company: "Genway AI", years: "2025–Present" },
@@ -20,6 +21,67 @@ const patents = [
   { title: "Providing Responses To Queries Of Transcripts", year: "2021" },
 ];
 
+const ProfileImage = () => {
+  const ref = useRef<HTMLDivElement>(null);
+  const mouseX = useMotionValue(0.5);
+  const mouseY = useMotionValue(0.5);
+
+  const rotateX = useSpring(useTransform(mouseY, [0, 1], [8, -8]), { stiffness: 200, damping: 20 });
+  const rotateY = useSpring(useTransform(mouseX, [0, 1], [-8, 8]), { stiffness: 200, damping: 20 });
+  const glareX = useTransform(mouseX, [0, 1], [0, 100]);
+  const glareY = useTransform(mouseY, [0, 1], [0, 100]);
+
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    const rect = ref.current?.getBoundingClientRect();
+    if (!rect) return;
+    mouseX.set((e.clientX - rect.left) / rect.width);
+    mouseY.set((e.clientY - rect.top) / rect.height);
+  }, [mouseX, mouseY]);
+
+  const handleMouseLeave = useCallback(() => {
+    mouseX.set(0.5);
+    mouseY.set(0.5);
+  }, [mouseX, mouseY]);
+
+  return (
+    <div className="group" style={{ perspective: "1000px" }}>
+      <motion.div
+        ref={ref}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+        className="relative rounded-[2rem] overflow-hidden shadow-lg transition-shadow duration-500 hover:shadow-2xl"
+      >
+        {/* Ambient blur blob behind */}
+        <div className="absolute -z-10 inset-0 opacity-80 blur-[64px] pointer-events-none">
+          <img src={profileImg} alt="" className="w-full h-full object-cover" />
+        </div>
+
+        {/* Main image */}
+        <div className="aspect-square bg-border">
+          <img
+            alt="Eshchar Zychlinski"
+            className="w-full h-full object-cover grayscale"
+            src={profileImg}
+          />
+        </div>
+
+        {/* Glare overlay */}
+        <motion.div
+          className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+          style={{
+            background: useTransform(
+              [glareX, glareY],
+              ([x, y]) =>
+                `radial-gradient(circle at ${x}% ${y}%, rgba(255,255,255,0.15) 0%, transparent 60%)`
+            ),
+          }}
+        />
+      </motion.div>
+    </div>
+  );
+};
+
 const AboutSection = () => {
   return (
     <section
@@ -34,13 +96,7 @@ const AboutSection = () => {
           viewport={{ once: true, margin: "-80px" }}
           transition={{ duration: 0.6 }}
         >
-          <div className="aspect-square rounded-[2rem] overflow-hidden bg-border">
-            <img
-              alt="Eshchar Zychlinski"
-              className="w-full h-full object-cover grayscale"
-              src={profileImg}
-            />
-          </div>
+          <ProfileImage />
         </motion.div>
       </div>
 
