@@ -36,7 +36,8 @@ const ProfileImage = () => {
     if (!rect) return;
     mouseX.set((e.clientX - rect.left) / rect.width);
     mouseY.set((e.clientY - rect.top) / rect.height);
-  }, [mouseX, mouseY]);
+    isHovered.set(1);
+  }, [mouseX, mouseY, isHovered]);
 
   const isHovered = useMotionValue(0);
 
