@@ -25,6 +25,7 @@ const ProfileImage = () => {
   const ref = useRef<HTMLDivElement>(null);
   const mouseX = useMotionValue(0.5);
   const mouseY = useMotionValue(0.5);
+  const isHovered = useMotionValue(0);
 
   const rotateX = useSpring(useTransform(mouseY, [0, 1], [8, -8]), { stiffness: 200, damping: 20 });
   const rotateY = useSpring(useTransform(mouseX, [0, 1], [-8, 8]), { stiffness: 200, damping: 20 });
@@ -36,12 +37,14 @@ const ProfileImage = () => {
     if (!rect) return;
     mouseX.set((e.clientX - rect.left) / rect.width);
     mouseY.set((e.clientY - rect.top) / rect.height);
-  }, [mouseX, mouseY]);
+    isHovered.set(1);
+  }, [mouseX, mouseY, isHovered]);
 
   const handleMouseLeave = useCallback(() => {
     mouseX.set(0.5);
     mouseY.set(0.5);
-  }, [mouseX, mouseY]);
+    isHovered.set(0);
+  }, [mouseX, mouseY, isHovered]);
 
   return (
     <div className="group" style={{ perspective: "1000px" }}>
@@ -57,7 +60,7 @@ const ProfileImage = () => {
           <img src={profileImg} alt="" className="w-full h-full object-cover" />
         </div>
 
-        {/* Main image */}
+        {/* Grayscale base image */}
         <div className="aspect-square bg-border">
           <img
             alt="Eshchar Zychlinski"
@@ -66,15 +69,40 @@ const ProfileImage = () => {
           />
         </div>
 
+        {/* Color image revealed by flashlight mask */}
+        <motion.div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            WebkitMaskImage: useTransform(
+              [glareX, glareY],
+              ([x, y]) =>
+                `radial-gradient(circle 120px at ${x}% ${y}%, black 0%, transparent 100%)`
+            ),
+            maskImage: useTransform(
+              [glareX, glareY],
+              ([x, y]) =>
+                `radial-gradient(circle 120px at ${x}% ${y}%, black 0%, transparent 100%)`
+            ),
+            opacity: isHovered,
+          }}
+        >
+          <img
+            src={profileImg}
+            alt=""
+            className="w-full h-full object-cover"
+          />
+        </motion.div>
+
         {/* Glare overlay */}
         <motion.div
-          className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+          className="absolute inset-0 pointer-events-none"
           style={{
             background: useTransform(
               [glareX, glareY],
               ([x, y]) =>
-                `radial-gradient(circle at ${x}% ${y}%, rgba(255,255,255,0.15) 0%, transparent 60%)`
+                `radial-gradient(circle at ${x}% ${y}%, rgba(255,255,255,0.1) 0%, transparent 50%)`
             ),
+            opacity: isHovered,
           }}
         />
       </motion.div>
