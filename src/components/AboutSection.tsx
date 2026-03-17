@@ -54,11 +54,7 @@ const ProfileImage = () => {
       >
         {/* Ambient blur blob behind */}
         <div className="absolute -z-10 inset-0 opacity-80 blur-[64px] pointer-events-none">
-          <img
-            src={profileImg}
-            alt=""
-            className="w-full h-full object-cover"
-          />
+          <img src={profileImg} alt="" className="w-full h-full object-cover" />
         </div>
 
         {/* Main image */}
@@ -103,6 +99,59 @@ const AboutSection = () => {
           <ProfileImage />
         </motion.div>
       </div>
+
+      {/* Right — Content */}
+      <div className="md:col-span-8">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.6, delay: 0.1 }}
+        >
+          <span className="text-xs uppercase tracking-[0.2em] font-body font-medium text-muted-foreground/60 block mb-6">
+            About
+          </span>
+          <h2 className="text-4xl md:text-5xl font-body font-light text-foreground mb-8">
+            Lead Product Designer with{" "}
+            <span className="font-display italic">8+ years</span> of experience.
+          </h2>
+          <p className="text-muted-foreground text-lg leading-relaxed font-body font-light mb-14">
+            Leading design across Microsoft Teams and AI startups — turning complex
+            machine intelligence into products people understand, trust, and use.
+          </p>
+
+          {/* Resume details */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            {/* Left column: Experience + Education */}
+            <div className="space-y-10">
+              <div>
+                <h3 className="font-body font-semibold text-foreground text-sm uppercase tracking-[0.15em] mb-4">
+                  Experience
+                </h3>
+                <ul className="space-y-2.5 text-base text-muted-foreground font-body font-light">
+                  {experience.map((item) => (
+                    <li key={item.role + item.company} className="flex justify-between">
+                      <span>
+                        {item.role} — <span className="text-foreground/80 font-medium">{item.company}</span>
+                      </span>
+                      <span className="text-muted-foreground/40 shrink-0 ml-4">{item.years}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <h3 className="font-body font-semibold text-foreground text-sm uppercase tracking-[0.15em] mb-4">
+                  Education
+                </h3>
+                <ul className="space-y-2.5 text-base text-muted-foreground font-body font-light">
+                  {education.map((item) => (
+                    <li key={item.degree}>
+                      <span className="text-foreground/80 font-medium">{item.degree}</span> — {item.school}, {item.years}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
 
             {/* Right column: Patents */}
             <div>
