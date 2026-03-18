@@ -1,4 +1,4 @@
-import { motion, useMotionValue, useTransform, useSpring } from "framer-motion";
+import { motion, useMotionValue, useTransform, useSpring, useScroll } from "framer-motion";
 import profileImg from "@/assets/profile.png";
 import { useRef, useCallback } from "react";
 
@@ -27,7 +27,21 @@ const ProfileImage = () => {
   const mouseY = useMotionValue(0.5);
   const isHovered = useMotionValue(0);
 
-  const rotateX = useSpring(useTransform(mouseY, [0, 1], [8, -8]), { stiffness: 200, damping: 20 });
+  // Scroll-based tilt
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const scrollTiltX = useTransform(scrollYProgress, [0, 0.5, 1], [10, 0, -10]);
+
+  // Combine mouse + scroll for rotateX
+  const mouseRotateX = useTransform(mouseY, [0, 1], [8, -8]);
+  const combinedRotateX = useTransform(
+    [mouseRotateX, scrollTiltX, isHovered],
+    ([mouseVal, scrollVal, hovered]: number[]) =>
+      hovered ? mouseVal : scrollVal
+  );
+  const rotateX = useSpring(combinedRotateX, { stiffness: 200, damping: 20 });
   const rotateY = useSpring(useTransform(mouseX, [0, 1], [-8, 8]), { stiffness: 200, damping: 20 });
   const glareX = useTransform(mouseX, [0, 1], [0, 100]);
   const glareY = useTransform(mouseY, [0, 1], [0, 100]);
