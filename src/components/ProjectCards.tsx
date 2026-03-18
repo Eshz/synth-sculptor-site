@@ -51,34 +51,49 @@ const projects: Project[] = [
 
 const BookMock = ({ project }: { project: Project }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const isPointerOver = useMotionValue(0);
 
-  const rotateX = useMotionValue(-12);
-  const rotateY = useMotionValue(28);
+  const mouseRotateX = useMotionValue(-12);
+  const mouseRotateY = useMotionValue(28);
 
-  const rotateXSpring = useSpring(rotateX, { stiffness: 220, damping: 26, mass: 0.6 });
-  const rotateYSpring = useSpring(rotateY, { stiffness: 220, damping: 26, mass: 0.6 });
+  // Scroll-based tilt
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  });
+  const scrollTiltX = useTransform(scrollYProgress, [0, 0.5, 1], [-4, -12, -20]);
+
+  // Combine: use mouse tilt when hovered, scroll tilt otherwise
+  const combinedRotateX = useTransform(
+    [mouseRotateX, scrollTiltX, isPointerOver],
+    ([mouseVal, scrollVal, hovered]: number[]) =>
+      hovered ? mouseVal : scrollVal
+  );
+
+  const rotateXSpring = useSpring(combinedRotateX, { stiffness: 220, damping: 26, mass: 0.6 });
+  const rotateYSpring = useSpring(mouseRotateY, { stiffness: 220, damping: 26, mass: 0.6 });
 
   const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
     const el = containerRef.current;
     if (!el) return;
     const r = el.getBoundingClientRect();
-    const px = (e.clientX - r.left) / r.width; // 0..1
-    const py = (e.clientY - r.top) / r.height; // 0..1
+    const px = (e.clientX - r.left) / r.width;
+    const py = (e.clientY - r.top) / r.height;
 
-    // Small, premium tilt range around the base pose.
-    const maxTiltX = 6; // degrees
-    const maxTiltY = 8; // degrees
+    const maxTiltX = 6;
+    const maxTiltY = 8;
+    const x = (0.5 - py) * 2;
+    const y = (px - 0.5) * 2;
 
-    const x = (0.5 - py) * 2; // -1..1 (top=1)
-    const y = (px - 0.5) * 2; // -1..1 (right=1)
-
-    rotateX.set(-12 + x * maxTiltX);
-    rotateY.set(28 + y * maxTiltY);
+    mouseRotateX.set(-12 + x * maxTiltX);
+    mouseRotateY.set(28 + y * maxTiltY);
+    isPointerOver.set(1);
   };
 
   const onPointerLeave = () => {
-    rotateX.set(-12);
-    rotateY.set(28);
+    mouseRotateX.set(-12);
+    mouseRotateY.set(28);
+    isPointerOver.set(0);
   };
 
   return (
