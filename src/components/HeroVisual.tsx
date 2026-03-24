@@ -1,27 +1,79 @@
 import { useEffect } from "react";
 import { motion } from "framer-motion";
 
+const UNICORN_SCENE_SRC = "/unicorn-portfolio-banner.json.txt";
+const UNICORN_SCRIPT_SRC =
+  "https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v2.1.4/dist/unicornStudio.umd.js";
+
+declare global {
+  interface Window {
+    UnicornStudio?: {
+      init?: () => void;
+      isInitialized?: boolean;
+    };
+  }
+}
+
 const HeroVisual = () => {
   useEffect(() => {
-    const w = window as any;
-    if (w.UnicornStudio && w.UnicornStudio.init) {
+    const w = window;
+    let frameId: number | null = null;
+
+    const initUnicorn = () => {
+      if (!w.UnicornStudio?.init) {
+        return;
+      }
+
       w.UnicornStudio.init();
-    } else {
-      w.UnicornStudio = { isInitialized: false };
-      const script = document.createElement("script");
-      script.src =
-        "https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v2.1.3/dist/unicornStudio.umd.js";
-      script.onload = () => {
-        if (document.readyState === "loading") {
-          document.addEventListener("DOMContentLoaded", () => {
-            (window as any).UnicornStudio.init();
-          });
-        } else {
-          (window as any).UnicornStudio.init();
-        }
-      };
-      (document.head || document.body).appendChild(script);
+      w.UnicornStudio.isInitialized = true;
+    };
+
+    if (w.UnicornStudio?.init) {
+      frameId = window.requestAnimationFrame(initUnicorn);
+      return;
     }
+
+    w.UnicornStudio = w.UnicornStudio ?? { isInitialized: false };
+
+    const existingScript = document.querySelector<HTMLScriptElement>(
+      `script[src="${UNICORN_SCRIPT_SRC}"]`,
+    );
+
+    const handleScriptLoad = () => {
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initUnicorn, { once: true });
+        return;
+      }
+
+      frameId = window.requestAnimationFrame(initUnicorn);
+    };
+
+    if (existingScript) {
+      existingScript.addEventListener("load", handleScriptLoad, { once: true });
+      handleScriptLoad();
+
+      return () => {
+        if (frameId !== null) {
+          window.cancelAnimationFrame(frameId);
+        }
+        existingScript.removeEventListener("load", handleScriptLoad);
+        document.removeEventListener("DOMContentLoaded", initUnicorn);
+      };
+    }
+
+    const script = document.createElement("script");
+    script.src = UNICORN_SCRIPT_SRC;
+    script.async = true;
+    script.addEventListener("load", handleScriptLoad, { once: true });
+    (document.head || document.body).appendChild(script);
+
+    return () => {
+      if (frameId !== null) {
+        window.cancelAnimationFrame(frameId);
+      }
+      script.removeEventListener("load", handleScriptLoad);
+      document.removeEventListener("DOMContentLoaded", initUnicorn);
+    };
   }, []);
 
   return (
@@ -37,7 +89,7 @@ const HeroVisual = () => {
       >
         <div
           style={{ width: "100%", height: "100%" }}
-          data-us-project="LFOtdADhJEiavafxfW4j"
+          data-us-project-src={UNICORN_SCENE_SRC}
         />
       </div>
     </motion.section>

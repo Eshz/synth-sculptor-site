@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { BarChart3, Users, Eye, MessageSquare, Lightbulb, Clock, Target } from "lucide-react";
+import { Lightbulb, Clock, Target } from "lucide-react";
 import CaseStudyLayout from "@/components/CaseStudyLayout";
 import CustomCursor from "@/components/CustomCursor";
 import genwayLogo from "@/assets/logo-genway.svg";
@@ -7,7 +7,7 @@ import genwayLanding from "@/assets/genway-landing.jpg";
 import genwayConference from "@/assets/genway-conference.jpg";
 import genwayInterview from "@/assets/genway-interview.jpg";
 import genwayInsights from "@/assets/genway-insights.jpg";
-
+import genwayFunnel from "@/assets/genway-funnel.svg";
 const fade = {
   initial: { opacity: 0, y: 20 },
   whileInView: { opacity: 1, y: 0 },
@@ -69,6 +69,34 @@ const InsightCard = ({ title, description }: { title: string; description: strin
   </motion.div>
 );
 
+const HeaderLogoCard = () => {
+  return (
+    <>
+      <div className="lg:hidden">
+        <img src={genwayLogo} alt="Genway logo" className="h-7 md:h-9 w-auto" />
+      </div>
+      <div className="hidden lg:block w-full max-w-[220px]" style={{ perspective: "1200px" }}>
+      <div
+        className="relative overflow-hidden rounded-[1.6rem] border-2 border-white/75 bg-white/10 px-8 py-7 shadow-[0_0_48px_4px_rgba(0,0,0,0.08)] backdrop-blur-[18px]"
+      >
+        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.22)_0%,rgba(255,255,255,0.08)_100%)]" />
+        <div className="pointer-events-none absolute inset-x-[8%] top-1/2 -translate-y-1/2 opacity-45 blur-[42px]">
+          <img src={genwayLogo} alt="" className="w-full h-auto" />
+        </div>
+        <div className="pointer-events-none absolute inset-x-[8%] top-1/2 -translate-y-1/2 opacity-30 blur-[72px] scale-110">
+          <img src={genwayLogo} alt="" className="w-full h-auto" />
+        </div>
+        <div
+          className="relative flex min-h-[92px] items-center justify-center"
+        >
+          <img src={genwayLogo} alt="Genway logo" className="relative h-8 w-auto opacity-95" />
+        </div>
+      </div>
+      </div>
+    </>
+  );
+};
+
 const CaseStudyGenway = () => {
   return (
     <>
@@ -81,11 +109,18 @@ const CaseStudyGenway = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
           >
-            <img src={genwayLogo} alt="Genway logo" className="h-8 md:h-10 mb-8" />
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-body font-light leading-[1.1] mb-6 max-w-4xl">
-              Designing the First Experience of{" "}
-              <span className="font-display italic">AI-Moderated Research</span>
-            </h1>
+            <div className="flex flex-col gap-6 md:gap-8 lg:flex-row lg:items-center lg:justify-between">
+              <div className="lg:hidden">
+                <HeaderLogoCard />
+              </div>
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-body font-light leading-[1.1] max-w-4xl">
+                Designing the First Experience of{" "}
+                <span className="font-display italic">AI-Moderated Research</span>
+              </h1>
+              <div className="hidden lg:flex items-center gap-4 lg:gap-0 lg:pl-2">
+                <HeaderLogoCard />
+              </div>
+            </div>
           </motion.div>
         </section>
 
@@ -126,53 +161,53 @@ const CaseStudyGenway = () => {
 
           {/* ─── 2. PROBLEM ─── */}
           <SectionTag>Problem</SectionTag>
-          <SectionTitle>AI moderated research was a new concept for most users.</SectionTitle>
+          <SectionTitle>New users created projects, but too few ever published them.</SectionTitle>
           <Paragraph>
-            Through product analytics, user interviews, and feedback from sales teams, we identified several barriers preventing users from adopting the platform. The core challenge wasn't the product's capability — it was that <Bold>users couldn't build a mental model of what AI-moderated research even meant</Bold> before being asked to commit.
+            The funnel made the real issue clear: <Bold>activation was breaking between project creation and publishing.</Bold> Users were curious enough to start, but the experience wasn't helping them build enough confidence to launch their first real study. That gap dragged conversion down and limited adoption at the most important moment.
           </Paragraph>
+          <Paragraph>
+            The product team's initial instinct was pragmatic: <Bold>increase the number of people who create a project, and the number of people who publish should rise with it.</Bold> More people creating projects would naturally mean more people reaching publish. It was a simple, fast hypothesis and a reasonable place to start.
+          </Paragraph>
+
+          <SectionImage
+            src={genwayFunnel}
+            alt="Funnel chart showing a large drop-off between project creation and publish project"
+            caption="Conversion data showed the biggest drop happened before users published their first project"
+          />
 
           <Divider />
 
           {/* ─── 3. RESEARCH & INSIGHTS ─── */}
           <SectionTag>Research & Insights</SectionTag>
-          <SectionTitle>Understanding why adoption stalled.</SectionTitle>
+          <SectionTitle>AI moderated research was a new concept for most users.</SectionTitle>
           <Paragraph>
-            Before jumping to solutions, I ran a focused research sprint to understand the adoption barriers across every touchpoint.
+            To understand why people were stalling, I kept the research simple and practical. I combined <Bold>direct conversations with potential users in the field</Bold> and <Bold>product data showing where people dropped off</Bold>.
           </Paragraph>
-        </article>
-
-        {/* Methods grid */}
-        <section className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto mb-16">
-          <motion.div {...fade}>
-            <span className="inline-block text-[11px] uppercase tracking-[0.25em] font-body font-medium text-muted-foreground mb-5">
-              Methods
-            </span>
-          </motion.div>
-          <motion.div
-            {...fade}
-            className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border border border-border rounded-2xl overflow-hidden"
-          >
-            {[
-              { icon: BarChart3, method: "Product analytics", detail: "Drop-off rates, session recordings, funnel analysis" },
-              { icon: Users, method: "8 user interviews", detail: "With product managers and UX researchers from target teams" },
-              { icon: Eye, method: "Conference booth observations", detail: "Watching first reactions to the product in real-time" },
-              { icon: MessageSquare, method: "Sales team feedback", detail: "Recurring objections and questions from prospects" },
-            ].map((item) => (
-              <div key={item.method} className="bg-background p-8 flex flex-col gap-4 hover:bg-muted/50 transition-colors">
-                <div className="text-muted-foreground">
-                  <item.icon size={20} />
+          <motion.div {...fade} className="my-10">
+            <div className="space-y-4">
+              {[
+                "Talking to stakeholders across product, sales, and the wider team to understand what they believed was blocking adoption.",
+                "Running field research at conferences by speaking directly with potential customers and users at the booth.",
+                "Analyzing product data after project creation, including drop-off points, churn patterns, heatmaps, and cursor trails to see where users struggled next.",
+              ].map((item) => (
+                <div key={item} className="flex items-start gap-3">
+                  <div className="w-1.5 h-1.5 rounded-full bg-foreground/70 mt-2.5 shrink-0" />
+                  <p className="text-base md:text-lg text-muted-foreground font-body leading-relaxed">{item}</p>
                 </div>
-                <div>
-                  <h4 className="font-body font-medium text-base text-foreground mb-1">{item.method}</h4>
-                  <p className="text-sm text-muted-foreground font-body leading-relaxed">{item.detail}</p>
-                </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </motion.div>
-        </section>
 
-        {/* Key Findings */}
-        <section className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto mb-16">
+          <SectionImage
+            src={genwayConference}
+            alt="Conference booth where Genway met potential customers and users"
+            caption="Field research at conferences helped uncover how potential customers first reacted to the product"
+          />
+
+          <Paragraph>
+            Together, the qualitative conversations and the quantitative data pointed to the same conclusion: <Bold>the challenge was not just onboarding friction inside the product.</Bold> People first needed enough clarity and trust to even want to start a project.
+          </Paragraph>
+
           <motion.div {...fade}>
             <span className="inline-block text-[11px] uppercase tracking-[0.25em] font-body font-medium text-muted-foreground mb-8">
               Key Findings
@@ -190,7 +225,6 @@ const CaseStudyGenway = () => {
                 className="flex gap-5"
               >
                 <div className="shrink-0 flex flex-col items-center gap-2 pt-1">
-                  <span className="text-xs font-body text-muted-foreground/40">{item.num}</span>
                   <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center">
                     <item.icon size={20} className="text-foreground" />
                   </div>
@@ -202,10 +236,10 @@ const CaseStudyGenway = () => {
               </motion.div>
             ))}
           </div>
-        </section>
+        </article>
 
         {/* Reframing callout — dark block */}
-        <section className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto mb-16">
+        <section className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto mt-12 md:mt-16 mb-10 md:mb-12">
           <motion.div
             {...fade}
             className="bg-primary text-primary-foreground rounded-[2rem] p-8 md:p-16 relative overflow-hidden"
@@ -231,6 +265,9 @@ const CaseStudyGenway = () => {
           <SectionTitle>A network of first encounters, not a single flow.</SectionTitle>
           <Paragraph>
             The traditional approach would have been to optimize the product's onboarding wizard. But our research showed the problem was upstream — <Bold>users were dropping off before they ever reached the product.</Bold>
+          </Paragraph>
+          <Paragraph>
+            I recommended stepping back and looking at the bigger system: <Bold>who are the people who eventually create a project, where do they first encounter the platform, and what shapes their willingness to start at all?</Bold> Instead of only trying to push more users through project creation, we focused on improving the entry points that make someone want to create a project in the first place.
           </Paragraph>
 
           <motion.div
