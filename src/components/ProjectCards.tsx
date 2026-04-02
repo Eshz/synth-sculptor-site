@@ -1,10 +1,11 @@
-import { motion, useMotionValue, useSpring, useScroll, useTransform } from "framer-motion";
+import { motion, useInView, useMotionTemplate, useMotionValue, useScroll, useSpring, useTransform } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useRef } from "react";
-import projectIntelliframe from "@/assets/project-intelliframe.jpg";
+import { useEffect, useRef, useState } from "react";
+import projectIntelliframe from "@/assets/cover-intelliframe.gif";
+import projectIntelliframeThumbnail from "@/assets/cover-thumbnail-intelliframe.png";
 import projectGenway from "@/assets/project-genway.jpg";
-import projectTranscript from "@/assets/project-transcript.jpg";
+import projectTranscript from "@/assets/cover-transcriptProject.png";
 
 interface Project {
   title: string;
@@ -18,16 +19,6 @@ interface Project {
 
 const projects: Project[] = [
   {
-    title: "Cloud IntelliFrame",
-    subtitle: "Microsoft Teams",
-    description:
-      "Designing an AI-powered video system that automatically frames in-room meeting participants to improve hybrid collaboration and meeting equity.",
-    focusAreas: ["AI interaction design", "Computer vision UX", "Enterprise collaboration"],
-    poster: projectIntelliframe,
-    slug: "intelliframe",
-    accent: "#0A1FDB",
-  },
-  {
     title: "AI Research Platform",
     subtitle: "Genway",
     description:
@@ -35,7 +26,17 @@ const projects: Project[] = [
     focusAreas: ["AI research workflows", "Insight generation", "Product strategy"],
     poster: projectGenway,
     slug: "genway",
-    accent: "#0D9966",
+    accent: "#6759DF",
+  },
+  {
+    title: "Cloud IntelliFrame",
+    subtitle: "Microsoft Teams",
+    description:
+      "Designing an AI-powered video system that automatically frames in-room meeting participants to improve hybrid collaboration and meeting equity.",
+    focusAreas: ["AI interaction design", "Computer vision UX", "Enterprise collaboration"],
+    poster: projectIntelliframe,
+    slug: "intelliframe",
+    accent: "#1E1E1E",
   },
   {
     title: "Transcript-Driven Insights",
@@ -45,12 +46,13 @@ const projects: Project[] = [
     focusAreas: ["Language models", "Productivity workflows", "AI explainability"],
     poster: projectTranscript,
     slug: "transcript",
-    accent: "#801ACC",
+    accent: "#274B47",
   },
 ];
 
 const BookMock = ({ project }: { project: Project }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const isInView = useInView(containerRef, { amount: 0.86 });
   const isPointerOver = useMotionValue(0);
 
   const mouseRotateX = useMotionValue(-12);
@@ -95,6 +97,11 @@ const BookMock = ({ project }: { project: Project }) => {
     mouseRotateY.set(28);
     isPointerOver.set(0);
   };
+
+  const coverSrc =
+    project.slug === "intelliframe" && !isInView
+      ? projectIntelliframeThumbnail
+      : project.poster;
 
   return (
     <div
@@ -203,7 +210,7 @@ const BookMock = ({ project }: { project: Project }) => {
 
               <div className="flex-1 my-6 rounded-sm overflow-hidden bg-brand-ink shadow-[inset_0_2px_8px_rgba(0,0,0,0.15),0_1px_0_rgba(255,255,255,0.8)]">
                 <img
-                  src={project.poster}
+                  src={coverSrc}
                   alt={project.title}
                   className="w-full h-full object-cover"
                   loading="lazy"
@@ -221,7 +228,7 @@ const BookMock = ({ project }: { project: Project }) => {
 
               <div className="mt-6 flex justify-between items-end font-body text-[10px] uppercase tracking-[0.18em] text-brand-ink/70">
                 <span>Portfolio 2026</span>
-                <span className="opacity-70">X: {12 - project.title.length % 9} Y: {3}</span>
+                <span className="opacity-70">ESHCHAR ZYCHLINSKI</span>
               </div>
             </div>
           </div>
@@ -242,80 +249,103 @@ const BookMock = ({ project }: { project: Project }) => {
 };
 
 const ProjectCards = () => {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [viewportWidth, setViewportWidth] = useState(0);
+
+  useEffect(() => {
+    const updateViewportWidth = () => {
+      setViewportWidth(window.innerWidth);
+    };
+
+    updateViewportWidth();
+    window.addEventListener("resize", updateViewportWidth);
+
+    return () => {
+      window.removeEventListener("resize", updateViewportWidth);
+    };
+  }, []);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start 50%", "start 12%"],
+  });
+  const baseInset = viewportWidth >= 1024 ? 80 : viewportWidth >= 768 ? 48 : 24;
+  const initialContentWidth =
+    viewportWidth > 0 ? Math.min(1400, Math.max(viewportWidth - baseInset * 2, 0)) : 0;
+  const initialSideInset =
+    viewportWidth > 0 ? Math.max((viewportWidth - initialContentWidth) / 2, 0) : 0;
+  const sectionInset = useTransform(scrollYProgress, [0, 1], [initialSideInset, 0]);
+  const sectionRadius = useTransform(scrollYProgress, [0, 1], ["2rem", "0rem"]);
+  const sectionClipPath = useMotionTemplate`inset(0 ${sectionInset}px round ${sectionRadius})`;
+
   return (
-    <section className="selectedwork-ambient py-12 md:py-24 px-6 md:px-12 lg:px-24 max-w-7xl mx-auto text-brand-ink rounded-[2rem] md:rounded-[3rem] my-6 md:my-12">
-      
+    <section ref={sectionRef} className="relative my-6 md:my-12">
       <motion.div
-        initial={{ opacity: 0, y: 16 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.6 }}
-      >
-        <span className="text-xs uppercase tracking-[0.2em] font-body font-medium text-brand-ink/50 block mb-6">
-          Selected Work
-        </span>
-        <div className="flex flex-col md:flex-row justify-between items-end gap-8 mb-16">
-          <h2 className="text-4xl md:text-6xl font-body font-light text-brand-ink">
-            A selection of{" "}
-            <span className="font-display italic text-brand-ink">AI product design</span>{" "}
-            work.
-          </h2>
-          <p className="text-brand-ink/60 max-w-xs text-sm font-body">
-            Across enterprise platforms, innovation teams, and emerging startups.
-          </p>
-        </div>
-      </motion.div>
+        className="selectedwork-ambient absolute inset-0"
+        style={{
+          clipPath: sectionClipPath,
+          borderRadius: sectionRadius,
+        }}
+      />
+      <div className="relative z-10 py-12 md:py-24 text-brand-ink">
+        <div className="mx-auto max-w-[1400px] px-6 md:px-12 lg:px-20">
+          <div>
+            <span className="text-xs uppercase tracking-[0.2em] font-body font-medium text-brand-ink/50 block mb-6">
+              Selected Work
+            </span>
+            <div className="flex flex-col gap-6 mb-14 md:mb-16">
+              <h2 className="text-4xl md:text-6xl font-body font-light text-brand-ink max-w-4xl">
+                Some of the things I&apos;ve worked on in my <span className="font-display italic text-brand-ink">career</span>.
+              </h2>
+            </div>
+          </div>
 
-      <div className="space-y-24 md:space-y-48 mt-12 md:mt-24">
-        {projects.map((project, i) => (
-          <motion.div
-            key={project.title}
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.6, delay: i * 0.1 }}
-          >
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
-              <div className="order-1 lg:order-1 h-[450px] md:h-[600px] flex items-center justify-center">
-                <Link to={`/work/${project.slug}`} className="block" data-interactive>
-                  <BookMock project={project} />
-                </Link>
-              </div>
-
-              <div className="order-2 lg:order-2">
-                <div className="max-w-md">
-                  <span className="text-xs uppercase tracking-[0.2em] text-brand-ink/50 block mb-2 font-body">
-                    {project.subtitle}
-                  </span>
-                  <h3 className="text-3xl md:text-5xl font-body font-light text-brand-ink mb-4 md:mb-6">
-                    {project.title}
-                  </h3>
-                  <p className="text-brand-ink/60 leading-relaxed font-body mb-6 md:mb-8 text-base md:text-lg">
-                    {project.description}
-                  </p>
-                  <div className="flex flex-wrap gap-2 md:gap-3 mb-8 md:mb-12">
-                    {project.focusAreas.map((area) => (
-                      <span
-                        key={area}
-                        className="px-3 md:px-4 py-1 md:py-1.5 border border-brand-ink/15 rounded-full text-[9px] md:text-[10px] uppercase tracking-wider text-brand-ink/60 font-body bg-white/30 backdrop-blur-[2px]"
-                      >
-                        {area}
-                      </span>
-                    ))}
+          <div className="space-y-16 md:space-y-28 mt-12 md:mt-20">
+            {projects.map((project, i) => (
+              <div key={project.title}>
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
+                  <div className="order-1 lg:order-1 h-[450px] md:h-[600px] flex items-center justify-center">
+                    <Link to={`/work/${project.slug}`} className="block" data-interactive>
+                      <BookMock project={project} />
+                    </Link>
                   </div>
-                  <Link
-                    to={`/work/${project.slug}`}
-                    className="group inline-flex items-center gap-3 text-brand-ink font-body font-medium hover:text-brand-ink/80 transition-colors"
-                    data-interactive
-                  >
-                    View Case Study
-                    <ArrowUpRight className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                  </Link>
+
+                  <div className="order-2 lg:order-2">
+                    <div className="max-w-md">
+                      <span className="text-xs uppercase tracking-[0.2em] text-brand-ink/50 block mb-2 font-body">
+                        {project.subtitle}
+                      </span>
+                      <h3 className="text-3xl md:text-5xl font-body font-light text-brand-ink mb-4 md:mb-6">
+                        {project.title}
+                      </h3>
+                      <p className="text-brand-ink/60 leading-relaxed font-body mb-6 md:mb-8 text-base md:text-lg">
+                        {project.description}
+                      </p>
+                      <div className="flex flex-wrap gap-2 md:gap-3 mb-8 md:mb-12">
+                        {project.focusAreas.map((area) => (
+                          <span
+                            key={area}
+                            className="px-3 md:px-4 py-1 md:py-1.5 border border-brand-ink/15 rounded-full text-[9px] md:text-[10px] uppercase tracking-wider text-brand-ink/60 font-body bg-white/30 backdrop-blur-[2px]"
+                          >
+                            {area}
+                          </span>
+                        ))}
+                      </div>
+                      <Link
+                        to={`/work/${project.slug}`}
+                        className="group inline-flex items-center gap-3 text-brand-ink font-body font-medium hover:text-brand-ink/80 transition-colors"
+                        data-interactive
+                      >
+                        View Case Study
+                        <ArrowUpRight className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                      </Link>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </motion.div>
-        ))}
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

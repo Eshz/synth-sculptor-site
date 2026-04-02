@@ -236,7 +236,7 @@
     z-index: 20;
   }
 
-  .book3d-inner:hover .book3d-overlay {
+  .book3d-container:hover .book3d-overlay {
     opacity: 1;
     pointer-events: auto;
   }

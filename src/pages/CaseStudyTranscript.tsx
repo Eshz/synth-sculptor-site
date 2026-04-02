@@ -53,7 +53,7 @@ const CaseStudyTranscript = () => {
               This project is covered by NDA. Please contact me to discuss details.
             </p>
             <a
-              href="mailto:esh2005@gmail.com"
+              href="mailto:eshchar.zych@gmail.com"
               className="inline-flex items-center px-6 py-3 rounded-full bg-foreground text-background font-body text-sm font-medium hover:opacity-90 transition-opacity duration-200"
               data-interactive
             >

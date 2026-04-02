@@ -157,8 +157,8 @@ const AboutSection = () => {
             Lead Product Designer with{" "}
             <span className="font-display italic">8+ years</span> of experience.
           </h2>
-          <p className="text-muted-foreground text-lg leading-relaxed font-body font-light mb-14">
-            Leading design across Microsoft Teams and AI startups — turning complex
+          <p className="text-foreground/72 text-lg leading-relaxed font-body font-light mb-14">
+            Leading design across Microsoft Teams and AI startups · turning complex
             machine intelligence into products people understand, trust, and use.
           </p>
 
@@ -170,13 +170,13 @@ const AboutSection = () => {
                 <h3 className="font-body font-semibold text-foreground text-sm uppercase tracking-[0.15em] mb-4">
                   Experience
                 </h3>
-                <ul className="space-y-2.5 text-base text-muted-foreground font-body font-light">
+                <ul className="space-y-2.5 text-base text-foreground/72 font-body font-light">
                   {experience.map((item) => (
                     <li key={item.role + item.company} className="flex justify-between">
                       <span>
-                        {item.role} — <span className="text-foreground/80 font-medium">{item.company}</span>
+                        {item.role} · <span className="text-foreground font-medium">{item.company}</span>
                       </span>
-                      <span className="text-muted-foreground/40 shrink-0 ml-4">{item.years}</span>
+                      <span className="text-foreground/55 shrink-0 ml-4">{item.years}</span>
                     </li>
                   ))}
                 </ul>
@@ -185,10 +185,10 @@ const AboutSection = () => {
                 <h3 className="font-body font-semibold text-foreground text-sm uppercase tracking-[0.15em] mb-4">
                   Education
                 </h3>
-                <ul className="space-y-2.5 text-base text-muted-foreground font-body font-light">
+                <ul className="space-y-2.5 text-base text-foreground/72 font-body font-light">
                   {education.map((item) => (
                     <li key={item.degree}>
-                      <span className="text-foreground/80 font-medium">{item.degree}</span> — {item.school}, {item.years}
+                      <span className="text-foreground font-medium">{item.degree}</span> · {item.school}, {item.years}
                     </li>
                   ))}
                 </ul>
@@ -200,10 +200,10 @@ const AboutSection = () => {
               <h3 className="font-body font-semibold text-foreground text-sm uppercase tracking-[0.15em] mb-4">
                 Patents
               </h3>
-              <ul className="space-y-2.5 text-base text-muted-foreground font-body font-light">
+              <ul className="space-y-2.5 text-base text-foreground/72 font-body font-light">
                 {patents.map((item) => (
                   <li key={item.title}>
-                    {item.title} <span className="text-muted-foreground/40">· {item.year}</span>
+                    {item.title} <span className="text-foreground/55">· {item.year}</span>
                   </li>
                 ))}
               </ul>

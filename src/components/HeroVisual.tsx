@@ -81,10 +81,10 @@ const HeroVisual = () => {
       initial={{ opacity: 0, y: 24 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, delay: 0.1, ease: [0.25, 0.46, 0.45, 0.94] }}
-      className="px-6 md:px-12 lg:px-20 pt-8 pb-16 md:pt-12 md:pb-24 max-w-[1400px] mx-auto"
+      className="px-6 md:px-12 lg:px-20 pt-8 pb-8 md:pt-12 md:pb-14 max-w-[1400px] mx-auto"
     >
       <div
-        className="w-full overflow-hidden rounded-2xl md:rounded-3xl bg-card border border-border"
+        className="w-full overflow-hidden rounded-2xl md:rounded-3xl bg-card border border-border min-h-[68svh] md:min-h-0"
         style={{ aspectRatio: "1440 / 900" }}
       >
         <div

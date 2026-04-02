@@ -1,9 +1,9 @@
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from "framer-motion";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 
 const navLinks = [
-  { label: "EMAIL", href: "mailto:esh2005@gmail.com" },
+  { label: "EMAIL", href: "mailto:eshchar.zych@gmail.com" },
   { label: "RESUME", href: "/Resume-EshcharZychlinski.pdf", external: true },
   { label: "LINKEDIN", href: "https://www.linkedin.com/in/eshchar-zychlinski/", external: true },
 ];
@@ -27,40 +27,44 @@ const DesktopLinks = () => (
 const MobileMenu = ({ open, onClose }: { open: boolean; onClose: () => void }) => (
   <AnimatePresence>
     {open && (
-      <>
-        {/* Overlay backdrop */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.2 }}
-          className="fixed inset-0 z-40 bg-background/80 backdrop-blur-sm md:hidden"
-          onClick={onClose}
-        />
-        {/* Menu panel */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.25, ease: "easeOut" }}
-          className="fixed top-16 left-0 right-0 z-50 mx-4 rounded-xl border border-border/50 bg-background/95 backdrop-blur-md shadow-lg md:hidden"
-        >
-          <div className="flex flex-col gap-5 px-6 py-6">
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.25, ease: "easeOut" }}
+        className="fixed inset-0 z-[60] bg-background md:hidden"
+      >
+        <div className="flex min-h-svh flex-col px-6 pb-10 pt-6">
+          <div className="flex items-center justify-between">
+            <span className="font-body text-xs font-medium tracking-[0.15em] uppercase text-foreground">
+              Eshchar Zychlinski
+            </span>
+            <button
+              className="text-foreground cursor-pointer"
+              onClick={onClose}
+              aria-label="Close menu"
+              data-interactive
+            >
+              <X className="h-5 w-5" />
+            </button>
+          </div>
+
+          <div className="flex flex-1 flex-col justify-center gap-8">
             {navLinks.map((link) => (
               <a
                 key={link.label}
                 href={link.href}
                 {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                 onClick={onClose}
-                className="text-sm font-body font-medium tracking-[0.15em] text-muted-foreground hover:text-foreground transition-colors duration-200 cursor-pointer"
+                className="text-2xl font-body font-medium tracking-[0.12em] text-foreground/85 hover:text-foreground transition-colors duration-200 cursor-pointer"
                 data-interactive
               >
                 {link.label}
               </a>
             ))}
           </div>
-        </motion.div>
-      </>
+        </div>
+      </motion.div>
     )}
   </AnimatePresence>
 );
@@ -70,6 +74,14 @@ const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const lastScrollY = useRef(0);
   const { scrollY } = useScroll();
+
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? "hidden" : "";
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
 
   useMotionValueEvent(scrollY, "change", (current) => {
     const diff = current - lastScrollY.current;
