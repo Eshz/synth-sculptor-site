@@ -2,9 +2,32 @@ import { motion, useInView, useMotionTemplate, useMotionValue, useScroll, useSpr
 import { ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
+
+const ViewCaseStudyLink = ({ slug }: { slug: string }) => {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <Link
+      to={`/work/${slug}`}
+      className="relative inline-flex items-center gap-3 text-brand-ink font-body font-medium pb-px"
+      data-interactive
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      View Case Study
+      <ArrowUpRight className={`transition-transform duration-200 ${hovered ? "translate-x-1 -translate-y-1" : ""}`} />
+      <motion.span
+        className="absolute bottom-0 left-0 h-px bg-brand-ink"
+        initial={false}
+        animate={{ width: hovered ? "calc(100% - 28px)" : "0%" }}
+        transition={{ duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }}
+      />
+    </Link>
+  );
+};
 import projectIntelliframe from "@/assets/cover-intelliframe.gif";
 import projectIntelliframeThumbnail from "@/assets/cover-thumbnail-intelliframe.png";
-import projectGenway from "@/assets/project-genway.jpg";
+import projectGenway from "@/assets/cover-video-genway.gif";
+import projectGenwaythumbnail from "@/assets/cover-thumbnail-genway.png";
 import projectTranscript from "@/assets/cover-transcriptProject.png";
 
 interface Project {
@@ -38,16 +61,6 @@ const projects: Project[] = [
     slug: "intelliframe",
     accent: "#1E1E1E",
   },
-  {
-    title: "Transcript-Driven Insights",
-    subtitle: "Microsoft",
-    description:
-      "Exploring how meeting transcripts can power post-meeting productivity tools through AI summarization and conversational interfaces.",
-    focusAreas: ["Language models", "Productivity workflows", "AI explainability"],
-    poster: projectTranscript,
-    slug: "transcript",
-    accent: "#274B47",
-  },
 ];
 
 const BookMock = ({ project }: { project: Project }) => {
@@ -63,7 +76,9 @@ const BookMock = ({ project }: { project: Project }) => {
     target: containerRef,
     offset: ["start end", "end start"],
   });
-  const scrollTiltX = useTransform(scrollYProgress, [0, 0.5, 1], [-4, -12, -20]);
+  // Scroll drives both axes — wider range for visibility
+  const scrollTiltX = useTransform(scrollYProgress, [0, 0.5, 1], [4, -14, -28]);
+  const scrollTiltY = useTransform(scrollYProgress, [0, 0.5, 1], [18, 28, 38]);
 
   // Combine: use mouse tilt when hovered, scroll tilt otherwise
   const combinedRotateX = useTransform(
@@ -71,9 +86,14 @@ const BookMock = ({ project }: { project: Project }) => {
     ([mouseVal, scrollVal, hovered]: number[]) =>
       hovered ? mouseVal : scrollVal
   );
+  const combinedRotateY = useTransform(
+    [mouseRotateY, scrollTiltY, isPointerOver],
+    ([mouseVal, scrollVal, hovered]: number[]) =>
+      hovered ? mouseVal : scrollVal
+  );
 
   const rotateXSpring = useSpring(combinedRotateX, { stiffness: 220, damping: 26, mass: 0.6 });
-  const rotateYSpring = useSpring(mouseRotateY, { stiffness: 220, damping: 26, mass: 0.6 });
+  const rotateYSpring = useSpring(combinedRotateY, { stiffness: 220, damping: 26, mass: 0.6 });
 
   const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
     const el = containerRef.current;
@@ -101,7 +121,9 @@ const BookMock = ({ project }: { project: Project }) => {
   const coverSrc =
     project.slug === "intelliframe" && !isInView
       ? projectIntelliframeThumbnail
-      : project.poster;
+      : project.slug === "genway" && !isInView
+        ? projectGenwaythumbnail
+        : project.poster;
 
   return (
     <div
@@ -180,7 +202,7 @@ const BookMock = ({ project }: { project: Project }) => {
         <div className="book3d-face book3d-back">
           <div className="h-full p-6 flex flex-col">
             <div className="flex justify-between font-body text-[10px] uppercase tracking-[0.12em] text-brand-ink/60 border-b border-brand-ink/10 pb-2 mb-4">
-              <span>AI Product Design</span>
+              <span>Product Design</span>
               <span>V.2026</span>
             </div>
             <h4 className="text-base font-body font-medium text-brand-ink mb-3">{project.title}</h4>
@@ -205,7 +227,7 @@ const BookMock = ({ project }: { project: Project }) => {
 
               <div className="flex justify-between font-body text-[10px] uppercase tracking-[0.12em] text-brand-ink/60">
                 <span>{project.subtitle}</span>
-                <span>AI Product Design</span>
+                <span>Product Design</span>
               </div>
 
               <div className="flex-1 my-6 rounded-sm overflow-hidden bg-brand-ink shadow-[inset_0_2px_8px_rgba(0,0,0,0.15),0_1px_0_rgba(255,255,255,0.8)]">
@@ -228,7 +250,7 @@ const BookMock = ({ project }: { project: Project }) => {
 
               <div className="mt-6 flex justify-between items-end font-body text-[10px] uppercase tracking-[0.18em] text-brand-ink/70">
                 <span>Portfolio 2026</span>
-                <span className="opacity-70">ESHCHAR ZYCHLINSKI</span>
+                <span className="opacity-70">EZ</span>
               </div>
             </div>
           </div>
@@ -269,7 +291,7 @@ const ProjectCards = () => {
     target: sectionRef,
     offset: ["start 50%", "start 12%"],
   });
-  const baseInset = viewportWidth >= 1024 ? 80 : viewportWidth >= 768 ? 48 : 24;
+  const baseInset = viewportWidth >= 1024 ? 40 : viewportWidth >= 768 ? 24 : 12;
   const initialContentWidth =
     viewportWidth > 0 ? Math.min(1400, Math.max(viewportWidth - baseInset * 2, 0)) : 0;
   const initialSideInset =
@@ -288,14 +310,14 @@ const ProjectCards = () => {
         }}
       />
       <div className="relative z-10 py-12 md:py-24 text-brand-ink">
-        <div className="mx-auto max-w-[1400px] px-6 md:px-12 lg:px-20">
+        <div className="mx-auto max-w-[1400px] px-12 md:px-24 lg:px-32">
           <div>
             <span className="text-xs uppercase tracking-[0.2em] font-body font-medium text-brand-ink/50 block mb-6">
-              Selected Work
+              Recent Work
             </span>
             <div className="flex flex-col gap-6 mb-14 md:mb-16">
               <h2 className="text-4xl md:text-6xl font-body font-light text-brand-ink max-w-4xl">
-                Some of the things I&apos;ve worked on in my <span className="font-display italic text-brand-ink">career</span>.
+                Some things I&apos;ve worked on <span className="font-display italic text-brand-ink">recently</span>.
               </h2>
             </div>
           </div>
@@ -331,14 +353,7 @@ const ProjectCards = () => {
                           </span>
                         ))}
                       </div>
-                      <Link
-                        to={`/work/${project.slug}`}
-                        className="group inline-flex items-center gap-3 text-brand-ink font-body font-medium hover:text-brand-ink/80 transition-colors"
-                        data-interactive
-                      >
-                        View Case Study
-                        <ArrowUpRight className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                      </Link>
+                      <ViewCaseStudyLink slug={project.slug} />
                     </div>
                   </div>
                 </div>

@@ -1,6 +1,6 @@
-import { motion, useMotionValue, useTransform, useSpring, useScroll } from "framer-motion";
+import { motion, useTransform, useSpring, useScroll } from "framer-motion";
 import profileImg from "@/assets/profile.png";
-import { useRef, useCallback } from "react";
+import { useRef } from "react";
 
 const experience = [
   { role: "Head of Product Design", company: "Genway AI", years: "2025–Present" },
@@ -23,51 +23,29 @@ const patents = [
 
 const ProfileImage = () => {
   const ref = useRef<HTMLDivElement>(null);
-  const mouseX = useMotionValue(0.5);
-  const mouseY = useMotionValue(0.5);
-  const isHovered = useMotionValue(0);
 
-  // Scroll-based tilt
+  // All effects driven purely by scroll
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
   });
-  const scrollTiltX = useTransform(scrollYProgress, [0, 0.5, 1], [10, 0, -10]);
 
-  // Combine mouse + scroll for rotateX
-  const mouseRotateX = useTransform(mouseY, [0, 1], [8, -8]);
-  const combinedRotateX = useTransform(
-    [mouseRotateX, scrollTiltX, isHovered],
-    ([mouseVal, scrollVal, hovered]: number[]) =>
-      hovered ? mouseVal : scrollVal
-  );
-  const rotateX = useSpring(combinedRotateX, { stiffness: 200, damping: 20 });
-  const rotateY = useSpring(useTransform(mouseX, [0, 1], [-8, 8]), { stiffness: 200, damping: 20 });
-  const glareX = useTransform(mouseX, [0, 1], [0, 100]);
-  const glareY = useTransform(mouseY, [0, 1], [0, 100]);
+  const scrollTiltX = useTransform(scrollYProgress, [0, 0.5, 1], [14, 0, -14]);
+  const scrollTiltY = useTransform(scrollYProgress, [0, 0.5, 1], [-10, 0, 10]);
+  const rotateX = useSpring(scrollTiltX, { stiffness: 150, damping: 22 });
+  const rotateY = useSpring(scrollTiltY, { stiffness: 150, damping: 22 });
 
-  const handleMouseMove = useCallback((e: React.MouseEvent) => {
-    const rect = ref.current?.getBoundingClientRect();
-    if (!rect) return;
-    mouseX.set((e.clientX - rect.left) / rect.width);
-    mouseY.set((e.clientY - rect.top) / rect.height);
-    isHovered.set(1);
-  }, [mouseX, mouseY, isHovered]);
-
-  const handleMouseLeave = useCallback(() => {
-    mouseX.set(0.5);
-    mouseY.set(0.5);
-    isHovered.set(0);
-  }, [mouseX, mouseY, isHovered]);
+  // Color flash spotlight moves diagonally with scroll
+  const glareX = useTransform(scrollYProgress, [0, 1], [15, 85]);
+  const glareY = useTransform(scrollYProgress, [0, 1], [15, 85]);
+  const flashOpacity = useTransform(scrollYProgress, [0, 0.25, 0.5, 0.75, 1], [0, 0.7, 1, 0.7, 0]);
 
   return (
-    <div className="group" style={{ perspective: "1000px" }}>
+    <div style={{ perspective: "1000px" }}>
       <motion.div
         ref={ref}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
         style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-        className="relative rounded-[2rem] overflow-hidden shadow-lg transition-shadow duration-500 hover:shadow-2xl"
+        className="relative rounded-[2rem] overflow-hidden shadow-lg"
       >
         {/* Ambient blur blob behind */}
         <div className="absolute -z-10 inset-0 opacity-80 blur-[64px] pointer-events-none">
@@ -83,28 +61,24 @@ const ProfileImage = () => {
           />
         </div>
 
-        {/* Color image revealed by flashlight mask */}
+        {/* Color image revealed by scroll-driven spotlight */}
         <motion.div
           className="absolute inset-0 pointer-events-none"
           style={{
             WebkitMaskImage: useTransform(
               [glareX, glareY],
               ([x, y]) =>
-                `radial-gradient(circle 120px at ${x}% ${y}%, black 0%, transparent 100%)`
+                `radial-gradient(circle 220px at ${x}% ${y}%, black 0%, transparent 100%)`
             ),
             maskImage: useTransform(
               [glareX, glareY],
               ([x, y]) =>
-                `radial-gradient(circle 120px at ${x}% ${y}%, black 0%, transparent 100%)`
+                `radial-gradient(circle 220px at ${x}% ${y}%, black 0%, transparent 100%)`
             ),
-            opacity: isHovered,
+            opacity: flashOpacity,
           }}
         >
-          <img
-            src={profileImg}
-            alt=""
-            className="w-full h-full object-cover"
-          />
+          <img src={profileImg} alt="" className="w-full h-full object-cover" />
         </motion.div>
 
         {/* Glare overlay */}
@@ -114,9 +88,9 @@ const ProfileImage = () => {
             background: useTransform(
               [glareX, glareY],
               ([x, y]) =>
-                `radial-gradient(circle at ${x}% ${y}%, rgba(255,255,255,0.1) 0%, transparent 50%)`
+                `radial-gradient(circle at ${x}% ${y}%, rgba(255,255,255,0.12) 0%, transparent 50%)`
             ),
-            opacity: isHovered,
+            opacity: flashOpacity,
           }}
         />
       </motion.div>

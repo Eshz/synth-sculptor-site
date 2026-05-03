@@ -8,18 +8,34 @@ const navLinks = [
   { label: "LINKEDIN", href: "https://www.linkedin.com/in/eshchar-zychlinski/", external: true },
 ];
 
+const NavLink = ({ link }: { link: typeof navLinks[number] }) => {
+  const [hovered, setHovered] = useState(false);
+
+  return (
+    <a
+      key={link.label}
+      href={link.href}
+      {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      className="relative text-xs font-body font-medium tracking-[0.15em] text-muted-foreground hover:text-foreground transition-colors duration-200 cursor-pointer pb-px"
+      data-interactive
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      {link.label}
+      <motion.span
+        className="absolute bottom-0 left-0 h-px bg-foreground"
+        initial={false}
+        animate={{ width: hovered ? "100%" : "0%" }}
+        transition={{ duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }}
+      />
+    </a>
+  );
+};
+
 const DesktopLinks = () => (
-  <div className="hidden md:flex items-center gap-10 text-xs font-body font-medium tracking-[0.15em] text-muted-foreground">
+  <div className="hidden md:flex items-center gap-10">
     {navLinks.map((link) => (
-      <a
-        key={link.label}
-        href={link.href}
-        {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-        className="hover:text-foreground transition-colors duration-200 cursor-pointer"
-        data-interactive
-      >
-        {link.label}
-      </a>
+      <NavLink key={link.label} link={link} />
     ))}
   </div>
 );
