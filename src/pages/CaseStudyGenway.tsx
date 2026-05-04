@@ -3,12 +3,13 @@ import { Lightbulb, Clock, Target } from "lucide-react";
 import CaseStudyLayout from "@/components/CaseStudyLayout";
 import CustomCursor from "@/components/CustomCursor";
 import genwayLogo from "@/assets/logo-genway.svg";
-import genwayTeaser from "@/assets/720p_teaserGenway.mp4";
-import genwayLanding from "@/assets/genway-landing.jpg";
-import genwayConference from "@/assets/genway-conference.jpg";
-import genwayInterview from "@/assets/genway-interview.jpg";
+import genwayTeaser from "@/assets/genway/720p_teaserGenway.mp4";
+import genwayConference from "@/assets/genway/genway-conference.jpg";
+import genwayFunnel from "@/assets/genway/genway-funnel.svg";
+import genwayGPTLoop from "@/assets/genway/genwayGPT-loop.mp4";
+import lobbyIdeation from "@/assets/genway/lobby-screen-ideation.png";
+import lobbyVariations from "@/assets/genway/lobby-screen-variations.png";
 import genwayInsights from "@/assets/genway-insights.jpg";
-import genwayFunnel from "@/assets/genway-funnel.svg";
 const fade = {
   initial: { opacity: 0, y: 20 },
   whileInView: { opacity: 1, y: 0 },
@@ -258,10 +259,10 @@ const CaseStudyGenway = () => {
 
           <motion.div {...fade} className="my-8 space-y-3">
             {[
-              { title: "Discovering", desc: "Explain the category instantly — visual identity at conferences" },
-              { title: "Creating", desc: "Teach the concept, reduce commitment — landing page with interactive AI preview" },
-              { title: "Participating", desc: "Build participant trust — redesigned interview lobby" },
-              { title: "Receiving", desc: "Communicate value to stakeholders — clearer insight summaries" },
+              { title: "Participating", desc: "Build trust with participants — redesigned interview lobby before the AI conversation starts" },
+              { title: "Creating", desc: "Reduce time to value — GPT prompt in the hero that generates a ready-to-publish project instantly" },
+              { title: "Discovering", desc: "Explain the category at first glance — visual identity and booth presence at conferences" },
+              { title: "Receiving", desc: "Communicate value to stakeholders — clearer insight summaries for first-time viewers" },
             ].map((item) => (
               <div key={item.title} className="flex items-start gap-3">
                 <div className="w-1.5 h-1.5 rounded-full bg-foreground/50 mt-2.5 shrink-0" />
@@ -275,122 +276,73 @@ const CaseStudyGenway = () => {
           <Divider />
 
           {/* ─── 5. SOLUTIONS ─── */}
-          <SectionTag>Solution — 01 Discovering</SectionTag>
-          <SectionTitle>Making AI research approachable at first glance.</SectionTitle>
+          <SectionTag>Solution — 01 Participating</SectionTag>
+          <SectionTitle>Building trust before the conversation starts.</SectionTitle>
           <Paragraph>
-            At industry conferences, Genway needed to communicate a completely new category in seconds. <Bold>I designed a visual language focused on conversational intelligence, human-AI collaboration, and insights emerging from conversations.</Bold>
+            Participants are the largest group that encounters Genway — often without any prior context. <Bold>For many, the interview lobby was their first interaction with the system, and the previous experience lacked any clarity about what would happen next.</Bold> I redesigned the lobby to explain the AI process upfront, set expectations for the conversation, and reduce hesitation before the interview began.
           </Paragraph>
         </article>
 
-        <section className="px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto">
-          <SectionImage
-            src={genwayConference}
-            alt="Conference booth design showcasing AI research platform"
-            caption="Visual identity designed for conferences — making AI research approachable at first glance"
-          />
+        <section className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto">
+          <motion.div {...fade} className="my-12 md:my-16 grid grid-cols-1 md:grid-cols-2 gap-4">
+            {[
+              { src: lobbyIdeation, alt: "Lobby screen ideation — early explorations of the interview entry experience", caption: "Early ideation — mapping the structure of the lobby" },
+              { src: lobbyVariations, alt: "Lobby screen design variations for participant trust-building", caption: "Design variations tested with participants" },
+            ].map((item) => (
+              <motion.figure key={item.alt} {...fade}>
+                <div className="relative overflow-hidden rounded-2xl">
+                  <img src={item.src} alt={item.alt} className="w-full h-auto object-cover" loading="lazy" />
+                  <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-foreground/5" />
+                </div>
+                <figcaption className="mt-3 text-xs text-muted-foreground font-body tracking-wide text-center">{item.caption}</figcaption>
+              </motion.figure>
+            ))}
+          </motion.div>
         </section>
 
         <article className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto">
           <Divider />
 
           <SectionTag>Solution — 02 Creating</SectionTag>
-          <SectionTitle>Turning the landing page into a product experience.</SectionTitle>
+          <SectionTitle>One prompt. A fully-configured project, ready to publish.</SectionTitle>
           <Paragraph>
-            The landing page originally described the product but did little to help users understand how it worked. <Bold>I redesigned the page as a narrative experience</Bold> guiding users through the concept step by step.
+            The core friction for new users wasn't the product itself — it was the blank slate. Users landed on the platform, understood roughly what it did, but had no clear starting point. <Bold>The gap between curiosity and a first published study was too wide.</Bold>
           </Paragraph>
-
-          {/* Landing page narrative flow */}
-          <motion.div {...fade} className="my-8">
-            <span className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground font-body block mb-4">
-              Information architecture
-            </span>
-            <div className="space-y-3">
-              {[
-                { step: "1", label: "Problem", desc: "Why traditional research is slow and expensive" },
-                { step: "2", label: "How it works", desc: "AI conducts moderated interviews autonomously" },
-                { step: "3", label: "Generated insights", desc: "Real example of analysis output" },
-                { step: "4", label: "Try the AI", desc: "Interactive GPT prompt — experience before signing up" },
-                { step: "5", label: "Start a project", desc: "Low-friction signup after understanding the value" },
-              ].map((item) => (
-                <div key={item.step} className="flex items-start gap-4 bg-card border border-border rounded-xl p-4">
-                  <span className="text-xs font-body font-medium text-muted-foreground mt-0.5 shrink-0 w-5">{item.step}</span>
-                  <div>
-                    <span className="text-sm font-body font-medium text-foreground">{item.label}</span>
-                    <span className="text-xs text-muted-foreground font-body block mt-0.5">{item.desc}</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </motion.div>
+          <Paragraph>
+            I designed a GPT-powered component placed directly in the hero section of the product. A user types a single research question — "Why are users churning after onboarding?" — and the system instantly generates a fully-structured project: interview questions, participant criteria, and research scope. <Bold>The project is ready to review and publish in seconds, not hours.</Bold> This collapsed the time-to-value and gave users something concrete to react to rather than something abstract to configure.
+          </Paragraph>
         </article>
 
-        <section className="px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto">
-          <SectionImage
-            src={genwayLanding}
-            alt="Redesigned landing page as narrative experience"
-            caption="The landing page redesigned as a narrative — teaching AI research step by step"
-          />
+        <section className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto my-12 md:my-16">
+          <motion.div {...fade} className="relative overflow-hidden rounded-2xl md:rounded-3xl">
+            <video
+              src={genwayGPTLoop}
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="w-full h-auto object-cover"
+            />
+            <div className="absolute inset-0 rounded-2xl md:rounded-3xl ring-1 ring-inset ring-foreground/5 pointer-events-none" />
+          </motion.div>
+          <p className="mt-4 text-xs text-muted-foreground font-body tracking-wide text-center">The Genway GPT component — a single prompt generates a complete, publishable research project</p>
         </section>
 
         <article className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto">
-          {/* GPT preview */}
-          <SectionTitle>Let users try the AI before signing up.</SectionTitle>
-          <Paragraph>
-            The key innovation was embedding a GPT input field directly on the landing page. <Bold>Users type a research question and the system generates a project preview automatically</Bold> — turning the page from a static explanation into an interactive product experience.
-          </Paragraph>
-
-          <motion.div
-            {...fade}
-            className="my-12 bg-card rounded-2xl border border-border p-8 md:p-12"
-          >
-            <span className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground font-body block mb-4">
-              Example interaction
-            </span>
-            <p className="text-lg md:text-xl font-body text-foreground/80 italic leading-relaxed">
-              "Why are users abandoning our onboarding flow?"
-            </p>
-            <div className="mt-6 pt-6 border-t border-border">
-              <p className="text-sm text-muted-foreground font-body leading-relaxed">
-                The system generates a research project — including interview questions, research structure, and participant criteria — without requiring signup.
-              </p>
-            </div>
-          </motion.div>
-
           <Divider />
 
-          <SectionTag>Solution — 02 Creating (continued)</SectionTag>
-          <SectionTitle>Fast first success, not complex configuration.</SectionTitle>
+          <SectionTag>Solution — 03 Discovering</SectionTag>
+          <SectionTitle>Making AI research approachable at first glance.</SectionTitle>
           <Paragraph>
-            For users who did sign up, the onboarding was redesigned to prioritize speed. <Bold>Instead of configuring complex settings upfront, users follow three simple steps:</Bold>
-          </Paragraph>
-
-          <motion.div {...fade} className="my-8 space-y-4">
-            {[
-              { num: "01", text: "Define what they want to learn" },
-              { num: "02", text: "Review AI-generated interview questions" },
-              { num: "03", text: "Launch their first AI-moderated interview" },
-            ].map((item) => (
-              <div key={item.num} className="flex items-start gap-4">
-                <span className="text-sm font-body font-medium text-foreground/30 mt-0.5">{item.num}</span>
-                <span className="text-base md:text-lg text-muted-foreground font-body">{item.text}</span>
-              </div>
-            ))}
-          </motion.div>
-
-          <Divider />
-
-          <SectionTag>Solution — 03 Participating</SectionTag>
-          <SectionTitle>Building trust before the conversation starts.</SectionTitle>
-          <Paragraph>
-            For many participants, the interview lobby was their first interaction with the system. <Bold>The previous experience lacked clarity about what would happen next.</Bold> I redesigned it to clearly explain the AI process, set expectations, and reduce hesitation.
+            At industry conferences, Genway needed to communicate a completely new category in seconds — before anyone had a chance to ask a question. <Bold>I designed a visual language centered on conversational intelligence, human-AI collaboration, and insights emerging from real conversations.</Bold> The goal was instant recognition: people should feel the category before they understood it.
           </Paragraph>
         </article>
 
         <section className="px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto">
           <SectionImage
-            src={genwayInterview}
-            alt="AI interview interface design"
-            caption="The redesigned interview lobby — clear, welcoming, and trust-building for participants"
+            src={genwayConference}
+            alt="Conference booth design showcasing Genway visual identity"
+            caption="Visual identity designed for conferences — communicating a new category at first glance"
           />
         </section>
 
