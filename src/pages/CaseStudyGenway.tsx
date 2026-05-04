@@ -256,132 +256,25 @@ const CaseStudyGenway = () => {
             I recommended stepping back and looking at the bigger system: <Bold>who are the people who eventually create a project, where do they first encounter the platform, and what shapes their willingness to start at all?</Bold> Instead of only trying to push more users through project creation, we focused on improving the entry points that make someone want to create a project in the first place.
           </Paragraph>
 
-          <motion.div
-            {...fade}
-            className="my-10 bg-card border border-border rounded-2xl p-6 md:p-8"
-          >
-            <span className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground font-body block mb-4">
-              Design principle
-            </span>
-            <p className="text-lg md:text-xl font-body font-medium text-foreground leading-relaxed">
-              Instead of optimizing a single onboarding flow, we optimized each first encounter with the product — ensuring every entry point independently builds understanding and trust.
-            </p>
-          </motion.div>
-
-          <Paragraph>
-            This principle had clear implications for every touchpoint:
-          </Paragraph>
-        </article>
-
-        {/* Touchpoints grid — tied to solutions */}
-        <section className="px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto my-12">
-          <motion.div
-            {...fade}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
-          >
+          <motion.div {...fade} className="my-8 space-y-3">
             {[
-              { num: "01", title: "Discovering", goal: "Explain the category instantly", solution: "Visual identity at conferences", desc: "Conference booth, marketing materials" },
-              { num: "02", title: "Creating", goal: "Teach the concept, reduce commitment", solution: "Landing page + GPT preview", desc: "Landing page, interactive preview" },
-              { num: "03", title: "Participating", goal: "Build participant trust", solution: "Interview lobby redesign", desc: "AI interview experience" },
-              { num: "04", title: "Receiving", goal: "Communicate value to stakeholders", solution: "Insight summary redesign", desc: "Analysis reports, email delivery" },
+              { title: "Discovering", desc: "Explain the category instantly — visual identity at conferences" },
+              { title: "Creating", desc: "Teach the concept, reduce commitment — landing page with interactive AI preview" },
+              { title: "Participating", desc: "Build participant trust — redesigned interview lobby" },
+              { title: "Receiving", desc: "Communicate value to stakeholders — clearer insight summaries" },
             ].map((item) => (
-              <div key={item.num} className="bg-card rounded-2xl p-8 border border-border">
-                <span className="text-5xl font-body text-foreground/10 block mb-4">{item.num}</span>
-                <h4 className="text-lg font-body font-medium mb-1 text-foreground">{item.title}</h4>
-                <p className="text-xs text-muted-foreground font-body mb-3">{item.desc}</p>
-                <div className="pt-3 border-t border-border">
-                  <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-body block mb-1">Goal</span>
-                  <p className="text-sm text-foreground font-body font-medium">{item.goal}</p>
-                </div>
+              <div key={item.title} className="flex items-start gap-3">
+                <div className="w-1.5 h-1.5 rounded-full bg-foreground/50 mt-2.5 shrink-0" />
+                <p className="text-base text-muted-foreground font-body leading-relaxed">
+                  <span className="text-foreground font-medium">{item.title} — </span>{item.desc}
+                </p>
               </div>
             ))}
           </motion.div>
-        </section>
-
-        {/* Journey map */}
-        <section className="px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto my-12">
-          <motion.div {...fade} className="bg-card border border-border rounded-2xl p-6 md:p-10 overflow-x-auto">
-            <span className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground font-body block mb-6">
-              User journey map
-            </span>
-            <div className="flex items-start gap-0 min-w-[600px]">
-              {[
-                { stage: "Conference", outcome: "Category awareness" },
-                { stage: "Landing Page", outcome: "Concept understanding" },
-                { stage: "Product Creation", outcome: "First success" },
-                { stage: "AI Interview", outcome: "Participant trust" },
-                { stage: "Insights Delivery", outcome: "Value demonstration" },
-              ].map((item, i, arr) => (
-                <div key={item.stage} className="flex items-start flex-1">
-                  <div className="flex flex-col items-center text-center flex-1">
-                    <div className="w-10 h-10 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center mb-3">
-                      <span className="text-xs font-body font-medium text-primary">{i + 1}</span>
-                    </div>
-                    <span className="text-sm font-body font-medium text-foreground mb-1">{item.stage}</span>
-                    <span className="text-xs text-muted-foreground font-body">{item.outcome}</span>
-                  </div>
-                  {i < arr.length - 1 && (
-                    <div className="flex items-center pt-5 px-1">
-                      <div className="w-8 h-px bg-border" />
-                      <div className="w-0 h-0 border-t-[4px] border-t-transparent border-b-[4px] border-b-transparent border-l-[6px] border-l-border" />
-                    </div>
-                  )}
-                </div>
-              ))}
-            </div>
-          </motion.div>
-        </section>
-
-        <article className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto">
-          <Divider />
-
-          {/* ─── 5. EXPLORATION ─── */}
-          <SectionTag>Exploration</SectionTag>
-          <SectionTitle>Testing ways to explain AI research.</SectionTitle>
-          <Paragraph>
-            Before landing on the final solutions, we explored multiple directions for the most critical challenge: <Bold>how to explain a new product category to someone who's never seen it.</Bold>
-          </Paragraph>
-
-          <motion.div {...fade} className="my-8">
-            <span className="text-[10px] uppercase tracking-[0.25em] text-muted-foreground font-body block mb-4">
-              Directions explored
-            </span>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {[
-                { direction: "Explainer video", outcome: "High production cost, passive experience", selected: false },
-                { direction: "Static landing page", outcome: "Low engagement, didn't convey the AI interaction", selected: false },
-                { direction: "Interactive prompt", outcome: "Users experience the product before signing up", selected: true },
-                { direction: "Guided wizard", outcome: "Too much commitment before showing value", selected: false },
-              ].map((item) => (
-                <div
-                  key={item.direction}
-                  className={`rounded-xl border p-5 ${
-                    item.selected
-                      ? "bg-primary/5 border-primary/20"
-                      : "bg-card border-border"
-                  }`}
-                >
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="text-sm font-body font-medium text-foreground">{item.direction}</span>
-                    {item.selected && (
-                      <span className="text-[9px] uppercase tracking-[0.2em] font-body font-medium text-primary bg-primary/10 px-2 py-0.5 rounded-full">
-                        Selected
-                      </span>
-                    )}
-                  </div>
-                  <span className="text-xs text-muted-foreground font-body">{item.outcome}</span>
-                </div>
-              ))}
-            </div>
-          </motion.div>
-
-          <Paragraph>
-            The interactive prompt won because it solved the core problem: <Bold>letting users experience AI research before understanding or committing to it.</Bold> This insight shaped both the landing page and in-product onboarding.
-          </Paragraph>
 
           <Divider />
 
-          {/* ─── 6. SOLUTIONS ─── */}
+          {/* ─── 5. SOLUTIONS ─── */}
           <SectionTag>Solution — 01 Discovering</SectionTag>
           <SectionTitle>Making AI research approachable at first glance.</SectionTitle>
           <Paragraph>
