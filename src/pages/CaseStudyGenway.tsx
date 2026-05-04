@@ -137,7 +137,7 @@ const CaseStudyGenway = () => {
               muted
               loop
               playsInline
-              className="w-full h-auto object-cover"
+              className="w-full block"
             />
             <div className="absolute inset-0 rounded-2xl md:rounded-3xl ring-1 ring-inset ring-foreground/5 pointer-events-none" />
           </motion.div>
@@ -321,7 +321,7 @@ const CaseStudyGenway = () => {
               muted
               loop
               playsInline
-              className="w-full h-auto object-cover"
+              className="w-full block"
             />
             <div className="absolute inset-0 rounded-2xl md:rounded-3xl ring-1 ring-inset ring-foreground/5 pointer-events-none" />
           </motion.div>
