@@ -94,7 +94,7 @@ const CaseStudyGenway = () => {
         </section>
 
         {/* ─── 1. CONTEXT ─── */}
-        <section className="px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto mt-16">
+        <section className="px-6 md:px-12 lg:px-20 max-w-[1200px] mx-auto mt-16">
           <motion.div {...fade}>
             <SectionTag>Context</SectionTag>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-8 border-y border-border mt-2">
@@ -128,7 +128,7 @@ const CaseStudyGenway = () => {
         </article>
 
         {/* Teaser video */}
-        <section className="px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto my-12 md:my-16">
+        <section className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto my-12 md:my-16">
           <motion.div {...fade} className="relative overflow-hidden rounded-2xl md:rounded-3xl">
             <video
               src={genwayTeaser}
