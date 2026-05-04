@@ -1,6 +1,6 @@
-import { motion, useMotionValue, useTransform, useSpring, useScroll } from "framer-motion";
+import { motion, useTransform, useSpring, useScroll, useMotionValue } from "framer-motion";
 import profileImg from "@/assets/profile.png";
-import { useRef, useCallback } from "react";
+import { useRef } from "react";
 
 const experience = [
   { role: "Head of Product Design", company: "Genway AI", years: "2025–Present" },
@@ -23,51 +23,62 @@ const patents = [
 
 const ProfileImage = () => {
   const ref = useRef<HTMLDivElement>(null);
-  const mouseX = useMotionValue(0.5);
-  const mouseY = useMotionValue(0.5);
-  const isHovered = useMotionValue(0);
 
-  // Scroll-based tilt
+  // Scroll-driven tilt
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
   });
-  const scrollTiltX = useTransform(scrollYProgress, [0, 0.5, 1], [10, 0, -10]);
+  const scrollTiltX = useTransform(scrollYProgress, [0, 0.5, 1], [14, 0, -14]);
+  const scrollTiltY = useTransform(scrollYProgress, [0, 0.5, 1], [-10, 0, 10]);
 
-  // Combine mouse + scroll for rotateX
-  const mouseRotateX = useTransform(mouseY, [0, 1], [8, -8]);
-  const combinedRotateX = useTransform(
-    [mouseRotateX, scrollTiltX, isHovered],
-    ([mouseVal, scrollVal, hovered]: number[]) =>
-      hovered ? mouseVal : scrollVal
+  // Mouse-driven tilt
+  const isPointerOver = useMotionValue(0);
+  const mouseTiltX = useMotionValue(0);
+  const mouseTiltY = useMotionValue(0);
+
+  const combinedX = useTransform(
+    [mouseTiltX, scrollTiltX, isPointerOver],
+    ([mx, sx, hovered]: number[]) => hovered ? mx : sx
   );
-  const rotateX = useSpring(combinedRotateX, { stiffness: 200, damping: 20 });
-  const rotateY = useSpring(useTransform(mouseX, [0, 1], [-8, 8]), { stiffness: 200, damping: 20 });
-  const glareX = useTransform(mouseX, [0, 1], [0, 100]);
-  const glareY = useTransform(mouseY, [0, 1], [0, 100]);
+  const combinedY = useTransform(
+    [mouseTiltY, scrollTiltY, isPointerOver],
+    ([my, sy, hovered]: number[]) => hovered ? my : sy
+  );
 
-  const handleMouseMove = useCallback((e: React.MouseEvent) => {
-    const rect = ref.current?.getBoundingClientRect();
-    if (!rect) return;
-    mouseX.set((e.clientX - rect.left) / rect.width);
-    mouseY.set((e.clientY - rect.top) / rect.height);
-    isHovered.set(1);
-  }, [mouseX, mouseY, isHovered]);
+  const rotateX = useSpring(combinedX, { stiffness: 200, damping: 24 });
+  const rotateY = useSpring(combinedY, { stiffness: 200, damping: 24 });
 
-  const handleMouseLeave = useCallback(() => {
-    mouseX.set(0.5);
-    mouseY.set(0.5);
-    isHovered.set(0);
-  }, [mouseX, mouseY, isHovered]);
+  const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
+    const el = ref.current;
+    if (!el) return;
+    const r = el.getBoundingClientRect();
+    const px = (e.clientX - r.left) / r.width;
+    const py = (e.clientY - r.top) / r.height;
+    mouseTiltX.set((0.5 - py) * 14);
+    mouseTiltY.set((px - 0.5) * 14);
+    isPointerOver.set(1);
+  };
+
+  const onPointerLeave = () => {
+    mouseTiltX.set(0);
+    mouseTiltY.set(0);
+    isPointerOver.set(0);
+  };
+
+  // Color flash spotlight moves diagonally with scroll
+  const glareX = useTransform(scrollYProgress, [0, 1], [15, 85]);
+  const glareY = useTransform(scrollYProgress, [0, 1], [15, 85]);
+  const flashOpacity = useTransform(scrollYProgress, [0, 0.2, 0.5, 0.8, 1], [0, 1, 1, 1, 0]);
 
   return (
-    <div className="group" style={{ perspective: "1000px" }}>
+    <div style={{ perspective: "1000px" }}>
       <motion.div
         ref={ref}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
         style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-        className="relative rounded-[2rem] overflow-hidden shadow-lg transition-shadow duration-500 hover:shadow-2xl"
+        className="relative rounded-[2rem] overflow-hidden shadow-lg"
+        onPointerMove={onPointerMove}
+        onPointerLeave={onPointerLeave}
       >
         {/* Ambient blur blob behind */}
         <div className="absolute -z-10 inset-0 opacity-80 blur-[64px] pointer-events-none">
@@ -83,28 +94,24 @@ const ProfileImage = () => {
           />
         </div>
 
-        {/* Color image revealed by flashlight mask */}
+        {/* Color image revealed by scroll-driven spotlight */}
         <motion.div
           className="absolute inset-0 pointer-events-none"
           style={{
             WebkitMaskImage: useTransform(
               [glareX, glareY],
               ([x, y]) =>
-                `radial-gradient(circle 120px at ${x}% ${y}%, black 0%, transparent 100%)`
+                `radial-gradient(circle 380px at ${x}% ${y}%, black 0%, transparent 100%)`
             ),
             maskImage: useTransform(
               [glareX, glareY],
               ([x, y]) =>
-                `radial-gradient(circle 120px at ${x}% ${y}%, black 0%, transparent 100%)`
+                `radial-gradient(circle 380px at ${x}% ${y}%, black 0%, transparent 100%)`
             ),
-            opacity: isHovered,
+            opacity: flashOpacity,
           }}
         >
-          <img
-            src={profileImg}
-            alt=""
-            className="w-full h-full object-cover"
-          />
+          <img src={profileImg} alt="" className="w-full h-full object-cover" />
         </motion.div>
 
         {/* Glare overlay */}
@@ -114,9 +121,9 @@ const ProfileImage = () => {
             background: useTransform(
               [glareX, glareY],
               ([x, y]) =>
-                `radial-gradient(circle at ${x}% ${y}%, rgba(255,255,255,0.1) 0%, transparent 50%)`
+                `radial-gradient(circle at ${x}% ${y}%, rgba(255,255,255,0.12) 0%, transparent 50%)`
             ),
-            opacity: isHovered,
+            opacity: flashOpacity,
           }}
         />
       </motion.div>
@@ -155,7 +162,7 @@ const AboutSection = () => {
           </span>
           <h2 className="text-4xl md:text-5xl font-body font-light text-foreground mb-8">
             Lead Product Designer with{" "}
-            <span className="font-display italic">8+ years</span> of experience.
+            <span className="font-body">8+ years</span> of experience.
           </h2>
           <p className="text-foreground/72 text-lg leading-relaxed font-body font-light mb-14">
             Leading design across Microsoft Teams and AI startups · turning complex

@@ -93,13 +93,13 @@ const CustomCursor = () => {
           height: isHovering ? 60 : 40,
           borderRadius: "50%",
           background: isHovering
-            ? "rgba(255, 255, 255, 0.18)"
-            : "rgba(255, 255, 255, 0.10)",
-          backdropFilter: "blur(4px)",
-          WebkitBackdropFilter: "blur(4px)",
+            ? "rgba(255, 255, 255, 0.10)"
+            : "rgba(255, 255, 255, 0.06)",
+          backdropFilter: isHovering ? "blur(1.5px)" : "blur(1px)",
+          WebkitBackdropFilter: isHovering ? "blur(1.5px)" : "blur(1px)",
           border: isHovering
-            ? "1.5px solid rgba(255, 255, 255, 0.45)"
-            : "1px solid rgba(255, 255, 255, 0.30)",
+            ? "1.5px solid rgba(255, 255, 255, 0.35)"
+            : "1px solid rgba(255, 255, 255, 0.22)",
           boxShadow: "0 0 15px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(0, 0, 0, 0.05)",
           transition: "width 250ms ease-out, height 250ms ease-out, background 250ms ease-out, border 250ms ease-out",
           willChange: "transform",

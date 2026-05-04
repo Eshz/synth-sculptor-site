@@ -22,37 +22,33 @@ const IntroWord = ({
   progress,
   threshold,
   alwaysHighlighted = false,
+  isEmphasized = false,
+  activeColor = "hsl(220, 9%, 26%)",
 }: {
   word: string;
   progress: MotionValue<number>;
   threshold: number;
   alwaysHighlighted?: boolean;
+  isEmphasized?: boolean;
+  activeColor?: string;
 }) => {
-  const activeOpacity = useTransform(progress, (value) => {
+  const color = useTransform(progress, (value) => {
+    if (alwaysHighlighted) return activeColor;
     const fadeEnd = Math.min(threshold + 0.08, 0.96);
-
-    if (alwaysHighlighted) {
-      return 1;
-    }
-
-    if (value <= threshold) {
-      return 0;
-    }
-
-    if (value >= fadeEnd) {
-      return 1;
-    }
-
-    return (value - threshold) / (fadeEnd - threshold);
+    if (value <= threshold) return "hsl(60, 6%, 72%)";
+    if (value >= fadeEnd) return activeColor;
+    const t = (value - threshold) / (fadeEnd - threshold);
+    const h = Math.round(60 + t * 160);
+    const s = Math.round(6 + t * 3);
+    const l = Math.round(72 - t * 46);
+    return `hsl(${h}, ${s}%, ${l}%)`;
   });
 
+  const fontWeight = 300;
+
   return (
-    <span className="relative inline-block">
-      {!alwaysHighlighted && <span className="text-[hsl(60_6%_72%)]">{word}</span>}
-      <motion.span
-        className={alwaysHighlighted ? "" : "absolute inset-0"}
-        style={{ opacity: activeOpacity, color: "hsl(220 9% 26%)" }}
-      >
+    <span className="inline-block">
+      <motion.span style={{ color, fontWeight }}>
         {word}
       </motion.span>
       <span aria-hidden="true">&nbsp;</span>
@@ -71,13 +67,10 @@ const CredibilityLogo = ({
 }) => {
   const start = index * 0.14;
   const end = Math.min(start + 0.22, 1);
-  const opacity = useTransform(progress, [start, end], [0.18, 0.4]);
+  const opacity = useTransform(progress, [start, end], [0.18, 0.6]);
   const y = useTransform(progress, [start, end], [14, 0]);
   const scale = useTransform(progress, [start, end], [0.94, 1]);
-  const filter = useTransform(progress, [start, end], [
-    "grayscale(1) brightness(0) blur(5px)",
-    "grayscale(1) brightness(0) blur(0px)",
-  ]);
+  const filter = "grayscale(1) brightness(0.28) sepia(0.15) hue-rotate(200deg)";
 
   return (
     <motion.img
@@ -117,14 +110,26 @@ const HeroSection = () => {
       ref={sectionRef}
       className="px-6 md:px-12 lg:px-20 pb-20 md:pb-32 max-w-[1400px] mx-auto"
     >
+      <motion.span
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.1 }}
+        className="text-xs uppercase tracking-[0.2em] font-body font-medium text-muted-foreground/60 block mb-6 pt-10 md:pt-16"
+      >
+        Who am I
+      </motion.span>
       <motion.p
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-        className="text-2xl md:text-4xl lg:text-5xl leading-[1.35] font-body font-light p-4"
+        className="text-xl md:text-4xl lg:text-5xl leading-[1.35] font-body"
       >
         {introWords.map((word, index) => {
           const threshold = index / introWords.length;
+          const isEmphasized =
+            (index >= 11 && index <= 15) || (index >= 24 && index <= 30);
+          const activeColor =
+            index >= 11 && index <= 15 ? "#6668D8" : "hsl(220, 9%, 26%)";
 
           return (
             <IntroWord
@@ -133,6 +138,8 @@ const HeroSection = () => {
               progress={delayedProgress}
               threshold={threshold}
               alwaysHighlighted={index < alwaysHighlightedWords}
+              isEmphasized={isEmphasized}
+              activeColor={activeColor}
             />
           );
         })}
@@ -143,20 +150,22 @@ const HeroSection = () => {
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, delay: 0.5 }}
-        className="mt-20 md:mt-28 flex flex-col items-center gap-5 md:gap-7"
+        className="mt-10 md:mt-14"
       >
-        <span className="text-[10px] md:text-xs font-body font-medium tracking-[0.1em] text-muted-foreground/60 uppercase">
-          Previously designing products at
-        </span>
-        <div className="flex items-center justify-center gap-8 md:gap-12 lg:gap-14 flex-wrap py-2">
-          {credibilityLogos.map((logo, index) => (
-            <CredibilityLogo
-              key={logo.name}
-              logo={logo}
-              progress={delayedLogosProgress}
-              index={index}
-            />
-          ))}
+        <div className="flex flex-col items-center gap-5 md:gap-7 pt-6 md:pt-10">
+          <span className="text-xs uppercase tracking-[0.2em] font-body font-medium text-muted-foreground/60">
+            Previously designing products at
+          </span>
+          <div className="flex items-center justify-center gap-8 md:gap-12 lg:gap-14 flex-wrap py-2">
+            {credibilityLogos.map((logo, index) => (
+              <CredibilityLogo
+                key={logo.name}
+                logo={logo}
+                progress={delayedLogosProgress}
+                index={index}
+              />
+            ))}
+          </div>
         </div>
       </motion.div>
     </section>

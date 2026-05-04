@@ -1,9 +1,14 @@
 import { motion } from "framer-motion";
-import { Video, Users, Eye, MessageSquare, Monitor, Layers, Shield, Zap, Settings } from "lucide-react";
+import { Video, Users, Eye, MessageSquare, Monitor, Layers, Shield, Zap, Settings, Film, ExternalLink, Info } from "lucide-react";
 import CaseStudyLayout from "@/components/CaseStudyLayout";
 import CustomCursor from "@/components/CustomCursor";
 import logoMicrosoft from "@/assets/logo-microsoft.png";
-import logoTeams from "@/assets/logo-teams.svg";
+import coverGif from "@/assets/cover-intelliframe.gif";
+import teaserGif from "@/assets/intelliframe/intelliframe-teaser.gif";
+import coverThumbnail from "@/assets/cover-thumbnail-intelliframe.png";
+import projectImage from "@/assets/project-intelliframe.jpg";
+import imageRooms from "@/assets/intelliframe/intelliframe-rooms.png";
+import imageGridView from "@/assets/intelliframe/intelliframe-grid-view.png";
 
 const fade = {
   initial: { opacity: 0, y: 20 },
@@ -51,29 +56,37 @@ const CaseStudyIntelliframe = () => {
       <CustomCursor />
       <CaseStudyLayout>
         {/* Logo + Title block */}
-        <section className="px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto pt-12 md:pt-20">
+        <section className="px-6 md:px-12 lg:px-20 max-w-[1200px] mx-auto pt-12 md:pt-20">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
           >
             <div className="flex items-center gap-3 mb-8">
-              <img src={logoTeams} alt="Microsoft Teams logo" className="h-8 md:h-10 dark:invert" />
               <img src={logoMicrosoft} alt="Microsoft logo" className="h-6 md:h-7" />
             </div>
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-body font-light leading-[1.1] mb-6 max-w-4xl">
-              Designing Cloud{" "}
-              <span className="font-display italic">IntelliFrame</span>{" "}
-              for Microsoft Teams
+              Transforming meeting room video into an intelligent participant gallery at scale
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground font-body max-w-2xl leading-relaxed">
-              Turning unpredictable room video into a natural hybrid meeting experience at scale.
+              Microsoft Teams · 2022–2023
+              {" · "}
+              <a
+                href="https://patents.google.com/patent/US20240104699"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 underline underline-offset-4 decoration-muted-foreground/40 hover:text-foreground hover:decoration-foreground transition-colors"
+              >
+                <ExternalLink className="shrink-0 w-[1em] h-[1em]" />
+                Published as US patent
+              </a>
             </p>
+
           </motion.div>
         </section>
 
         {/* ─── CONTEXT ─── */}
-        <section className="px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto mt-16">
+        <section className="px-6 md:px-12 lg:px-20 max-w-[1200px] mx-auto mt-16">
           <motion.div {...fade}>
             <SectionTag>Context</SectionTag>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-8 border-y border-border mt-2">
@@ -99,66 +112,60 @@ const CaseStudyIntelliframe = () => {
         </section>
 
         <article className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto mt-16 md:mt-24">
+          {/* NDA disclaimer */}
+          <motion.div
+            {...fade}
+            className="flex items-start gap-3 mb-12 bg-muted/60 border border-border rounded-xl px-5 py-4 font-body"
+          >
+            <Info size={16} className="shrink-0 mt-0.5 text-foreground/50" />
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              Due to NDA constraints, I'm not able to share the full scope of this project publicly. I'd be happy to provide additional context or walk through specific parts of the work upon request.{" "}
+              <a
+                href="mailto:esh2005@gmail.com"
+                className="text-foreground font-medium underline underline-offset-4 decoration-foreground/20 hover:decoration-foreground transition-colors"
+              >
+                Reach out
+              </a>
+            </p>
+          </motion.div>
+
           {/* Overview */}
           <SectionTitle>Overview</SectionTitle>
           <Paragraph>
-            Cloud IntelliFrame is an AI-powered feature for Microsoft Teams that helps remote participants better see and follow people in shared meeting rooms. Instead of showing the room as one distant wide shot, <Bold>the system identifies in-room participants and presents them more clearly as individual framed people</Bold> within the meeting experience.
+            Cloud IntelliFrame is an AI feature for Microsoft Teams that <Bold>turns a single wide room feed into individual, clearly framed participants</Bold> — helping remote attendees actually see and follow the people in the room. The UX challenge wasn't the layout. It was building an experience that felt stable and trustworthy despite probabilistic AI outputs, wildly variable room conditions, and mass-market hardware diversity.
           </Paragraph>
           <Paragraph>
-            When I worked on the product, the challenge was not simply to design a new visual layout. The deeper problem was how to translate probabilistic computer vision and highly variable physical environments into a meeting experience that felt clear, useful, and trustworthy at mass-market scale.
-          </Paragraph>
-          <Paragraph>
-            Hybrid meetings are inherently uneven. People joining remotely often struggle to read the room, understand who is present, or follow the conversation naturally. Cloud IntelliFrame aimed to reduce that gap — but making that possible required much more than detecting faces and placing them into tiles.
+            Hybrid meetings are inherently uneven. Remote participants struggle to read the room and follow conversations naturally. IntelliFrame aimed to close that gap — but doing it right required far more than cropping faces into tiles.
           </Paragraph>
 
+        </article>
+
+        {/* Teaser gif */}
+        <section className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto mt-12 mb-16">
+          <motion.div {...fade} className="rounded-2xl overflow-hidden bg-muted">
+            <img src={teaserGif} alt="IntelliFrame in action" className="w-full object-cover" />
+          </motion.div>
+        </section>
+
+        <article className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto">
           <Divider />
 
           {/* ─── PROBLEM ─── */}
           <SectionTag>Problem</SectionTag>
           <SectionTitle>It's not simply "cutting" faces into tiles.</SectionTitle>
           <Paragraph>
-            At first glance, Cloud IntelliFrame can look like a straightforward AI feature: find faces in a room feed, crop them, and display them individually. In practice, <Bold>the UX challenge was far more complex.</Bold>
+            On the surface, IntelliFrame looks simple: detect faces, crop, display. In practice, <Bold>the UX problem was designing for a system that could never fully control its inputs.</Bold>
           </Paragraph>
           <Paragraph>
-            Room behavior is unpredictable. People move, turn away, overlap one another, enter and leave the frame, or sit in positions that are difficult to detect consistently. Rooms vary widely in size, layout, lighting, seating arrangements, and hardware quality. Different cameras produce different visual inputs. Meeting sizes vary. And because the underlying system is AI-driven, results are probabilistic rather than perfectly deterministic.
-          </Paragraph>
-          <Paragraph>
-            The real design challenge was to create a user experience that could <Bold>absorb all of that variability while still feeling coherent and natural</Bold> to end users.
+            People move, overlap, and turn away. Rooms vary in size, lighting, and seating. Cameras differ wildly. Meeting sizes shift. And because the system is AI-driven, outputs are probabilistic — not guaranteed. <Bold>Every design decision had to hold up across all of that variability, not just in the ideal demo scenario.</Bold>
           </Paragraph>
         </article>
 
-        {/* Key problems */}
-        <section className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto mb-16">
-          <motion.div {...fade}>
-            <span className="inline-block text-[11px] uppercase tracking-[0.25em] font-body font-medium text-muted-foreground mb-5">
-              Key Problems
-            </span>
+        {/* Rooms image */}
+        <section className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto mt-12 mb-16">
+          <motion.div {...fade} className="rounded-2xl overflow-hidden bg-muted">
+            <img src={imageRooms} alt="IntelliFrame room scenarios" className="w-full object-cover" />
           </motion.div>
-          <div className="space-y-10">
-            {[
-              { num: "01", icon: Users, title: "Room behavior is unpredictable", desc: "People move — they are not static images. Natural behavior creates constant edge cases for AI detection." },
-              { num: "02", icon: Monitor, title: "Hardware variability affects reliability", desc: "Different camera devices and hardware setups produce different visual inputs, changing the quality of the output." },
-              { num: "03", icon: Layers, title: "Room types create different conditions", desc: "Room geometry, furniture, participant placement, lighting, and seating all change what the system can reliably interpret." },
-              { num: "04", icon: Video, title: "Meeting size changes representation needs", desc: "The way people should be represented depends on how many participants are present and how they are positioned." },
-            ].map((item) => (
-              <motion.div
-                key={item.num}
-                {...fade}
-                className="flex gap-5"
-              >
-                <div className="shrink-0 flex flex-col items-center gap-2 pt-1">
-                  <span className="text-xs font-body text-muted-foreground/40">{item.num}</span>
-                  <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center">
-                    <item.icon size={20} className="text-foreground" />
-                  </div>
-                </div>
-                <div>
-                  <h4 className="text-base md:text-lg font-body font-medium mb-2 text-foreground">{item.title}</h4>
-                  <p className="text-base text-muted-foreground font-body leading-relaxed">{item.desc}</p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
         </section>
 
         <article className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto">
@@ -166,20 +173,20 @@ const CaseStudyIntelliframe = () => {
 
           {/* ─── RESEARCH & CONSTRAINTS ─── */}
           <SectionTag>Research & Constraints</SectionTag>
-          <SectionTitle>Designing for a moving target.</SectionTitle>
+          <SectionTitle>No data. No pipeline. No playbook.</SectionTitle>
           <Paragraph>
-            Because the technology and UX were evolving in parallel, this project required an agile and highly collaborative design process. Early in the work, there was no fully working pipeline, usable data was limited, and many questions were still open about what the system could reliably do.
+            Early in the project, <Bold>none of the standard research inputs existed.</Bold> There was no working pipeline to test against, no data to analyze, and no established precedent for what a cloud-based AI participant gallery should do.
           </Paragraph>
           <Paragraph>
-            That meant the design process could not begin with a polished end-state interface. Instead, <Bold>I worked closely with engineering, research, and stakeholders</Bold> to understand the system's capabilities, identify its constraints, and shape the UX as the product matured.
+            Getting to real design decisions required building the research infrastructure from scratch — which became one of the most creatively demanding parts of the work.
           </Paragraph>
         </article>
 
-        {/* Methods grid */}
+        {/* Constraints list */}
         <section className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto mb-16">
           <motion.div {...fade}>
             <span className="inline-block text-[11px] uppercase tracking-[0.25em] font-body font-medium text-muted-foreground mb-5">
-              Methods
+              How to work around it
             </span>
           </motion.div>
           <motion.div
@@ -187,14 +194,12 @@ const CaseStudyIntelliframe = () => {
             className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border border border-border rounded-2xl overflow-hidden"
           >
             {[
-              { icon: Settings, method: "Engineering partnership", detail: "Close collaboration with teams building the composer pipeline" },
-              { icon: Users, method: "Stakeholder alignment", detail: "Technical education and alignment on AI capabilities and limitations" },
-              { icon: Video, method: "Data collection sessions", detail: "Across varied room conditions to generate representative inputs" },
-              { icon: Eye, method: "Qualitative UX analysis", detail: "Reviewed generated outputs through internal tools and bug-bash sessions" },
-              { icon: MessageSquare, method: "User studies & interviews", detail: "Conducted user studies, interviews, and competitive analysis" },
-              { icon: Monitor, method: "Quantitative analysis", detail: "Experiments dashboards and quantitative evaluation of patterns" },
+              { icon: Video, method: "Recorded data & human puppets", detail: "With no pipeline to generate outputs, representative room scenarios were recorded from scratch. During COVID, with no real rooms available, the team physically acted out participant behavior and edge cases." },
+              { icon: Film, method: "Video mockups", detail: "Premiere and PowerPoint composites were used to prototype the gallery experience — testing layout behavior before the system could produce real outputs." },
+              { icon: Layers, method: "Competitive analysis", detail: "Existing gallery and broadcast systems were studied to understand what already worked — dynamic grids, hard limits on participant count, motion behavior, and vertical vs. horizontal framing." },
+              { icon: MessageSquare, method: "User studies & interviews", detail: "Studies and interviews were conducted to validate hypotheses and pressure-test the experience across different participant and room configurations." },
             ].map((item) => (
-              <div key={item.method} className="bg-background p-8 flex flex-col gap-4 hover:bg-muted/50 transition-colors">
+              <div key={item.method} className="bg-background p-8 flex flex-col gap-4">
                 <div className="text-muted-foreground">
                   <item.icon size={20} />
                 </div>
@@ -207,29 +212,29 @@ const CaseStudyIntelliframe = () => {
           </motion.div>
         </section>
 
-        <article className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto">
-          <Paragraph>
-            Unlike most digital product flows, the input environment here was not stable. The system depended on real-world spaces, real-time behavior, and AI interpretation. <Bold>That changed the role of design.</Bold> Instead of defining one fixed screen behavior, I had to help define a flexible behavioral system that could perform across many possible scenarios.
-          </Paragraph>
 
+        <article className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto">
           <Divider />
 
-          {/* ─── KEY INSIGHTS ─── */}
-          <SectionTag>Key Insights</SectionTag>
-          <SectionTitle>Understanding the real UX challenge.</SectionTitle>
+          {/* ─── PIPELINE ─── */}
+          <SectionTag>Working Pipeline</SectionTag>
+          <SectionTitle>From manual proxies to real generated data at scale.</SectionTitle>
           <Paragraph>
-            As we moved from early exploration into a more functional pipeline, several patterns became clear.
+            The manual work — recorded scenarios, human puppets, video mockups — was never the final method. <Bold>It was the foundation needed to give engineers something to build toward.</Bold> While that groundwork was happening, the engineering team was building the pipeline in parallel, and the research team was working on the underlying algorithms and model creation.
+          </Paragraph>
+          <Paragraph>
+            Once the pipeline was ready, everything shifted. For the first time, it was possible to test with <Bold>real generated data at scale</Bold> — actual room feeds processed by the system across a wide range of conditions. The initial guidelines now had something real to be validated against. The work moved from speculation to evaluation.
           </Paragraph>
         </article>
 
+        {/* Pipeline feedback methods */}
         <section className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto mb-16">
           <div className="space-y-10">
             {[
-              { num: "01", icon: Layers, title: "The input environment was inherently unstable", desc: "This was not a controlled UI environment. Room geometry, furniture, participant placement, lighting, and hardware all changed the quality of the output." },
-              { num: "02", icon: Users, title: "Human behavior created constant edge cases", desc: "People in meeting rooms do not behave like neat training examples. They move naturally, partially occlude one another, lean in and out, and create ambiguous visual moments constantly." },
-              { num: "03", icon: Zap, title: "AI quality alone would not solve the experience", desc: "Even when the detection and framing worked reasonably well, the UX still needed rules for transitions, layout behavior, and fallbacks. A technically impressive system could still feel confusing if the experience was unstable." },
-              { num: "04", icon: Monitor, title: "Mass-market scale raised the bar", desc: "The solution could not be optimized for one ideal room or one premium setup. It had to work well enough across a broad range of customer environments, including imperfect ones." },
-              { num: "05", icon: Shield, title: "Trust depends on behavior, not just accuracy", desc: "Users do not judge AI systems only by whether they are technically correct. They judge them by whether the experience feels understandable, stable, and appropriate in context." },
+              { num: "01", icon: Eye, title: "Qualitative — labeling & analysis", desc: "Generated outputs were labeled and sent to participants for review. Collated video was used for systematic qualitative UX analysis, identifying key failure themes across room types and behaviors." },
+              { num: "02", icon: Users, title: "Qualitative — hallway interviews", desc: "Informal interviews with people in hallways and in-office gave fast, unfiltered reactions to real system outputs — helping surface issues that formal studies often missed." },
+              { num: "03", icon: Monitor, title: "Quantitative — experiments dashboards", desc: "Experiments dashboards enabled data analysis across large volumes of generated outputs. Churn was evaluated early but proved unreliable as a signal — requiring alternative metrics." },
+              { num: "04", icon: Layers, title: "Quantitative — defining a system", desc: "Quantitative analysis helped define behavioral rules at scale: bandwidth thresholds, jitter tolerance, significant vs. minor events. Tools like MaxScale showed how guidelines could be rapidly validated across thousands of samples." },
             ].map((item) => (
               <motion.div
                 key={item.num}
@@ -250,6 +255,12 @@ const CaseStudyIntelliframe = () => {
             ))}
           </div>
         </section>
+
+        <article className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto">
+          <Paragraph>
+            The pipeline didn't just enable testing — it enabled the work to become systematic. <Bold>Custom tooling like Gallery Tagger and ImageTagger</Bold> was built to support the volume of data: labeling outputs, running user studies, and tracking patterns across hundreds of generated samples. This infrastructure turned ad-hoc observation into structured design evidence, and initial guidelines into a stronger, more defensible V2 spec.
+          </Paragraph>
+        </article>
 
         {/* Reframing callout */}
         <section className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto mb-16">
@@ -272,20 +283,6 @@ const CaseStudyIntelliframe = () => {
             <div className="absolute top-0 right-0 w-64 h-64 bg-primary-foreground/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
           </motion.div>
         </section>
-
-        <article className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto">
-          <Divider />
-
-          {/* ─── STRATEGY ─── */}
-          <SectionTag>Strategy</SectionTag>
-          <SectionTitle>A flexible UX system for an unpredictable environment.</SectionTitle>
-          <Paragraph>
-            Rather than designing a one-size-fits-all visual treatment for a perfect room setup, <Bold>I focused on shaping a UX framework that could adapt intelligently across many environments.</Bold>
-          </Paragraph>
-          <Paragraph>
-            The strategy was to define principles and behavioral rules for how the system should respond to variation — across room layouts, hardware conditions, meeting states, and confidence levels in the AI output.
-          </Paragraph>
-        </article>
 
         {/* Design principles */}
         <section className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto mb-16">
@@ -314,80 +311,10 @@ const CaseStudyIntelliframe = () => {
           </motion.div>
         </section>
 
-        <article className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto">
-          <Divider />
-
-          {/* ─── PROCESS ─── */}
-          <SectionTag>Process</SectionTag>
-          <SectionTitle>Agile UX development alongside evolving technology.</SectionTitle>
-          <Paragraph>
-            A large part of the project's complexity came from the fact that the design process evolved with the technical maturity of the system.
-          </Paragraph>
-        </article>
-
-        {/* Phase cards */}
-        <section className="px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto my-12">
-          <motion.div
-            {...fade}
-            className="grid grid-cols-1 md:grid-cols-3 gap-6"
-          >
-            {[
-              {
-                num: "01",
-                title: "Early Exploration",
-                desc: "Engineering was still building the composer pipeline. Limited data, no stable end-to-end experience.",
-                contributions: [
-                  "AI and technical education with stakeholders",
-                  "Data collection sessions for representative inputs",
-                  "Early concept creation including cardboard puppet testing",
-                  "Gallery template direction exploration",
-                  "User studies, interviews, and competitive analysis",
-                  "Delivery of initial UX guideline spec",
-                ],
-              },
-              {
-                num: "02",
-                title: "Working Pipeline",
-                desc: "Functional pipeline existed. Shifted from speculation to evaluation with large amounts of generated data.",
-                contributions: [
-                  "Prioritized key UX pain points",
-                  "Custom Gallery Tagger tool for labeling data",
-                  "Qualitative UX analysis using collated video",
-                  "Quantitative analysis through experiments dashboards",
-                  "Continued user studies with custom ImageTagger tool",
-                  "Refined guidance into stronger V2 spec",
-                ],
-              },
-              {
-                num: "03",
-                title: "Post-GA",
-                desc: "Focus shifted to structured product growth, risk management, explainability, and discoverability.",
-                contributions: [
-                  "Camera onboarding and block-list flows",
-                  "Explainability and discoverability improvements",
-                  "Ongoing qualitative and quantitative analysis",
-                  "Continued user studies and tool refinement",
-                  "Design guidance improved to V3 spec",
-                ],
-              },
-            ].map((phase) => (
-              <div key={phase.num} className="bg-card rounded-2xl p-8 border border-border flex flex-col">
-                <span className="text-5xl font-display italic text-foreground/10 block mb-4">{phase.num}</span>
-                <h4 className="text-lg font-body font-medium mb-2 text-foreground">{phase.title}</h4>
-                <p className="text-xs text-muted-foreground font-body mb-6 leading-relaxed">{phase.desc}</p>
-                <div className="pt-4 border-t border-border space-y-2 mt-auto">
-                  <span className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground font-body block mb-2">
-                    Contributions
-                  </span>
-                  {phase.contributions.map((c) => (
-                    <div key={c} className="flex items-start gap-2">
-                      <div className="w-1 h-1 rounded-full bg-primary mt-2 shrink-0" />
-                      <span className="text-xs font-body text-foreground/80">{c}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            ))}
+        {/* Grid view image */}
+        <section className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto mt-12 mb-16">
+          <motion.div {...fade} className="rounded-2xl overflow-hidden bg-muted">
+            <img src={imageGridView} alt="IntelliFrame grid view" className="w-full object-cover" />
           </motion.div>
         </section>
 
@@ -396,12 +323,12 @@ const CaseStudyIntelliframe = () => {
 
           {/* ─── SOLUTION ─── */}
           <SectionTag>Solution</SectionTag>
-          <SectionTitle>Building rules, not a single layout.</SectionTitle>
+          <SectionTitle>A behavioral framework, not a static spec.</SectionTitle>
           <Paragraph>
-            The outcome of the work was not one static screen design. It was a <Bold>UX framework that could help the system behave intelligently across dynamic real-world conditions.</Bold>
+            Rather than designing for an ideal room, <Bold>the focus was on building a UX framework that could adapt across many environments.</Bold> That meant defining behavioral rules — how the system should respond to room variation, participant movement, hardware differences, and changing AI confidence — rather than specifying a single static layout.
           </Paragraph>
           <Paragraph>
-            I helped define a set of UX guidelines covering template logic, event handling, interactive states, and transitions — all designed to adapt to room variability, participant behavior, and hardware differences.
+            The deliverable wasn't a screen. It was a <Bold>set of UX guidelines that defined how the system should behave across conditions</Bold> — covering template logic, participant event handling, transition rules, and fallback states. Designed to adapt, not to assume a perfect environment.
           </Paragraph>
         </article>
 
@@ -451,14 +378,21 @@ const CaseStudyIntelliframe = () => {
           </motion.div>
         </section>
 
+        {/* Project image */}
+        <section className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto mt-12 mb-16">
+          <motion.div {...fade} className="rounded-2xl overflow-hidden bg-muted">
+            <img src={projectImage} alt="IntelliFrame project overview" className="w-full object-cover" />
+          </motion.div>
+        </section>
+
         <article className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto">
           <Divider />
 
-          {/* ─── IMPACT ─── */}
-          <SectionTag>Impact</SectionTag>
-          <SectionTitle>Translating technical ambiguity into a productized experience.</SectionTitle>
+          {/* ─── IMPACT & REFLECTION ─── */}
+          <SectionTag>Impact & Reflection</SectionTag>
+          <SectionTitle>From ambiguous capability to shipped product.</SectionTitle>
           <Paragraph>
-            Cloud IntelliFrame moved from an ambiguous technical capability to a structured UX system that could support productization and continued iteration inside Microsoft Teams.
+            IntelliFrame went from an open-ended AI experiment to a structured, shippable experience inside Microsoft Teams — with a UX system that could support continued iteration after launch. Lead product designer from early exploration through post-GA, the primary contribution was <Bold>turning a technically complex, uncertain system into a design problem the team could reason about and ship.</Bold>
           </Paragraph>
         </article>
 
@@ -467,80 +401,63 @@ const CaseStudyIntelliframe = () => {
             {[
               "Translated complex AI behavior into clearer product decisions",
               "Created reusable UX guidelines for templates, states, and transitions",
-              "Established workflows for evaluating probabilistic output more systematically",
+              "Established workflows for evaluating probabilistic output systematically",
               "Supported launch readiness and post-GA iteration",
-              "Improved hybrid meeting experience by making in-room presence more legible and human-centered",
+              "Improved hybrid meeting experience by making in-room presence more legible",
+              "Authored UX guidelines across three spec iterations",
+              "Owned post-launch onboarding and explainability design",
             ].map((item) => (
               <div key={item} className="flex items-start gap-3 bg-card border border-border rounded-xl p-4">
                 <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
                 <span className="text-sm font-body text-foreground">{item}</span>
               </div>
             ))}
-          </motion.div>
-        </section>
-
-        <section className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto mb-16">
-          <motion.div
-            {...fade}
-            className="bg-primary text-primary-foreground rounded-2xl p-8 md:p-12"
-          >
-            <p className="text-lg md:text-xl font-body font-light leading-relaxed text-center">
-              Where many AI projects stay at the level of technical possibility, this work focused on
-              <span className="font-display italic text-2xl md:text-3xl block mt-4">
-                what it takes to make that capability usable at scale.
-              </span>
-            </p>
           </motion.div>
         </section>
 
         <article className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto">
-          <Divider />
-
-          {/* ─── MY ROLE ─── */}
-          <SectionTag>My Role</SectionTag>
-          <SectionTitle>Strategy, systems thinking, and hands-on design.</SectionTitle>
           <Paragraph>
-            I worked across strategy and execution, helping define how the product should behave while staying deeply involved in the practical design process.
+            IntelliFrame made clear that <Bold>AI product design isn't about specifying a perfect screen — it's about defining how the system should behave across conditions you can't fully control.</Bold> Guidelines, evaluation frameworks, and shared decision principles were just as important as any visible UI.
+          </Paragraph>
+          <Paragraph>
+            It also sharpened a conviction that trust in AI isn't earned through technical accuracy. It's earned through consistency, predictability, and an experience that feels appropriate even when the output is imperfect.
           </Paragraph>
 
-          <motion.div {...fade} className="my-8 grid grid-cols-1 md:grid-cols-2 gap-3">
+          <Divider />
+
+          {/* ─── KEY INSIGHTS ─── */}
+          <SectionTag>Key Insights</SectionTag>
+          <SectionTitle>What the research made clear.</SectionTitle>
+        </article>
+
+        <section className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto mb-16">
+          <div className="space-y-10">
             {[
-              "Defined the UX framing beyond the raw AI capability",
-              "Partnered closely with engineering and research teams",
-              "Drove early concept exploration and stakeholder alignment",
-              "Led qualitative review of generated outputs and pain points",
-              "Shaped UX guidelines for templates, transitions, and edge cases",
-              "Contributed to experimentation and post-launch refinement",
+              { num: "01", icon: Zap, title: "Technical quality ≠ good experience", desc: "Even when detection worked well, the UX still needed rules for transitions, layout fallbacks, and edge states. A technically impressive system could still feel broken if the behavior was unpredictable." },
+              { num: "02", icon: Monitor, title: "Designing for the median, not the ideal", desc: "The solution had to hold across imperfect rooms, mixed hardware, and messy real-world meetings — not just the controlled demo scenario." },
+              { num: "03", icon: Shield, title: "Trust comes from behavior, not accuracy", desc: "Users judge AI by whether it feels stable and understandable — not whether it's technically correct. Perception of reliability mattered as much as actual reliability." },
             ].map((item) => (
-              <div key={item} className="flex items-start gap-3 bg-card border border-border rounded-xl p-4">
-                <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
-                <span className="text-sm font-body text-foreground">{item}</span>
-              </div>
+              <motion.div
+                key={item.num}
+                {...fade}
+                className="flex gap-5"
+              >
+                <div className="shrink-0 flex flex-col items-center gap-2 pt-1">
+                  <span className="text-xs font-body text-muted-foreground/40">{item.num}</span>
+                  <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center">
+                    <item.icon size={20} className="text-foreground" />
+                  </div>
+                </div>
+                <div>
+                  <h4 className="text-base md:text-lg font-body font-medium mb-2 text-foreground">{item.title}</h4>
+                  <p className="text-base text-muted-foreground font-body leading-relaxed">{item.desc}</p>
+                </div>
+              </motion.div>
             ))}
-          </motion.div>
+          </div>
+        </section>
 
-          <Paragraph>
-            <Bold>A large part of my value on this project was helping turn a technically complex system into a design problem the team could reason about together.</Bold>
-          </Paragraph>
-
-          <Divider />
-
-          {/* ─── REFLECTION ─── */}
-          <SectionTag>Reflection</SectionTag>
-          <SectionTitle>What I learned.</SectionTitle>
-          <Paragraph>
-            This project reinforced that <Bold>designing AI experiences is often less about specifying one perfect interface</Bold> and more about defining behaviors, guardrails, and fallback logic for uncertain conditions.
-          </Paragraph>
-          <Paragraph>
-            It also showed me that design can create leverage far beyond screens. In a system like Cloud IntelliFrame, <Bold>guidelines, evaluation frameworks, and shared decision principles were just as important as the visible interface itself.</Bold>
-          </Paragraph>
-          <Paragraph>
-            Most importantly, I learned that trust in AI products is not created by technical intelligence alone. It comes from making the system's behavior feel stable, understandable, and appropriate in context.
-          </Paragraph>
-          <Paragraph>
-            That lesson continues to shape how I approach AI product design today.
-          </Paragraph>
-
+        <article className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto">
           <div className="h-24" />
         </article>
       </CaseStudyLayout>

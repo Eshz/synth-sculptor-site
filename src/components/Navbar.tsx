@@ -8,18 +8,38 @@ const navLinks = [
   { label: "LINKEDIN", href: "https://www.linkedin.com/in/eshchar-zychlinski/", external: true },
 ];
 
-const DesktopLinks = () => (
-  <div className="hidden md:flex items-center gap-10 text-xs font-body font-medium tracking-[0.15em] text-muted-foreground">
+const NavLink = ({ link, light = false }: { link: typeof navLinks[number]; light?: boolean }) => {
+  const [hovered, setHovered] = useState(false);
+
+  return (
+    <a
+      key={link.label}
+      href={link.href}
+      {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      className={`relative text-xs font-body font-medium tracking-[0.15em] transition-colors duration-200 cursor-pointer pb-px ${
+        light
+          ? "text-white/70 hover:text-white"
+          : "text-muted-foreground hover:text-foreground"
+      }`}
+      data-interactive
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+    >
+      {link.label}
+      <motion.span
+        className={`absolute bottom-0 left-0 h-px ${light ? "bg-white" : "bg-foreground"}`}
+        initial={false}
+        animate={{ width: hovered ? "100%" : "0%" }}
+        transition={{ duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }}
+      />
+    </a>
+  );
+};
+
+const DesktopLinks = ({ light = false }: { light?: boolean }) => (
+  <div className="hidden md:flex items-center gap-10">
     {navLinks.map((link) => (
-      <a
-        key={link.label}
-        href={link.href}
-        {...(link.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-        className="hover:text-foreground transition-colors duration-200 cursor-pointer"
-        data-interactive
-      >
-        {link.label}
-      </a>
+      <NavLink key={link.label} link={link} light={light} />
     ))}
   </div>
 );
@@ -69,7 +89,7 @@ const MobileMenu = ({ open, onClose }: { open: boolean; onClose: () => void }) =
   </AnimatePresence>
 );
 
-const Navbar = () => {
+const Navbar = ({ heroMode = false }: { heroMode?: boolean }) => {
   const [showFixed, setShowFixed] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const lastScrollY = useRef(0);
@@ -96,15 +116,15 @@ const Navbar = () => {
     lastScrollY.current = current;
   });
 
-  const NavBar = ({ children }: { children?: React.ReactNode }) => (
+  const NavBar = ({ children, light = false }: { children?: React.ReactNode; light?: boolean }) => (
     <>
       <div className="flex items-center justify-between px-6 py-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto">
-        <span className="font-body text-xs font-medium tracking-[0.15em] uppercase text-foreground">
+        <span className={`font-body text-xs font-medium tracking-[0.15em] uppercase ${light ? "text-white" : "text-foreground"}`}>
           Eshchar Zychlinski
         </span>
-        <DesktopLinks />
+        <DesktopLinks light={light} />
         <button
-          className="md:hidden text-foreground cursor-pointer"
+          className={`md:hidden cursor-pointer ${light ? "text-white" : "text-foreground"}`}
           onClick={() => setMobileOpen((v) => !v)}
           aria-label="Toggle menu"
           data-interactive
@@ -124,7 +144,7 @@ const Navbar = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        <NavBar>
+        <NavBar light={heroMode}>
           <MobileMenu open={mobileOpen} onClose={() => setMobileOpen(false)} />
         </NavBar>
       </motion.nav>

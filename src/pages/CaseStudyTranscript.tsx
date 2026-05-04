@@ -33,7 +33,7 @@ const CaseStudyTranscript = () => {
             </span>
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-body font-light leading-[1.1] mb-6 max-w-4xl">
               Transcript-Driven{" "}
-              <span className="font-display italic">Insights</span>
+              <span className="font-body">Insights</span>
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground font-body max-w-2xl leading-relaxed">
               Exploring how meeting transcripts can power post-meeting productivity tools through AI summarization and conversational interfaces.
