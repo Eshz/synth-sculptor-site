@@ -42,7 +42,7 @@ interface Project {
 
 const projects: Project[] = [
   {
-    title: "AI Research Platform",
+    title: "Designing the First Experience of AI Research Platform",
     subtitle: "Genway",
     description:
       "Designing agentic workflows that transform user interviews into structured insights using AI analysis.",
