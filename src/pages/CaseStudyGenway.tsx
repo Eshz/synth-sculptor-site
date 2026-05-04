@@ -115,7 +115,7 @@ const CaseStudyGenway = () => {
               </div>
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-body font-light leading-[1.1] max-w-4xl">
                 Designing the First Experience of{" "}
-                <span className="font-display italic">AI-Moderated Research</span>
+                <span className="font-body">AI-Moderated Research</span>
               </h1>
               <div className="hidden lg:flex items-center gap-4 lg:gap-0 lg:pl-2">
                 <HeaderLogoCard />
@@ -300,7 +300,7 @@ const CaseStudyGenway = () => {
               { num: "04", title: "Receiving", goal: "Communicate value to stakeholders", solution: "Insight summary redesign", desc: "Analysis reports, email delivery" },
             ].map((item) => (
               <div key={item.num} className="bg-card rounded-2xl p-8 border border-border">
-                <span className="text-5xl font-display italic text-foreground/10 block mb-4">{item.num}</span>
+                <span className="text-5xl font-body text-foreground/10 block mb-4">{item.num}</span>
                 <h4 className="text-lg font-body font-medium mb-1 text-foreground">{item.title}</h4>
                 <p className="text-xs text-muted-foreground font-body mb-3">{item.desc}</p>
                 <div className="pt-3 border-t border-border">
@@ -558,7 +558,7 @@ const CaseStudyGenway = () => {
                 {...fade}
                 className="bg-card border border-border rounded-2xl p-6 text-center"
               >
-                <span className="text-2xl md:text-3xl font-display italic text-primary block mb-2">{item.metric}</span>
+                <span className="text-2xl md:text-3xl font-body text-primary block mb-2">{item.metric}</span>
                 <span className="text-xs text-muted-foreground font-body">{item.label}</span>
               </motion.div>
             ))}
@@ -570,7 +570,7 @@ const CaseStudyGenway = () => {
           >
             <p className="text-lg md:text-xl font-body font-light leading-relaxed text-center">
               The system now helps users move from
-              <span className="font-display italic text-2xl md:text-3xl block mt-4">
+              <span className="font-body text-2xl md:text-3xl block mt-4">
                 "I don't understand this yet" → "I want to try this."
               </span>
             </p>

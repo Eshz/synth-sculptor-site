@@ -23,18 +23,20 @@ const IntroWord = ({
   threshold,
   alwaysHighlighted = false,
   isEmphasized = false,
+  activeColor = "hsl(220, 9%, 26%)",
 }: {
   word: string;
   progress: MotionValue<number>;
   threshold: number;
   alwaysHighlighted?: boolean;
   isEmphasized?: boolean;
+  activeColor?: string;
 }) => {
   const color = useTransform(progress, (value) => {
-    if (alwaysHighlighted) return "hsl(220, 9%, 26%)";
+    if (alwaysHighlighted) return activeColor;
     const fadeEnd = Math.min(threshold + 0.08, 0.96);
     if (value <= threshold) return "hsl(60, 6%, 72%)";
-    if (value >= fadeEnd) return "hsl(220, 9%, 26%)";
+    if (value >= fadeEnd) return activeColor;
     const t = (value - threshold) / (fadeEnd - threshold);
     const h = Math.round(60 + t * 160);
     const s = Math.round(6 + t * 3);
@@ -42,7 +44,7 @@ const IntroWord = ({
     return `hsl(${h}, ${s}%, ${l}%)`;
   });
 
-  const fontWeight = isEmphasized ? 400 : 300;
+  const fontWeight = 300;
 
   return (
     <span className="inline-block">
@@ -65,13 +67,10 @@ const CredibilityLogo = ({
 }) => {
   const start = index * 0.14;
   const end = Math.min(start + 0.22, 1);
-  const opacity = useTransform(progress, [start, end], [0.18, 0.4]);
+  const opacity = useTransform(progress, [start, end], [0.18, 0.6]);
   const y = useTransform(progress, [start, end], [14, 0]);
   const scale = useTransform(progress, [start, end], [0.94, 1]);
-  const filter = useTransform(progress, [start, end], [
-    "grayscale(1) brightness(0)",
-    "grayscale(1) brightness(0)",
-  ]);
+  const filter = "grayscale(1) brightness(0.28) sepia(0.15) hue-rotate(200deg)";
 
   return (
     <motion.img
@@ -129,6 +128,8 @@ const HeroSection = () => {
           const threshold = index / introWords.length;
           const isEmphasized =
             (index >= 11 && index <= 15) || (index >= 24 && index <= 30);
+          const activeColor =
+            index >= 11 && index <= 15 ? "#6668D8" : "hsl(220, 9%, 26%)";
 
           return (
             <IntroWord
@@ -138,6 +139,7 @@ const HeroSection = () => {
               threshold={threshold}
               alwaysHighlighted={index < alwaysHighlightedWords}
               isEmphasized={isEmphasized}
+              activeColor={activeColor}
             />
           );
         })}

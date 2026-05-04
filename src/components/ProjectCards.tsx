@@ -1,7 +1,7 @@
-import { motion, useInView, useMotionTemplate, useMotionValue, useScroll, useSpring, useTransform } from "framer-motion";
+import { motion, useInView, useMotionValueEvent, useScroll, useSpring, useTransform } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 
 const ViewCaseStudyLink = ({ slug }: { slug: string }) => {
   const [hovered, setHovered] = useState(false);
@@ -26,7 +26,7 @@ const ViewCaseStudyLink = ({ slug }: { slug: string }) => {
 };
 import projectIntelliframe from "@/assets/cover-intelliframe.gif";
 import projectIntelliframeThumbnail from "@/assets/cover-thumbnail-intelliframe.png";
-import projectGenway from "@/assets/cover-video-genway.gif";
+import projectGenway from "@/assets/cover-genway.mp4";
 import projectGenwaythumbnail from "@/assets/cover-thumbnail-genway.png";
 import projectTranscript from "@/assets/cover-transcriptProject.png";
 
@@ -63,37 +63,32 @@ const projects: Project[] = [
   },
 ];
 
+// Piecewise linear interpolation for scroll tilt
+const getScrollTilt = (p: number) => ({
+  x: p < 0.5 ? 4 + (p / 0.5) * (-18) : -14 + ((p - 0.5) / 0.5) * (-14),
+  y: p < 0.5 ? 18 + (p / 0.5) * (10) : 28 + ((p - 0.5) / 0.5) * (10),
+});
+
 const BookMock = ({ project }: { project: Project }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const isInView = useInView(containerRef, { amount: 0.86 });
-  const isPointerOver = useMotionValue(0);
+  const isInView = useInView(containerRef, { amount: 0.5, margin: "-30% 0px -30% 0px" });
+  const isPointerOverRef = useRef(false);
 
-  const mouseRotateX = useMotionValue(-12);
-  const mouseRotateY = useMotionValue(28);
-
-  // Scroll-based tilt
+  // Scroll-based tilt — direct spring updates, no intermediate motion values
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start end", "end start"],
   });
-  // Scroll drives both axes — wider range for visibility
-  const scrollTiltX = useTransform(scrollYProgress, [0, 0.5, 1], [4, -14, -28]);
-  const scrollTiltY = useTransform(scrollYProgress, [0, 0.5, 1], [18, 28, 38]);
 
-  // Combine: use mouse tilt when hovered, scroll tilt otherwise
-  const combinedRotateX = useTransform(
-    [mouseRotateX, scrollTiltX, isPointerOver],
-    ([mouseVal, scrollVal, hovered]: number[]) =>
-      hovered ? mouseVal : scrollVal
-  );
-  const combinedRotateY = useTransform(
-    [mouseRotateY, scrollTiltY, isPointerOver],
-    ([mouseVal, scrollVal, hovered]: number[]) =>
-      hovered ? mouseVal : scrollVal
-  );
+  const rotateXSpring = useSpring(4, { stiffness: 220, damping: 26, mass: 0.6 });
+  const rotateYSpring = useSpring(18, { stiffness: 220, damping: 26, mass: 0.6 });
 
-  const rotateXSpring = useSpring(combinedRotateX, { stiffness: 220, damping: 26, mass: 0.6 });
-  const rotateYSpring = useSpring(combinedRotateY, { stiffness: 220, damping: 26, mass: 0.6 });
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    if (isPointerOverRef.current) return;
+    const { x, y } = getScrollTilt(latest);
+    rotateXSpring.set(x);
+    rotateYSpring.set(y);
+  });
 
   const onPointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
     const el = containerRef.current;
@@ -101,21 +96,16 @@ const BookMock = ({ project }: { project: Project }) => {
     const r = el.getBoundingClientRect();
     const px = (e.clientX - r.left) / r.width;
     const py = (e.clientY - r.top) / r.height;
-
-    const maxTiltX = 6;
-    const maxTiltY = 8;
-    const x = (0.5 - py) * 2;
-    const y = (px - 0.5) * 2;
-
-    mouseRotateX.set(-12 + x * maxTiltX);
-    mouseRotateY.set(28 + y * maxTiltY);
-    isPointerOver.set(1);
+    isPointerOverRef.current = true;
+    rotateXSpring.set(-12 + (0.5 - py) * 2 * 6);
+    rotateYSpring.set(28 + (px - 0.5) * 2 * 8);
   };
 
   const onPointerLeave = () => {
-    mouseRotateX.set(-12);
-    mouseRotateY.set(28);
-    isPointerOver.set(0);
+    isPointerOverRef.current = false;
+    const { x, y } = getScrollTilt(scrollYProgress.get());
+    rotateXSpring.set(x);
+    rotateYSpring.set(y);
   };
 
   const coverSrc =
@@ -139,6 +129,7 @@ const BookMock = ({ project }: { project: Project }) => {
           rotateX: rotateXSpring,
           rotateY: rotateYSpring,
           transformStyle: "preserve-3d",
+          willChange: "transform",
         }}
         aria-hidden
       >
@@ -231,12 +222,23 @@ const BookMock = ({ project }: { project: Project }) => {
               </div>
 
               <div className="flex-1 my-6 rounded-sm overflow-hidden bg-brand-ink shadow-[inset_0_2px_8px_rgba(0,0,0,0.15),0_1px_0_rgba(255,255,255,0.8)]">
-                <img
-                  src={coverSrc}
-                  alt={project.title}
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
+                {project.slug === "genway" && isInView ? (
+                  <video
+                    src={projectGenway}
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <img
+                    src={coverSrc}
+                    alt={project.title}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                )}
               </div>
 
               <div className="mt-auto">
@@ -272,41 +274,33 @@ const BookMock = ({ project }: { project: Project }) => {
 
 const ProjectCards = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
-  const [viewportWidth, setViewportWidth] = useState(0);
-
-  useEffect(() => {
-    const updateViewportWidth = () => {
-      setViewportWidth(window.innerWidth);
-    };
-
-    updateViewportWidth();
-    window.addEventListener("resize", updateViewportWidth);
-
-    return () => {
-      window.removeEventListener("resize", updateViewportWidth);
-    };
-  }, []);
+  const projectsRef = useRef<HTMLDivElement | null>(null);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start 50%", "start 12%"],
   });
-  const baseInset = viewportWidth >= 1024 ? 40 : viewportWidth >= 768 ? 24 : 12;
-  const initialContentWidth =
-    viewportWidth > 0 ? Math.min(1400, Math.max(viewportWidth - baseInset * 2, 0)) : 0;
-  const initialSideInset =
-    viewportWidth > 0 ? Math.max((viewportWidth - initialContentWidth) / 2, 0) : 0;
-  const sectionInset = useTransform(scrollYProgress, [0, 1], [initialSideInset, 0]);
+  const { scrollYProgress: projectsProgress } = useScroll({
+    target: projectsRef,
+    offset: ["start 70%", "end 30%"],
+  });
+  const pinkOverlayOpacity = useSpring(
+    useTransform(projectsProgress, [0.3, 0.7], [0, 1]),
+    { stiffness: 60, damping: 20 }
+  );
+
   const sectionRadius = useTransform(scrollYProgress, [0, 1], ["2rem", "0rem"]);
-  const sectionClipPath = useMotionTemplate`inset(0 ${sectionInset}px round ${sectionRadius})`;
 
   return (
-    <section ref={sectionRef} className="relative my-6 md:my-12">
+    <motion.section ref={sectionRef} className="relative my-6 md:my-12 overflow-hidden" style={{ borderRadius: sectionRadius }}>
+      {/* Indigo gradient — visible for first project */}
+      <div className="selectedwork-ambient absolute inset-0" />
+      {/* Pink gradient — fades in for second project */}
       <motion.div
-        className="selectedwork-ambient absolute inset-0"
+        className="selectedwork-ambient-pink absolute inset-0"
         style={{
-          clipPath: sectionClipPath,
-          borderRadius: sectionRadius,
+          opacity: pinkOverlayOpacity,
+          willChange: "opacity",
         }}
       />
       <div className="relative z-10 py-12 md:py-24 text-brand-ink">
@@ -317,12 +311,12 @@ const ProjectCards = () => {
             </span>
             <div className="flex flex-col gap-6 mb-14 md:mb-16">
               <h2 className="text-4xl md:text-6xl font-body font-light text-brand-ink max-w-4xl">
-                Some things I&apos;ve worked on <span className="font-display italic text-brand-ink">recently</span>.
+                Some things I&apos;ve worked on <span className="font-body text-brand-ink">recently</span>.
               </h2>
             </div>
           </div>
 
-          <div className="space-y-16 md:space-y-28 mt-12 md:mt-20">
+          <div ref={projectsRef} className="space-y-16 md:space-y-28 mt-12 md:mt-20">
             {projects.map((project, i) => (
               <div key={project.title}>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center">
@@ -362,7 +356,7 @@ const ProjectCards = () => {
           </div>
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

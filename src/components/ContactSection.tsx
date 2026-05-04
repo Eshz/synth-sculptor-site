@@ -45,7 +45,7 @@ const ContactSection = () => {
             Let&apos;s connect.
           </h2>
           <p className="text-white/70 text-base md:text-lg font-light">
-            Available for new opportunities in product design.
+            Always open to interesting problems and the right collaborations.
           </p>
         </div>
 
