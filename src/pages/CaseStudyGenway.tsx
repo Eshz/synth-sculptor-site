@@ -13,7 +13,6 @@ import lobbyIdeation from "@/assets/genway/lobby-screen-ideation.png";
 import lobbyVariations from "@/assets/genway/lobby-screen-variations.png";
 import lobbyPrototypeSplit from "@/assets/genway/lobby-prototype-split.mp4";
 import lobbyNew from "@/assets/genway/genway-lobby-new.png";
-import genwayInsights from "@/assets/genway-insights.jpg";
 const fade = {
   initial: { opacity: 0, y: 20 },
   whileInView: { opacity: 1, y: 0 },
@@ -424,24 +423,6 @@ const CaseStudyGenway = () => {
         <article className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto">
           <Divider />
 
-          <SectionTag>Solution — 04 Receiving</SectionTag>
-          <SectionTitle>Making value clear even for first-time viewers.</SectionTitle>
-          <Paragraph>
-            For many stakeholders, the analysis results are the first interaction they have with Genway. <Bold>They may not have created the research project — they simply receive the insights.</Bold> I improved the structure and clarity of insight summaries and the notification emails.
-          </Paragraph>
-        </article>
-
-        <section className="px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto">
-          <SectionImage
-            src={genwayInsights}
-            alt="AI-generated research insights dashboard"
-            caption="Insights delivery — making value clear for stakeholders seeing Genway for the first time"
-          />
-        </section>
-
-        <article className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto">
-          <Divider />
-
           {/* ─── 7. IMPACT ─── */}
           <SectionTag>Impact</SectionTag>
           <SectionTitle>From "I don't understand" to "I want to try this."</SectionTitle>
@@ -480,31 +461,6 @@ const CaseStudyGenway = () => {
                 "I don't understand this yet" → "I want to try this."
               </span>
             </p>
-          </motion.div>
-
-          <Divider />
-
-          {/* ─── 8. MY ROLE ─── */}
-          <SectionTag>My Role</SectionTag>
-          <SectionTitle>Strategy, design, and hands-on execution.</SectionTitle>
-          <Paragraph>
-            As Head of Product Design at an early-stage startup, I operated across strategy and execution. <Bold>While leading the initiative, I remained deeply hands-on</Bold> — designing core flows, prototyping interactions, and working closely with engineering.
-          </Paragraph>
-
-          <motion.div {...fade} className="my-8 grid grid-cols-1 md:grid-cols-2 gap-3">
-            {[
-              "Defined the onboarding strategy and design principle",
-              "Designed core product flows end-to-end",
-              "Directed visual identity for conferences and marketing",
-              "Led rapid prototyping and iteration cycles",
-              "Mentored a junior designer on the team",
-              "Built an internal GPT-based UX writing assistant",
-            ].map((item) => (
-              <div key={item} className="flex items-start gap-3 bg-card border border-border rounded-xl p-4">
-                <div className="w-1.5 h-1.5 rounded-full bg-primary mt-2 shrink-0" />
-                <span className="text-sm font-body text-foreground">{item}</span>
-              </div>
-            ))}
           </motion.div>
 
           <Divider />
