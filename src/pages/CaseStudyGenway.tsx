@@ -3,6 +3,7 @@ import { Lightbulb, Clock, Target } from "lucide-react";
 import CaseStudyLayout from "@/components/CaseStudyLayout";
 import CustomCursor from "@/components/CustomCursor";
 import genwayLogo from "@/assets/logo-genway.svg";
+import genwayTeaser from "@/assets/720p_teaserGenway.mp4";
 import genwayLanding from "@/assets/genway-landing.jpg";
 import genwayConference from "@/assets/genway-conference.jpg";
 import genwayInterview from "@/assets/genway-interview.jpg";
@@ -69,33 +70,6 @@ const InsightCard = ({ title, description }: { title: string; description: strin
   </motion.div>
 );
 
-const HeaderLogoCard = () => {
-  return (
-    <>
-      <div className="lg:hidden">
-        <img src={genwayLogo} alt="Genway logo" className="h-7 md:h-9 w-auto" />
-      </div>
-      <div className="hidden lg:block w-full max-w-[220px]" style={{ perspective: "1200px" }}>
-      <div
-        className="relative overflow-hidden rounded-[1.6rem] border-2 border-white/75 bg-white/10 px-8 py-7 shadow-[0_0_48px_4px_rgba(0,0,0,0.08)] backdrop-blur-[18px]"
-      >
-        <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.22)_0%,rgba(255,255,255,0.08)_100%)]" />
-        <div className="pointer-events-none absolute inset-x-[8%] top-1/2 -translate-y-1/2 opacity-45 blur-[42px]">
-          <img src={genwayLogo} alt="" className="w-full h-auto" />
-        </div>
-        <div className="pointer-events-none absolute inset-x-[8%] top-1/2 -translate-y-1/2 opacity-30 blur-[72px] scale-110">
-          <img src={genwayLogo} alt="" className="w-full h-auto" />
-        </div>
-        <div
-          className="relative flex min-h-[92px] items-center justify-center"
-        >
-          <img src={genwayLogo} alt="Genway logo" className="relative h-8 w-auto opacity-95" />
-        </div>
-      </div>
-      </div>
-    </>
-  );
-};
 
 const CaseStudyGenway = () => {
   return (
@@ -103,24 +77,19 @@ const CaseStudyGenway = () => {
       <CustomCursor />
       <CaseStudyLayout>
         {/* Logo + Title block */}
-        <section className="px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto pt-12 md:pt-20">
+        <section className="px-6 md:px-12 lg:px-20 max-w-[1200px] mx-auto pt-12 md:pt-20">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
           >
-            <div className="flex flex-col gap-6 md:gap-8 lg:flex-row lg:items-center lg:justify-between">
-              <div className="lg:hidden">
-                <HeaderLogoCard />
-              </div>
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-body font-light leading-[1.1] max-w-4xl">
-                Designing the First Experience of{" "}
-                <span className="font-body">AI-Moderated Research</span>
-              </h1>
-              <div className="hidden lg:flex items-center gap-4 lg:gap-0 lg:pl-2">
-                <HeaderLogoCard />
-              </div>
+            <div className="flex items-center gap-3 mb-8">
+              <img src={genwayLogo} alt="Genway logo" className="h-6 md:h-7 w-auto" />
             </div>
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-body font-light leading-[1.1] max-w-4xl">
+              Designing the First Experience of{" "}
+              <span className="font-body">AI Research Platform</span>
+            </h1>
           </motion.div>
         </section>
 
@@ -156,7 +125,24 @@ const CaseStudyGenway = () => {
           <Paragraph>
             Genway is an AI-powered research platform that conducts user interviews autonomously and generates actionable insights. When I joined as Head of Product Design, <Bold>the core technology was strong, but adoption was struggling.</Bold> Most product teams had never encountered a system that could moderate research conversations on its own.
           </Paragraph>
+        </article>
 
+        {/* Teaser video */}
+        <section className="px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto my-12 md:my-16">
+          <motion.div {...fade} className="relative overflow-hidden rounded-2xl md:rounded-3xl">
+            <video
+              src={genwayTeaser}
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="w-full h-auto object-cover"
+            />
+            <div className="absolute inset-0 rounded-2xl md:rounded-3xl ring-1 ring-inset ring-foreground/5 pointer-events-none" />
+          </motion.div>
+        </section>
+
+        <article className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto">
           <Divider />
 
           {/* ─── 2. PROBLEM ─── */}
