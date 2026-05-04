@@ -1,4 +1,6 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import { X } from "lucide-react";
 import { Lightbulb, Clock, Target } from "lucide-react";
 import CaseStudyLayout from "@/components/CaseStudyLayout";
 import CustomCursor from "@/components/CustomCursor";
@@ -9,6 +11,8 @@ import genwayFunnel from "@/assets/genway/genway-funnel.svg";
 import genwayGPTLoop from "@/assets/genway/genwayGPT-loop.mp4";
 import lobbyIdeation from "@/assets/genway/lobby-screen-ideation.png";
 import lobbyVariations from "@/assets/genway/lobby-screen-variations.png";
+import lobbyPrototypeSplit from "@/assets/genway/lobby-prototype-split.mp4";
+import lobbyNew from "@/assets/genway/genway-lobby-new.png";
 import genwayInsights from "@/assets/genway-insights.jpg";
 const fade = {
   initial: { opacity: 0, y: 20 },
@@ -63,6 +67,55 @@ const SectionImage = ({ src, alt, caption }: { src: string; alt: string; caption
 );
 
 const Divider = () => <hr className="border-border my-14 md:my-20" />;
+
+const LightboxImage = ({ src, alt, caption }: { src: string; alt: string; caption?: string }) => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <motion.figure {...fade} className="cursor-zoom-in" onClick={() => setOpen(true)}>
+        <div className="relative overflow-hidden rounded-2xl group">
+          <img src={src} alt={alt} className="w-full h-auto object-cover transition-transform duration-500 group-hover:scale-[1.02]" loading="lazy" />
+          <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-foreground/5" />
+          <div className="absolute inset-0 rounded-2xl bg-foreground/0 group-hover:bg-foreground/5 transition-colors duration-300" />
+        </div>
+        {caption && (
+          <figcaption className="mt-3 text-xs text-muted-foreground font-body tracking-wide text-center">{caption}</figcaption>
+        )}
+      </motion.figure>
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            key="overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/85 backdrop-blur-sm cursor-zoom-out p-4 md:p-12"
+            onClick={() => setOpen(false)}
+          >
+            <motion.img
+              src={src}
+              alt={alt}
+              initial={{ scale: 0.92, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.92, opacity: 0 }}
+              transition={{ duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="max-w-full max-h-full object-contain rounded-xl shadow-2xl cursor-default"
+              onClick={(e) => e.stopPropagation()}
+            />
+            <button
+              onClick={() => setOpen(false)}
+              className="absolute top-5 right-5 text-white/70 hover:text-white transition-colors"
+              aria-label="Close preview"
+            >
+              <X size={22} />
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+};
 
 const InsightCard = ({ title, description }: { title: string; description: string }) => (
   <motion.div {...fade} className="bg-card rounded-2xl border border-border p-6 md:p-8">
@@ -284,20 +337,42 @@ const CaseStudyGenway = () => {
         </article>
 
         <section className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto">
-          <motion.div {...fade} className="my-12 md:my-16 grid grid-cols-1 md:grid-cols-2 gap-4">
-            {[
-              { src: lobbyIdeation, alt: "Lobby screen ideation — early explorations of the interview entry experience", caption: "Early ideation — mapping the structure of the lobby" },
-              { src: lobbyVariations, alt: "Lobby screen design variations for participant trust-building", caption: "Design variations tested with participants" },
-            ].map((item) => (
-              <motion.figure key={item.alt} {...fade}>
-                <div className="relative overflow-hidden rounded-2xl">
-                  <img src={item.src} alt={item.alt} className="w-full h-auto object-cover" loading="lazy" />
-                  <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-foreground/5" />
-                </div>
-                <figcaption className="mt-3 text-xs text-muted-foreground font-body tracking-wide text-center">{item.caption}</figcaption>
-              </motion.figure>
-            ))}
+          {/* Ideation + variations — side by side, lightbox on click */}
+          <div className="my-12 md:my-16 grid grid-cols-1 md:grid-cols-2 gap-4">
+            <LightboxImage
+              src={lobbyIdeation}
+              alt="Lobby screen ideation — early explorations of the interview entry experience"
+              caption="Early ideation — mapping the structure of the lobby"
+            />
+            <LightboxImage
+              src={lobbyVariations}
+              alt="Lobby screen design variations for participant trust-building"
+              caption="Design variations tested with participants"
+            />
+          </div>
+
+          {/* Prototype split video */}
+          <motion.div {...fade} className="mt-4 relative overflow-hidden rounded-2xl md:rounded-3xl">
+            <video
+              src={lobbyPrototypeSplit}
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="w-full block"
+            />
+            <div className="absolute inset-0 rounded-2xl md:rounded-3xl ring-1 ring-inset ring-foreground/5 pointer-events-none" />
           </motion.div>
+          <p className="mt-3 text-xs text-muted-foreground font-body tracking-wide text-center">Prototype walkthrough — before and after the lobby redesign</p>
+
+          {/* Final lobby design */}
+          <div className="mt-4">
+            <LightboxImage
+              src={lobbyNew}
+              alt="Final redesigned Genway interview lobby"
+              caption="The redesigned lobby — clear, welcoming, and trust-building for participants"
+            />
+          </div>
         </section>
 
         <article className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto">
