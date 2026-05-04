@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { X } from "lucide-react";
 import { Lightbulb, Clock, Target } from "lucide-react";
 import CaseStudyLayout from "@/components/CaseStudyLayout";
@@ -67,6 +67,27 @@ const SectionImage = ({ src, alt, caption }: { src: string; alt: string; caption
 );
 
 const Divider = () => <hr className="border-border my-14 md:my-20" />;
+
+const AutoPlayVideo = ({ src, className }: { src: string; className?: string }) => {
+  const ref = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    const video = ref.current;
+    if (!video) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      },
+      { threshold: 0.25 }
+    );
+    observer.observe(video);
+    return () => observer.disconnect();
+  }, []);
+  return <video ref={ref} src={src} muted loop playsInline className={className} />;
+};
 
 const LightboxImage = ({ src, alt, caption }: { src: string; alt: string; caption?: string }) => {
   const [open, setOpen] = useState(false);
@@ -184,14 +205,7 @@ const CaseStudyGenway = () => {
         {/* Teaser video */}
         <section className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto my-12 md:my-16">
           <motion.div {...fade} className="relative overflow-hidden rounded-2xl md:rounded-3xl">
-            <video
-              src={genwayTeaser}
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="w-full block"
-            />
+            <AutoPlayVideo src={genwayTeaser} className="w-full block" />
             <div className="absolute inset-0 rounded-2xl md:rounded-3xl ring-1 ring-inset ring-foreground/5 pointer-events-none" />
           </motion.div>
         </section>
@@ -353,14 +367,7 @@ const CaseStudyGenway = () => {
 
           {/* Prototype split video */}
           <motion.div {...fade} className="mt-4 relative overflow-hidden rounded-2xl md:rounded-3xl">
-            <video
-              src={lobbyPrototypeSplit}
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="w-full block"
-            />
+            <AutoPlayVideo src={lobbyPrototypeSplit} className="w-full block" />
             <div className="absolute inset-0 rounded-2xl md:rounded-3xl ring-1 ring-inset ring-foreground/5 pointer-events-none" />
           </motion.div>
           <p className="mt-3 text-xs text-muted-foreground font-body tracking-wide text-center">Prototype walkthrough — before and after the lobby redesign</p>
@@ -390,14 +397,7 @@ const CaseStudyGenway = () => {
 
         <section className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto my-12 md:my-16">
           <motion.div {...fade} className="relative overflow-hidden rounded-2xl md:rounded-3xl">
-            <video
-              src={genwayGPTLoop}
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="w-full block"
-            />
+            <AutoPlayVideo src={genwayGPTLoop} className="w-full block" />
             <div className="absolute inset-0 rounded-2xl md:rounded-3xl ring-1 ring-inset ring-foreground/5 pointer-events-none" />
           </motion.div>
           <p className="mt-4 text-xs text-muted-foreground font-body tracking-wide text-center">The Genway GPT component — a single prompt generates a complete, publishable research project</p>
