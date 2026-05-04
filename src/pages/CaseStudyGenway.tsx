@@ -6,6 +6,7 @@ import CaseStudyLayout from "@/components/CaseStudyLayout";
 import CustomCursor from "@/components/CustomCursor";
 import genwayLogo from "@/assets/logo-genway.svg";
 import genwayTeaser from "@/assets/genway/720p_teaserGenway.mp4";
+import genwayConference from "@/assets/genway/genway-conference.jpg";
 import genwayFunnel from "@/assets/genway/genway-funnel.svg";
 import genwayGPTLoop from "@/assets/genway/genwayGPT-loop.mp4";
 import genwayCreative1 from "@/assets/genway/genway-creative-1.png";
