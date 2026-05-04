@@ -6,13 +6,17 @@ import CaseStudyLayout from "@/components/CaseStudyLayout";
 import CustomCursor from "@/components/CustomCursor";
 import genwayLogo from "@/assets/logo-genway.svg";
 import genwayTeaser from "@/assets/genway/720p_teaserGenway.mp4";
-import genwayConference from "@/assets/genway/genway-conference.jpg";
 import genwayFunnel from "@/assets/genway/genway-funnel.svg";
 import genwayGPTLoop from "@/assets/genway/genwayGPT-loop.mp4";
+import genwayCreative1 from "@/assets/genway/genway-creative-1.png";
+import genwayCreative2 from "@/assets/genway/genway-creative-2.png";
+import genwayCreative3 from "@/assets/genway/genway-creative-3.png";
+import genwayCreative4 from "@/assets/genway/genway-creative-4.png";
 import lobbyIdeation from "@/assets/genway/lobby-screen-ideation.png";
 import lobbyVariations from "@/assets/genway/lobby-screen-variations.png";
 import lobbyPrototypeSplit from "@/assets/genway/lobby-prototype-split.mp4";
 import lobbyNew from "@/assets/genway/genway-lobby-new.png";
+import lobbyNewFlowWeb from "@/assets/genway/lobby-new-flow-web.mp4";
 const fade = {
   initial: { opacity: 0, y: 20 },
   whileInView: { opacity: 1, y: 0 },
@@ -364,21 +368,27 @@ const CaseStudyGenway = () => {
             />
           </div>
 
-          {/* Prototype split video */}
-          <motion.div {...fade} className="mt-4 relative overflow-hidden rounded-2xl md:rounded-3xl">
+          {/* Two prototype variations video */}
+          <motion.div {...fade} className="mt-4 relative overflow-hidden rounded-2xl md:rounded-3xl bg-black">
             <AutoPlayVideo src={lobbyPrototypeSplit} className="w-full block" />
             <div className="absolute inset-0 rounded-2xl md:rounded-3xl ring-1 ring-inset ring-foreground/5 pointer-events-none" />
           </motion.div>
-          <p className="mt-3 text-xs text-muted-foreground font-body tracking-wide text-center">Prototype walkthrough — before and after the lobby redesign</p>
+          <p className="mt-3 text-xs text-muted-foreground font-body tracking-wide text-center">Two Gemini-generated interactive prototypes — single-page vs. step-by-step, tested with stakeholders to decide the progressive disclosure approach before moving into design refinements</p>
 
           {/* Final lobby design */}
-          <div className="mt-4">
+          <div className="mt-8">
             <LightboxImage
               src={lobbyNew}
               alt="Final redesigned Genway interview lobby"
               caption="The redesigned lobby — clear, welcoming, and trust-building for participants"
             />
           </div>
+          {/* Redesigned lobby flow */}
+          <motion.div {...fade} className="mt-4 relative overflow-hidden rounded-2xl md:rounded-3xl bg-black">
+            <AutoPlayVideo src={lobbyNewFlowWeb} className="w-full block" />
+            <div className="absolute inset-0 rounded-2xl md:rounded-3xl ring-1 ring-inset ring-foreground/5 pointer-events-none" />
+          </motion.div>
+          <p className="mt-3 text-xs text-muted-foreground font-body tracking-wide text-center">Flow of the redesigned lobby experience</p>
         </section>
 
         <article className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto">
@@ -395,7 +405,7 @@ const CaseStudyGenway = () => {
         </article>
 
         <section className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto my-12 md:my-16">
-          <motion.div {...fade} className="relative overflow-hidden rounded-2xl md:rounded-3xl">
+          <motion.div {...fade} className="relative overflow-hidden rounded-2xl md:rounded-3xl bg-black">
             <AutoPlayVideo src={genwayGPTLoop} className="w-full block" />
             <div className="absolute inset-0 rounded-2xl md:rounded-3xl ring-1 ring-inset ring-foreground/5 pointer-events-none" />
           </motion.div>
@@ -412,70 +422,36 @@ const CaseStudyGenway = () => {
           </Paragraph>
         </article>
 
-        <section className="px-6 md:px-12 lg:px-20 max-w-[1400px] mx-auto">
-          <SectionImage
-            src={genwayConference}
-            alt="Conference booth design showcasing Genway visual identity"
-            caption="Visual identity designed for conferences — communicating a new category at first glance"
-          />
+        <section className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto">
+          <div className="my-12 md:my-16 grid grid-cols-1 md:grid-cols-2 gap-4">
+            {[
+              { src: genwayCreative1, alt: "Genway visual identity — creative direction 1" },
+              { src: genwayCreative2, alt: "Genway visual identity — creative direction 2" },
+              { src: genwayCreative3, alt: "Genway visual identity — creative direction 3" },
+              { src: genwayCreative4, alt: "Genway visual identity — creative direction 4" },
+            ].map((item) => (
+              <LightboxImage key={item.alt} src={item.src} alt={item.alt} />
+            ))}
+          </div>
         </section>
 
         <article className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto">
           <Divider />
 
-          {/* ─── 7. IMPACT ─── */}
-          <SectionTag>Impact</SectionTag>
-          <SectionTitle>From "I don't understand" to "I want to try this."</SectionTitle>
+          {/* ─── 7. IMPACT & REFLECTION ─── */}
+          <SectionTag>Impact & Reflection</SectionTag>
+          <SectionTitle>Moving the needle on adoption — and what I'd do differently.</SectionTitle>
           <Paragraph>
-            The redesigned journey measurably improved how users approach the platform:
-          </Paragraph>
-
-          <motion.div
-            {...fade}
-            className="my-10 grid grid-cols-2 md:grid-cols-4 gap-4"
-          >
-            {[
-              { metric: "+35%", label: "Landing page scroll depth" },
-              { metric: "+22%", label: "Project creation rate" },
-              { metric: "−40%", label: "Onboarding drop-off" },
-              { metric: "+18%", label: "Participant completion" },
-            ].map((item) => (
-              <motion.div
-                key={item.label}
-                {...fade}
-                className="bg-card border border-border rounded-2xl p-6 text-center"
-              >
-                <span className="text-2xl md:text-3xl font-body text-primary block mb-2">{item.metric}</span>
-                <span className="text-xs text-muted-foreground font-body">{item.label}</span>
-              </motion.div>
-            ))}
-          </motion.div>
-
-          <motion.div
-            {...fade}
-            className="my-16 bg-primary text-primary-foreground rounded-2xl p-8 md:p-12"
-          >
-            <p className="text-lg md:text-xl font-body font-light leading-relaxed text-center">
-              The system now helps users move from
-              <span className="font-body text-2xl md:text-3xl block mt-4">
-                "I don't understand this yet" → "I want to try this."
-              </span>
-            </p>
-          </motion.div>
-
-          <Divider />
-
-          {/* ─── 9. REFLECTION ─── */}
-          <SectionTag>Reflection</SectionTag>
-          <SectionTitle>What I'd approach differently.</SectionTitle>
-          <Paragraph>
-            <Bold>Start with participant research earlier.</Bold> We focused heavily on the researcher persona initially. Understanding the participant experience sooner would have accelerated the interview lobby redesign.
+            The work had a meaningful effect across the funnel. <Bold>More users were reaching the point of publishing their first project</Bold>, and the drop-off between project creation and publish shrank noticeably. The GPT component in particular helped close the gap between curiosity and commitment — users who interacted with it were more likely to continue into the product and complete a study.
           </Paragraph>
           <Paragraph>
-            <Bold>Invest more in analytics instrumentation upfront.</Bold> Some impact metrics were only trackable after we improved our event tracking mid-project. Earlier instrumentation would have given us tighter feedback loops.
+            Engagement with the new category also improved. Conversations at conferences became easier — people reacted to the visual identity with recognition rather than confusion, and the lobby redesign reduced hesitation among participants entering an AI interview for the first time. <Bold>The platform started feeling like something people understood, not something they had to figure out.</Bold>
           </Paragraph>
           <Paragraph>
-            <Bold>Prototype the interactive preview sooner.</Bold> The GPT-based landing page preview was one of the highest-impact decisions — we should have tested this concept in week one instead of week four.
+            <Bold>Start with participant research earlier.</Bold> We focused heavily on the researcher persona in the first phase. Understanding the participant experience sooner would have accelerated the lobby redesign and surfaced trust issues before they affected completion rates.
+          </Paragraph>
+          <Paragraph>
+            <Bold>Prototype the interactive preview in week one.</Bold> The GPT component turned out to be one of the highest-impact changes — we should have tested this concept far earlier rather than arriving at it mid-project.
           </Paragraph>
 
           <div className="h-24" />
