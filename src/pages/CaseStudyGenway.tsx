@@ -93,6 +93,60 @@ const AutoPlayVideo = ({ src, className }: { src: string; className?: string }) 
   return <video ref={ref} src={src} muted loop playsInline className={className} />;
 };
 
+const LightboxVideo = ({ src, caption }: { src: string; caption?: string }) => {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <motion.div
+        {...fade}
+        className="cursor-zoom-in relative overflow-hidden rounded-2xl md:rounded-3xl group"
+        onClick={() => setOpen(true)}
+      >
+        <AutoPlayVideo src={src} className="w-full block" />
+        <div className="absolute inset-0 rounded-2xl md:rounded-3xl ring-1 ring-inset ring-foreground/5 pointer-events-none" />
+        <div className="absolute inset-0 bg-foreground/0 group-hover:bg-foreground/5 transition-colors duration-300 pointer-events-none" />
+      </motion.div>
+      {caption && (
+        <p className="mt-3 text-xs text-muted-foreground font-body tracking-wide text-center">{caption}</p>
+      )}
+      <AnimatePresence>
+        {open && (
+          <motion.div
+            key="video-overlay"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/90 backdrop-blur-sm cursor-zoom-out p-4 md:p-12"
+            onClick={() => setOpen(false)}
+          >
+            <motion.video
+              src={src}
+              autoPlay
+              loop
+              playsInline
+              controls
+              initial={{ scale: 0.92, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.92, opacity: 0 }}
+              transition={{ duration: 0.25, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="max-w-full max-h-full rounded-xl shadow-2xl cursor-default"
+              onClick={(e) => e.stopPropagation()}
+            />
+            <button
+              onClick={() => setOpen(false)}
+              className="absolute top-5 right-5 text-white/70 hover:text-white transition-colors"
+              aria-label="Close preview"
+            >
+              <X size={22} />
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
+};
+
 const LightboxImage = ({ src, alt, caption }: { src: string; alt: string; caption?: string }) => {
   const [open, setOpen] = useState(false);
   return (
@@ -208,7 +262,7 @@ const CaseStudyGenway = () => {
 
         {/* Teaser video */}
         <section className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto my-12 md:my-16">
-          <motion.div {...fade} className="relative overflow-hidden rounded-2xl md:rounded-3xl">
+          <motion.div {...fade} className="relative overflow-hidden rounded-2xl md:rounded-3xl isolate [transform:translateZ(0)]">
             <AutoPlayVideo src={genwayTeaser} className="w-full block" />
             <div className="absolute inset-0 rounded-2xl md:rounded-3xl ring-1 ring-inset ring-foreground/5 pointer-events-none" />
           </motion.div>
@@ -370,26 +424,29 @@ const CaseStudyGenway = () => {
           </div>
 
           {/* Two prototype variations video */}
-          <motion.div {...fade} className="mt-4 relative overflow-hidden rounded-2xl md:rounded-3xl bg-black">
-            <AutoPlayVideo src={lobbyPrototypeSplit} className="w-full block" />
-            <div className="absolute inset-0 rounded-2xl md:rounded-3xl ring-1 ring-inset ring-foreground/5 pointer-events-none" />
-          </motion.div>
-          <p className="mt-3 text-xs text-muted-foreground font-body tracking-wide text-center">Two Gemini-generated interactive prototypes — single-page vs. step-by-step, tested with stakeholders to decide the progressive disclosure approach before moving into design refinements</p>
+          <div className="mt-4">
+            <LightboxVideo
+              src={lobbyPrototypeSplit}
+              caption="Two Gemini-generated interactive prototypes — single-page vs. step-by-step, tested with stakeholders to decide the progressive disclosure approach before moving into design refinements"
+            />
+          </div>
 
           {/* Final lobby design */}
-          <div className="mt-8">
+          <div className="mt-4">
             <LightboxImage
               src={lobbyNew}
               alt="Final redesigned Genway interview lobby"
               caption="The redesigned lobby — clear, welcoming, and trust-building for participants"
             />
           </div>
+
           {/* Redesigned lobby flow */}
-          <motion.div {...fade} className="mt-4 relative overflow-hidden rounded-2xl md:rounded-3xl bg-black">
-            <AutoPlayVideo src={lobbyNewFlowWeb} className="w-full block" />
-            <div className="absolute inset-0 rounded-2xl md:rounded-3xl ring-1 ring-inset ring-foreground/5 pointer-events-none" />
-          </motion.div>
-          <p className="mt-3 text-xs text-muted-foreground font-body tracking-wide text-center">Flow of the redesigned lobby experience</p>
+          <div className="mt-4">
+            <LightboxVideo
+              src={lobbyNewFlowWeb}
+              caption="Flow of the redesigned lobby experience"
+            />
+          </div>
         </section>
 
         <article className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto">
@@ -443,16 +500,10 @@ const CaseStudyGenway = () => {
           <SectionTag>Impact & Reflection</SectionTag>
           <SectionTitle>Moving the needle on adoption — and what I'd do differently.</SectionTitle>
           <Paragraph>
-            The work had a meaningful effect across the funnel. <Bold>More users were reaching the point of publishing their first project</Bold>, and the drop-off between project creation and publish shrank noticeably. The GPT component in particular helped close the gap between curiosity and commitment — users who interacted with it were more likely to continue into the product and complete a study.
+            The work moved the needle on activation — drop-off between project creation and publish shrank, and the GPT component notably shortened time-to-value. Category engagement improved too: conference conversations became easier and participant hesitation at the lobby dropped. <Bold>The platform started feeling like something people understood, not something they had to figure out.</Bold>
           </Paragraph>
           <Paragraph>
-            Engagement with the new category also improved. Conversations at conferences became easier — people reacted to the visual identity with recognition rather than confusion, and the lobby redesign reduced hesitation among participants entering an AI interview for the first time. <Bold>The platform started feeling like something people understood, not something they had to figure out.</Bold>
-          </Paragraph>
-          <Paragraph>
-            <Bold>Start with participant research earlier.</Bold> We focused heavily on the researcher persona in the first phase. Understanding the participant experience sooner would have accelerated the lobby redesign and surfaced trust issues before they affected completion rates.
-          </Paragraph>
-          <Paragraph>
-            <Bold>Prototype the interactive preview in week one.</Bold> The GPT component turned out to be one of the highest-impact changes — we should have tested this concept far earlier rather than arriving at it mid-project.
+            Looking back, I'd start participant research and prototype the GPT concept in week one rather than arriving at both mid-project — they turned out to be two of the highest-leverage moves in the whole initiative.
           </Paragraph>
 
           <div className="h-24" />
