@@ -32,6 +32,7 @@ import projectTranscript from "@/assets/cover-transcriptProject.png";
 
 interface Project {
   title: string;
+  coverTitle: string; // short title shown on the book cover
   subtitle: string;
   description: string;
   focusAreas: string[];
@@ -42,20 +43,22 @@ interface Project {
 
 const projects: Project[] = [
   {
-    title: "AI Research Platform",
+    title: "Designing the First Experience of AI Research Platform",
+    coverTitle: "AI Research Platform",
     subtitle: "Genway",
     description:
-      "Designing agentic workflows that transform user interviews into structured insights using AI analysis.",
+      "AI agents that turn raw user interviews into structured insights, automatically.",
     focusAreas: ["AI research workflows", "Insight generation", "Product strategy"],
     poster: projectGenway,
     slug: "genway",
     accent: "#6759DF",
   },
   {
-    title: "Cloud IntelliFrame",
+    title: "Transforming meeting room video into an intelligent participant gallery at scale",
+    coverTitle: "Cloud IntelliFrame",
     subtitle: "Microsoft Teams",
     description:
-      "Designing an AI-powered video system that automatically frames in-room meeting participants to improve hybrid collaboration and meeting equity.",
+      "AI-powered framing of in-room participants so remote attendees can actually see and follow the room.",
     focusAreas: ["AI interaction design", "Computer vision UX", "Enterprise collaboration"],
     poster: projectIntelliframe,
     slug: "intelliframe",
@@ -73,6 +76,7 @@ const BookMock = ({ project }: { project: Project }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(containerRef, { amount: 0.5, margin: "-30% 0px -30% 0px" });
   const isPointerOverRef = useRef(false);
+  const [isHovered, setIsHovered] = useState(false);
 
   // Scroll-based tilt — direct spring updates, no intermediate motion values
   const { scrollYProgress } = useScroll({
@@ -97,12 +101,14 @@ const BookMock = ({ project }: { project: Project }) => {
     const px = (e.clientX - r.left) / r.width;
     const py = (e.clientY - r.top) / r.height;
     isPointerOverRef.current = true;
+    if (!isHovered) setIsHovered(true);
     rotateXSpring.set(-12 + (0.5 - py) * 2 * 6);
     rotateYSpring.set(28 + (px - 0.5) * 2 * 8);
   };
 
   const onPointerLeave = () => {
     isPointerOverRef.current = false;
+    setIsHovered(false);
     const { x, y } = getScrollTilt(scrollYProgress.get());
     rotateXSpring.set(x);
     rotateYSpring.set(y);
@@ -118,7 +124,7 @@ const BookMock = ({ project }: { project: Project }) => {
   return (
     <div
       ref={containerRef}
-      className="book3d-container"
+      className={`book3d-container${isHovered ? " is-hovered" : ""}`}
       onPointerMove={onPointerMove}
       onPointerLeave={onPointerLeave}
     >
@@ -170,22 +176,23 @@ const BookMock = ({ project }: { project: Project }) => {
 
         {/* Spine */}
         <div className="book3d-face book3d-spine">
-          <div className="h-full flex flex-col justify-between items-center py-6">
-            <div className="flex flex-col items-center gap-8">
-              <div
-                className="font-body text-[10px] uppercase tracking-[0.18em] text-brand-ink/70"
-                style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
-              >
-                {project.subtitle}
-              </div>
-              <div
-                className="font-body font-medium text-sm tracking-wide text-brand-ink"
-                style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
-              >
-                {project.title}
-              </div>
+          <div className="h-full relative flex items-center justify-center">
+            {/* Subtitle pinned to top */}
+            <div
+              className="absolute top-6 font-body text-[10px] uppercase tracking-[0.18em] text-brand-ink/70"
+              style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
+            >
+              {project.subtitle}
             </div>
-            <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: project.accent }} />
+            {/* Title perfectly centered */}
+            <div
+              className="font-body font-medium text-sm tracking-wide text-brand-ink"
+              style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
+            >
+              {project.coverTitle}
+            </div>
+            {/* Dot pinned to bottom */}
+            <div className="absolute bottom-6 w-2.5 h-2.5 rounded-full" style={{ backgroundColor: project.accent }} />
           </div>
         </div>
 
@@ -216,12 +223,7 @@ const BookMock = ({ project }: { project: Project }) => {
               <div className="absolute bottom-3 left-3 w-2 h-2 border border-brand-bg/30 opacity-60 border-r-0 border-t-0" />
               <div className="absolute bottom-3 right-3 w-2 h-2 border border-brand-bg/30 opacity-60 border-l-0 border-t-0" />
 
-              <div className="flex justify-between font-body text-[10px] uppercase tracking-[0.12em] text-brand-ink/60">
-                <span>{project.subtitle}</span>
-                <span>Product Design</span>
-              </div>
-
-              <div className="flex-1 my-6 rounded-sm overflow-hidden bg-brand-ink shadow-[inset_0_2px_8px_rgba(0,0,0,0.15),0_1px_0_rgba(255,255,255,0.8)]">
+              <div className="flex-1 min-h-0 mb-5 rounded-sm overflow-hidden bg-brand-ink shadow-[inset_0_2px_8px_rgba(0,0,0,0.15),0_1px_0_rgba(255,255,255,0.8)]">
                 {project.slug === "genway" && isInView ? (
                   <video
                     src={projectGenway}
@@ -241,17 +243,17 @@ const BookMock = ({ project }: { project: Project }) => {
                 )}
               </div>
 
-              <div className="mt-auto">
-                <h3 className="text-3xl font-body font-medium tracking-[-0.04em] leading-[0.9] text-brand-ink mb-2">
+              <div>
+                <h3 className="text-2xl font-body font-medium tracking-[-0.03em] leading-[1.0] text-brand-ink mb-1.5">
                   {project.title}
                 </h3>
-                <p className="text-xs text-brand-ink/70 font-body leading-snug line-clamp-3 max-w-[220px]">
+                <p className="text-[10px] text-brand-ink/60 font-body leading-snug line-clamp-2">
                   {project.description}
                 </p>
               </div>
 
               <div className="mt-6 flex justify-between items-end font-body text-[10px] uppercase tracking-[0.18em] text-brand-ink/70">
-                <span>Portfolio 2026</span>
+                <span>{project.subtitle}</span>
                 <span className="opacity-70">EZ</span>
               </div>
             </div>

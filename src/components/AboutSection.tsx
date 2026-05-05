@@ -101,12 +101,12 @@ const ProfileImage = () => {
             WebkitMaskImage: useTransform(
               [glareX, glareY],
               ([x, y]) =>
-                `radial-gradient(circle 380px at ${x}% ${y}%, black 0%, transparent 100%)`
+                `radial-gradient(circle 220px at ${x}% ${y}%, black 0%, transparent 100%)`
             ),
             maskImage: useTransform(
               [glareX, glareY],
               ([x, y]) =>
-                `radial-gradient(circle 380px at ${x}% ${y}%, black 0%, transparent 100%)`
+                `radial-gradient(circle 220px at ${x}% ${y}%, black 0%, transparent 100%)`
             ),
             opacity: flashOpacity,
           }}
