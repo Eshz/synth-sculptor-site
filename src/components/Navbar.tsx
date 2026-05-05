@@ -4,7 +4,7 @@ import { Menu, X } from "lucide-react";
 
 const navLinks = [
   { label: "EMAIL", href: "mailto:eshchar.zych@gmail.com" },
-  { label: "RESUME", href: "/Resume-EshcharZychlinski.pdf", external: true },
+  { label: "RESUME", href: "/resume.html", external: true },
   { label: "LINKEDIN", href: "https://www.linkedin.com/in/eshchar-zychlinski/", external: true },
 ];
 
