@@ -9,14 +9,14 @@ import genwayTeaser from "@/assets/genway/720p_teaserGenway.mp4";
 import genwayConference from "@/assets/genway/genway-conference.jpg";
 import genwayFunnel from "@/assets/genway/genway-funnel.svg";
 import genwayGPTLoop from "@/assets/genway/genwayGPT-loop.mp4";
-import genwayCreative1 from "@/assets/genway/genway-creative-1.png";
-import genwayCreative2 from "@/assets/genway/genway-creative-2.png";
-import genwayCreative3 from "@/assets/genway/genway-creative-3.png";
-import genwayCreative4 from "@/assets/genway/genway-creative-4.png";
-import lobbyIdeation from "@/assets/genway/lobby-screen-ideation.png";
-import lobbyVariations from "@/assets/genway/lobby-screen-variations.png";
+import genwayCreative1 from "@/assets/genway/genway-creative-1.webp";
+import genwayCreative2 from "@/assets/genway/genway-creative-2.webp";
+import genwayCreative3 from "@/assets/genway/genway-creative-3.webp";
+import genwayCreative4 from "@/assets/genway/genway-creative-4.webp";
+import lobbyIdeation from "@/assets/genway/lobby-screen-ideation.webp";
+import lobbyVariations from "@/assets/genway/lobby-screen-variations.webp";
 import lobbyPrototypeSplit from "@/assets/genway/lobby-prototype-split.mp4";
-import lobbyNew from "@/assets/genway/genway-lobby-new.png";
+import lobbyNew from "@/assets/genway/genway-lobby-new.webp";
 import lobbyNewFlowWeb from "@/assets/genway/lobby-new-flow-web.mp4";
 const fade = {
   initial: { opacity: 0, y: 20 },
@@ -90,7 +90,7 @@ const AutoPlayVideo = ({ src, className }: { src: string; className?: string }) 
     observer.observe(video);
     return () => observer.disconnect();
   }, []);
-  return <video ref={ref} src={src} muted loop playsInline className={className} />;
+  return <video ref={ref} src={src} muted loop playsInline preload="none" className={className} />;
 };
 
 const LightboxVideo = ({ src, caption }: { src: string; caption?: string }) => {

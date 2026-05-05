@@ -1,6 +1,6 @@
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 import { useRef } from "react";
-import logoMicrosoft from "@/assets/logo-microsoft.png";
+import logoMicrosoft from "@/assets/logo-microsoft.webp";
 import logoTeams from "@/assets/logo-teams.svg";
 import logoGenway from "@/assets/logo-genway.svg";
 import type { MotionValue } from "framer-motion";

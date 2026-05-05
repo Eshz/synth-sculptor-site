@@ -2,12 +2,11 @@ import { motion } from "framer-motion";
 import { Video, MessageSquare, Layers, Film, ExternalLink, Info } from "lucide-react";
 import CaseStudyLayout from "@/components/CaseStudyLayout";
 import CustomCursor from "@/components/CustomCursor";
-import logoMicrosoft from "@/assets/logo-microsoft.png";
-import coverGif from "@/assets/cover-intelliframe.gif";
-import teaserGif from "@/assets/intelliframe/intelliframe-teaser.gif";
-import coverThumbnail from "@/assets/cover-thumbnail-intelliframe.png";
-import imageRooms from "@/assets/intelliframe/intelliframe-rooms.png";
-import imageGridView from "@/assets/intelliframe/intelliframe-grid-view.png";
+import logoMicrosoft from "@/assets/logo-microsoft.webp";
+import teaserMp4 from "@/assets/intelliframe/intelliframe-teaser.mp4";
+import teaserWebm from "@/assets/intelliframe/intelliframe-teaser.webm";
+import imageRooms from "@/assets/intelliframe/intelliframe-rooms.webp";
+import imageGridView from "@/assets/intelliframe/intelliframe-grid-view.webp";
 
 const fade = {
   initial: { opacity: 0, y: 20 },
@@ -139,10 +138,13 @@ const CaseStudyIntelliframe = () => {
 
         </article>
 
-        {/* Teaser gif */}
+        {/* Teaser video */}
         <section className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto mt-12 mb-16">
           <motion.div {...fade} className="rounded-2xl overflow-hidden bg-muted">
-            <img src={teaserGif} alt="IntelliFrame in action" className="w-full object-cover" />
+            <video autoPlay muted loop playsInline preload="none" className="w-full object-cover" aria-label="IntelliFrame in action">
+              <source src={teaserWebm} type="video/webm" />
+              <source src={teaserMp4} type="video/mp4" />
+            </video>
           </motion.div>
         </section>
 
@@ -163,7 +165,7 @@ const CaseStudyIntelliframe = () => {
         {/* Rooms image */}
         <section className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto mt-12 mb-16">
           <motion.div {...fade} className="rounded-2xl overflow-hidden bg-muted">
-            <img src={imageRooms} alt="IntelliFrame room scenarios" className="w-full object-cover" />
+            <img src={imageRooms} alt="IntelliFrame room scenarios" className="w-full object-cover" loading="lazy" />
           </motion.div>
         </section>
 
@@ -237,7 +239,7 @@ const CaseStudyIntelliframe = () => {
         {/* Grid view image */}
         <section className="px-6 md:px-12 lg:px-20 max-w-[900px] mx-auto mt-12 mb-16">
           <motion.div {...fade} className="rounded-2xl overflow-hidden bg-muted">
-            <img src={imageGridView} alt="IntelliFrame grid view" className="w-full object-cover" />
+            <img src={imageGridView} alt="IntelliFrame grid view" className="w-full object-cover" loading="lazy" />
           </motion.div>
         </section>
 

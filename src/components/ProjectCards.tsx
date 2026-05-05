@@ -24,11 +24,12 @@ const ViewCaseStudyLink = ({ slug }: { slug: string }) => {
     </Link>
   );
 };
-import projectIntelliframe from "@/assets/cover-intelliframe.gif";
-import projectIntelliframeThumbnail from "@/assets/cover-thumbnail-intelliframe.png";
+import projectIntelliframeMp4 from "@/assets/cover-intelliframe.mp4";
+import projectIntelliframeWebm from "@/assets/cover-intelliframe.webm";
+import projectIntelliframeThumbnail from "@/assets/cover-thumbnail-intelliframe.webp";
 import projectGenway from "@/assets/cover-genway.mp4";
-import projectGenwaythumbnail from "@/assets/cover-thumbnail-genway.png";
-import projectTranscript from "@/assets/cover-transcriptProject.png";
+import projectGenwaythumbnail from "@/assets/cover-thumbnail-genway.webp";
+import projectTranscript from "@/assets/cover-transcriptProject.webp";
 
 interface Project {
   title: string;
@@ -37,6 +38,7 @@ interface Project {
   description: string;
   focusAreas: string[];
   poster: string;
+  posterWebm?: string;
   slug: string;
   accent: string; // used for small spine dot
 }
@@ -60,7 +62,8 @@ const projects: Project[] = [
     description:
       "AI-powered framing of in-room participants so remote attendees can actually see and follow the room.",
     focusAreas: ["AI interaction design", "Computer vision UX", "Enterprise collaboration"],
-    poster: projectIntelliframe,
+    poster: projectIntelliframeMp4,
+    posterWebm: projectIntelliframeWebm,
     slug: "intelliframe",
     accent: "#1E1E1E",
   },
@@ -114,10 +117,11 @@ const BookMock = ({ project }: { project: Project }) => {
     rotateYSpring.set(y);
   };
 
-  const coverSrc =
-    project.slug === "intelliframe" && !isInView
+  const showVideo = isInView;
+  const thumbnailSrc =
+    project.slug === "intelliframe"
       ? projectIntelliframeThumbnail
-      : project.slug === "genway" && !isInView
+      : project.slug === "genway"
         ? projectGenwaythumbnail
         : project.poster;
 
@@ -224,18 +228,21 @@ const BookMock = ({ project }: { project: Project }) => {
               <div className="absolute bottom-3 right-3 w-2 h-2 border border-brand-bg/30 opacity-60 border-l-0 border-t-0" />
 
               <div className="flex-1 min-h-0 mb-5 rounded-sm overflow-hidden bg-brand-ink shadow-[inset_0_2px_8px_rgba(0,0,0,0.15),0_1px_0_rgba(255,255,255,0.8)]">
-                {project.slug === "genway" && isInView ? (
+                {showVideo ? (
                   <video
-                    src={projectGenway}
                     autoPlay
                     muted
                     loop
                     playsInline
+                    preload="none"
                     className="w-full h-full object-cover"
-                  />
+                  >
+                    {project.posterWebm && <source src={project.posterWebm} type="video/webm" />}
+                    <source src={project.poster} type="video/mp4" />
+                  </video>
                 ) : (
                   <img
-                    src={coverSrc}
+                    src={thumbnailSrc}
                     alt={project.title}
                     className="w-full h-full object-cover"
                     loading="lazy"

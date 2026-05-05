@@ -1,22 +1,21 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import React, { Suspense, lazy } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import Index from "./pages/Index.tsx";
 import NotFound from "./pages/NotFound.tsx";
-import CaseStudyGenway from "./pages/CaseStudyGenway.tsx";
-import CaseStudyIntelliframe from "./pages/CaseStudyIntelliframe.tsx";
-import CaseStudyTranscript from "./pages/CaseStudyTranscript.tsx";
 
-const queryClient = new QueryClient();
+const CaseStudyGenway = lazy(() => import("./pages/CaseStudyGenway.tsx"));
+const CaseStudyIntelliframe = lazy(() => import("./pages/CaseStudyIntelliframe.tsx"));
+const CaseStudyTranscript = lazy(() => import("./pages/CaseStudyTranscript.tsx"));
 
 const App = () => (
-  <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
+  <TooltipProvider>
+    <Toaster />
+    <Sonner />
+    <BrowserRouter>
+      <Suspense fallback={null}>
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/work/genway" element={<CaseStudyGenway />} />
@@ -25,9 +24,9 @@ const App = () => (
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
-      </BrowserRouter>
-    </TooltipProvider>
-  </QueryClientProvider>
+      </Suspense>
+    </BrowserRouter>
+  </TooltipProvider>
 );
 
 export default App;
