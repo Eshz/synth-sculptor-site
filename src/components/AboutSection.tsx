@@ -1,5 +1,5 @@
 import { motion, useTransform, useSpring, useScroll, useMotionValue } from "framer-motion";
-import profileImg from "@/assets/profile.png";
+import profileImg from "@/assets/profile.webp";
 import { useRef } from "react";
 
 const experience = [
